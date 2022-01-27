@@ -2,7 +2,6 @@
 title: Nial Dictionary
 layout: single
 toc: true
-returntotop: true
 sidebar:
   - title: "A-Z Listing"
     text: |

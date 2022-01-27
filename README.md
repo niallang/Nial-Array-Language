@@ -17,6 +17,8 @@ You can then run `bundle install && bundle exec jekyll serve` to view the websit
 
 Contributions should be done via Pull Request, with a proper description of what changes were made.
 
+If you are modifying the JS, then you need to do `npm install` once and `npm run build:js` every time you make a modification.
+
 It is recommended to talk about possible changes on the [APL Farm](https://aplwiki.com/wiki/APL_Farm) before working on them.
 
 These can be (but are not limited to):
