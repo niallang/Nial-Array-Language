@@ -59,7 +59,7 @@ reCaptcha:
   secret                 :
 atom_feed:
   path                   : # blank (default) uses feed.xml
-  hide                   : # true, false (default)
+  hide                   : true
 search                   : false # true, false (default)
 search_full_content      : false # true, false (default)
 search_provider          : lunr
