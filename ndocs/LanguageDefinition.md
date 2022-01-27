@@ -1,5 +1,5 @@
 ---
-title: The Nial Language Manual
+title: Manual
 layout: single
 toc: true
 ---
