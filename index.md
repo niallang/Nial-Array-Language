@@ -1,6 +1,5 @@
 ---
 layout: splash
-title: Nial
 header:
   overlay_image: /assets/images/seas.jpg
   overlay_color: "#000"
