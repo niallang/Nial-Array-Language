@@ -26,3 +26,7 @@ You can see the additional binaries for extended Nial on the [main development r
 If there is no prebuilt release of Nial for your system, you can build it locally.
 
 To build Nial, you will have to clone the project from [the main repository](https://github.com/niallang/Nial_Development) and follow the instructions at [Building Nial](https://github.com/niallang/Nial_Development#building-nial).
+
+## Other Downloads
+
+Nial was originally developed by Nial Systems Ltd., and the code of the company's old Nial distribution is available at [Planet APL](https://github.com/PlanetAPL/nial/).
