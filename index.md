@@ -9,7 +9,7 @@ header:
   - label: "Download"
     url: download/
   - label: "Tutorial"
-    url: "https://github.com/https://www.nial-array-language.org/ndocs/intro/index.html"
+    url: "ndocs/intro/"
 excerpt: A powerful, interactive array language with support for flexible multiparadigm code.
 feature_row:
   - title: "First-class array support"
@@ -24,10 +24,6 @@ sidebar:
     text: >
       The current version of Nial is [Q'Nial7](https://github.com/danlm/QNial7). This
       can also be found at [Nial_Development](https://github.com/gibbonsja/Nial_Development).
-
-markdown:
-  - text1: "# fsdfasd
-fsdfsd"
 ---
 
 {{ markdown.text1 | markdownify }}
@@ -40,22 +36,30 @@ fsdfsd"
 ```nial
      % A simple atlas applies a list of functions: ;
      [+, opposite] 1
+# OUTPUT:
 1 -1
+
      2 [+, opposite] 1
+# OUTPUT:
 +-+-----+
 |3|-2 -1|
 +-+-----+
+
      % Defining an average function: ;
      average is /[sum, tally]
      average 1 2 3 4
+# OUTPUT:
 2.5
+
      % Nested atlases! ;
      [sum, tally, [product, 7 times]] 1 2 3 4
+# OUTPUT:
 +--+-+---------------+
 |10|4|+--+----------+|
 |  | ||24|7 14 21 28||
 |  | |+--+----------+|
 +--+-+---------------+
+
 ```
 {: class="example--code" data-ex="1"}
 
@@ -68,14 +72,18 @@ fsdfsd"
 ....     write [pass, 1 +] i
 .... ENDFOR
 .... 
+# OUTPUT:
 1 2
 2 3
 3 4
+
      % The same, except with a map: ;
      EACH (write [pass, 1 +]) 1 2 3
+# OUTPUT:
 1 2
 2 3
 3 4
+
 ``` 
 {: class="example--code" style="display:none" data-ex="2"}
 
@@ -84,13 +92,19 @@ fsdfsd"
 ```nial
      % A basic divide by zero error: ;
      1 / 0
+# OUTPUT:
 ?div
+
      % Errors are also values called faults, giving you their location: ;
      5 / 5 10 0 8
+# OUTPUT:
 1. 0.5 ?div 0.625
+
      % You can also define custom faults using 'fault': ;
      fault 'this is an error'
-this is an error 
+# OUTPUT:
+this is an error
+
 ```
 {: class="example--code" style="display:none" data-ex="3"}
 

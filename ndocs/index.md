@@ -12,7 +12,7 @@ The following items provide a complete description of the Nial language and its 
 
 ## Core Language Documents
 
-- [Nial Introduction](intro/index.md) is the Nial Tutorial, which provides examples and instructions to get started with programming in Nial.
+- [Nial Introduction](intro/) is the Nial Tutorial, which provides examples and instructions to get started with programming in Nial.
 - [Language Definition](LanguageDefinition.md) is the formal definition of Nial. This is a concise document
 that is expanded in the [Nial Dictionary](NialDict2.md).
 

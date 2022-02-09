@@ -1,5 +1,6 @@
 ---
 title: An Introduction to Nial
+permalink: /ndocs/intro/
 layout: single
 class: wide
 ---
