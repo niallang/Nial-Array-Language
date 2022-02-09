@@ -4,6 +4,8 @@ main:
     url: /
   - title: "Download"
     url: /download/
+  - title: "Examples"
+    url: /examples/
   - title: "Documentation"
     url: /ndocs/
   # - title: "About"

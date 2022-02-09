@@ -158,6 +158,14 @@ pre {
 
 pre {
   overflow-x: auto; /* add scrollbars to wide code blocks*/
+  border-radius: 5px;
+  padding:1em;
+  // border: 1px solid #e8f1fb;
+  // background-color: $code-background-color;
+}
+
+pre.example-code {
+  margin-top:0;
 }
 
 p > code,

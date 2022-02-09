@@ -2,7 +2,7 @@
 title: Download
 permalink: /download/
 header:
-  overlay_color: "#f0fff0"
+  overlay_color: "#0f477e"
   overlay_filter: 0.7
 layout: splash
 classes: wide

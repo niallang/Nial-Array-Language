@@ -1,0 +1,16 @@
+current directory: /home/razetime/Documents/Code/arraylangs/Nial-Array-Language/vendor/ruby/3.0.0/gems/eventmachine-1.2.7/ext/fastfilereader
+/home/razetime/.rvm/rubies/ruby-3.0.0/bin/ruby -I /home/razetime/.rvm/rubies/ruby-3.0.0/lib/ruby/3.0.0 -r ./siteconf20220209-59300-3c6bom.rb extconf.rb
+creating Makefile
+
+current directory: /home/razetime/Documents/Code/arraylangs/Nial-Array-Language/vendor/ruby/3.0.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make "DESTDIR=" clean
+
+current directory: /home/razetime/Documents/Code/arraylangs/Nial-Array-Language/vendor/ruby/3.0.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make "DESTDIR="
+compiling mapper.cpp
+compiling rubymain.cpp
+linking shared-object fastfilereaderext.so
+
+current directory: /home/razetime/Documents/Code/arraylangs/Nial-Array-Language/vendor/ruby/3.0.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make "DESTDIR=" install
+/usr/bin/install -m 0755 fastfilereaderext.so ./.gem.20220209-59300-gj2y7w

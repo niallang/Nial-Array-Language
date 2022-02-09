@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/razetime/rouge
+  revision: fa13031afd12135e6e5e2dc7744f0492ba9ead6e
+  branch: master
+  specs:
+    rouge (3.28.0)
+
 PATH
   remote: .
   specs:
@@ -93,7 +100,6 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rexml (3.2.5)
-    rouge (3.26.1)
     ruby2_keywords (0.0.5)
     safe_yaml (1.0.5)
     sassc (2.4.0)
@@ -114,6 +120,7 @@ DEPENDENCIES
   bundler
   minimal-mistakes-jekyll!
   rake (>= 12.3.3)
+  rouge!
   webrick (~> 1.7)
 
 BUNDLED WITH

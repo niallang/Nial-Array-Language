@@ -94,4 +94,11 @@
   &--small {
     font-size: $type-size-7;
   }
+
+  &--example {
+    border-left: 1px solid #e8f1fb;
+    border-right: 1px solid #e8f1fb;
+    margin-right: 0;
+    display: inline-block;
+  }
 }

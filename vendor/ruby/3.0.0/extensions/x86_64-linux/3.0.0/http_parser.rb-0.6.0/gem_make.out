@@ -1,0 +1,16 @@
+current directory: /home/razetime/Documents/Code/arraylangs/Nial-Array-Language/vendor/ruby/3.0.0/gems/http_parser.rb-0.6.0/ext/ruby_http_parser
+/home/razetime/.rvm/rubies/ruby-3.0.0/bin/ruby -I /home/razetime/.rvm/rubies/ruby-3.0.0/lib/ruby/3.0.0 -r ./siteconf20220209-59300-stvz5g.rb extconf.rb
+creating Makefile
+
+current directory: /home/razetime/Documents/Code/arraylangs/Nial-Array-Language/vendor/ruby/3.0.0/gems/http_parser.rb-0.6.0/ext/ruby_http_parser
+make "DESTDIR=" clean
+
+current directory: /home/razetime/Documents/Code/arraylangs/Nial-Array-Language/vendor/ruby/3.0.0/gems/http_parser.rb-0.6.0/ext/ruby_http_parser
+make "DESTDIR="
+compiling ruby_http_parser.c
+compiling ryah_http_parser.c
+linking shared-object ruby_http_parser.so
+
+current directory: /home/razetime/Documents/Code/arraylangs/Nial-Array-Language/vendor/ruby/3.0.0/gems/http_parser.rb-0.6.0/ext/ruby_http_parser
+make "DESTDIR=" install
+/usr/bin/install -m 0755 ruby_http_parser.so ./.gem.20220209-59300-pt81si

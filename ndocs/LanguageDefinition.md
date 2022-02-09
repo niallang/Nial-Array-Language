@@ -14,15 +14,21 @@ on the capabilities of the Q'Nial interpreter.
 
 
 *Chapter 1*  introduces some of the concepts and terminology of Nial.
+
 *Chapter 2* describes the data objects of the language.
+
 *Chapters 3 and 4* cover the predefined operations and transformers in Nial.
+
 *Chapter 5* gives a formal description of the syntax and semantics of Nial
  using BNF style syntax descriptions and natural language descriptions of
  the meaning of the constructs.
 *Chapter 6* covers the file input and output operations.
+
 *Chapter 7* describes the operations that provide access to the mechanisms
 of the Q'Nial interpreter.
+
 *Chapter 8* introduces the Q'Nial environment.
+
 *Chapter 9* describes the debugging and profiling capabilities of the Q'Nial interpreter.
 
 
