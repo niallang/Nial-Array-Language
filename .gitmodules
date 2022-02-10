@@ -1,0 +1,3 @@
+[submodule "vendor/ruby/3.0.0/bundler/gems/rouge-67366f658dd1"]
+        path = vendor/ruby/3.0.0/bundler/gems/rouge-67366f658dd1
+        url = https://github.com/razetime/rouge
