@@ -225,7 +225,8 @@
 
       <section class="page__content e-content" itemprop="text">
         
-        <h1 id="chapter-1">Chapter 1</h1>
+        
+<h1 id="chapter-1">Chapter 1</h1>
 
 <ul>
   <li><a href="#a-first-session">A First Session</a></li>
@@ -244,7 +245,7 @@ manually or controlled through a programming environment.</p>
 fragments developed interactively. Q’Nial comes as a console
 version where a session is started by typing</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nial -i
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">nial</span> <span class="o">-</span><span class="nv">i</span>
 </code></pre></div></div>
 
 <p>Q’Nial responds by
@@ -258,23 +259,23 @@ you type <em>Bye</em> or <em>Continue</em>.</p>
 
 <p>The following session uses the Linux Console Version of Q’Nial:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; nial -i
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="nv">nial</span> <span class="o">-</span><span class="nv">i</span> <span class="cm"># start a session
 Q'Nial V7.0 Open Source Edition Intel x86 64bit Linux Jul 29 2015
 Copyright (c) NIAL Systems Limited
 clear workspace created    
 
-     A := 'hello'
-hello
+</span>     <span class="nv">A</span> <span class="p">:=</span> <span class="s1">'hello'</span>
+<span class="nv">hello</span>
 
-     B := 'world';
+     <span class="nv">B</span> <span class="p">:=</span> <span class="s1">'world'</span><span class="p">;</span>
 
-     A link B
-helloworld
+     <span class="nv">A</span> <span class="kp">link</span> <span class="nv">B</span>
+<span class="nv">helloworld</span>
 
-     link A ' ' B
-hello world
+     <span class="kp">link</span> <span class="nv">A</span> <span class="s1">' '</span> <span class="nv">B</span>
+<span class="nv">hello</span> <span class="nv">world</span>
 
-     Bye
+     <span class="kp">Bye</span>
 </code></pre></div></div>
 
 <p>The messages indicate that the session starts with the initial
@@ -287,9 +288,9 @@ displayed as the output of the interaction. The entry typed at the
 keyboard is shown indented because the default prompt for Q’Nial, the
 indication that Q’Nial is awaiting input, is five blank spaces.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     A gets 'hello'
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="nv">A</span> <span class="k">gets</span> <span class="s1">'hello'</span>
 
-hello
+<span class="nv">hello</span>
 </code></pre></div></div>
 
 <p>The default behaviour is that every input action in Q’Nial returns a
@@ -298,7 +299,7 @@ value of an assignment action is the value of the expression to the
 right of <em>gets</em>. In the example above, the expression is the string
 ‘hello’.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    B gets 'world' ;
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">B</span> <span class="k">gets</span> <span class="s1">'world'</span> <span class="p">;</span>
 </code></pre></div></div>
 
 <p>An input action that ends with a semicolon ( ; ), however, does not
@@ -306,18 +307,18 @@ display a value. This occurs because the value returned in this case is
 a special value <em>?noexpr</em> which, by convention, is not displayed in the
 top level loop.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     A link B
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="nv">A</span> <span class="kp">link</span> <span class="nv">B</span>
 
-helloworld
+<span class="nv">helloworld</span>
 </code></pre></div></div>
 
 <p>The next input is an infix use of the predefined Nial operation <em>link</em>
 which joins strings together. The result is the joined string with no
 separation between the strings held by A and B.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     link A ' ' B
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="kp">link</span> <span class="nv">A</span> <span class="s1">' '</span> <span class="nv">B</span>
 
-hello world
+<span class="nv">hello</span> <span class="nv">world</span>
 </code></pre></div></div>
 
 <p>The above input uses <em>link</em> in a prefix manner to join three strings: the
@@ -325,7 +326,7 @@ string held by A, a string holding a single blank character and the
 string held by B. The result is a string with the words separated by a
 blank.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     Bye
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="kp">Bye</span>
 </code></pre></div></div>
 
 <p>The final input action, <em>Bye</em>, ends the session. If <em>Continue</em> were used
@@ -372,37 +373,37 @@ decor modes. In the examples, the double quote mark (“) before diagram
 is a phrase designator indicating to Q’Nial that diagram is a word or
 phrase, which is data, and not a variable name.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     set "diagram
-sketch
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="kp">set</span> <span class="ss">"diagram</span>
+<span class="kp">sketch</span>
 
-     set "decor
-"nodecor
+     <span class="kp">set</span> <span class="ss">"decor</span>
+<span class="ss">"nodecor</span>
 
 
-     A gets 'Hi'
+     <span class="nv">A</span> <span class="k">gets</span> <span class="s1">'Hi'</span>
      
-+-----+
-|`H|`i|
-+-----+
+<span class="o">+-----+</span>
+<span class="o">|</span><span class="sc">`H</span><span class="o">|</span><span class="sc">`i</span><span class="o">|</span>
+<span class="o">+-----+</span>
 
-     B gets 'Mom'
-+--------+
-|`M|`o|`m|
-+--------+
-
-
-      C gets A ' ' B
-+-----------------------+
-|+-----+|+--+|+--------+|
-||`H|`i|||` |||`M|`o|`m||
-|+-----+|+--+|+--------+|
-+-----------------------+
+     <span class="nv">B</span> <span class="k">gets</span> <span class="s1">'Mom'</span>
+<span class="o">+--------+</span>
+<span class="o">|</span><span class="sc">`M</span><span class="o">|</span><span class="sc">`o</span><span class="o">|</span><span class="sc">`m</span><span class="o">|</span>
+<span class="o">+--------+</span>
 
 
-     link C
-+-----------------+
-|`H|`i|` |`M|`o|`m|
-+-----------------+
+      <span class="nv">C</span> <span class="k">gets</span> <span class="nv">A</span> <span class="s1">' '</span> <span class="nv">B</span>
+<span class="o">+-----------------------+</span>
+<span class="o">|+-----+|+--+|+--------+|</span>
+<span class="o">||</span><span class="sc">`H</span><span class="o">|</span><span class="sc">`i</span><span class="o">|||</span><span class="sc">` </span><span class="o">|||</span><span class="sc">`M</span><span class="o">|</span><span class="sc">`o</span><span class="o">|</span><span class="sc">`m</span><span class="o">||</span>
+<span class="o">|+-----+|+--+|+--------+|</span>
+<span class="o">+-----------------------+</span>
+
+
+     <span class="kp">link</span> <span class="nv">C</span>
+<span class="o">+-----------------+</span>
+<span class="o">|</span><span class="sc">`H</span><span class="o">|</span><span class="sc">`i</span><span class="o">|</span><span class="sc">` </span><span class="o">|</span><span class="sc">`M</span><span class="o">|</span><span class="sc">`o</span><span class="o">|</span><span class="sc">`m</span><span class="o">|</span>
+<span class="o">+-----------------+</span>
 </code></pre></div></div>
 
 <p>The operation <em>set</em> is used to control a number of internal switches. Its
@@ -447,19 +448,19 @@ capture a number of computa tional steps under one name must be created.
 This process is called abstraction and is central to all programming.
 Consider the following:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     Numbers gets 45.2 3.7 -35.3 87.14
-+--------------------+
-|45.2|3.7|-35.3|87.14|
-+--------------------+
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="nv">Numbers</span> <span class="k">gets</span> <span class="mf">45.2</span> <span class="mf">3.7</span> <span class="mf">-35.3</span> <span class="mf">87.14</span>
+<span class="o">+--------------------+</span>
+<span class="o">|</span><span class="mf">45.2</span><span class="o">|</span><span class="mf">3.7</span><span class="o">|</span><span class="mf">-35.3</span><span class="o">|</span><span class="mf">87.14</span><span class="o">|</span>
+<span class="o">+--------------------+</span>
 
-     sum Numbers
-100.74
+     <span class="kp">sum</span> <span class="nv">Numbers</span>
+<span class="mf">100.74</span>
 
-     tally Numbers
-4
+     <span class="kp">tally</span> <span class="nv">Numbers</span>
+<span class="mi">4</span>
 
-     sum Numbers / tally Numbers
-25.185
+     <span class="kp">sum</span> <span class="nv">Numbers</span> <span class="o">/</span> <span class="kp">tally</span> <span class="nv">Numbers</span>
+<span class="mf">25.185</span>
 </code></pre></div></div>
 
 <p>The four actions above assign a list of numbers to the variable Numbers,
@@ -467,13 +468,13 @@ sums the list of numbers, measures the length of the list of numbers and
 computes the average of the list of numbers. These actions compute array
 values and are called array-expressions.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     average IS OPERATION A {sum A / tally A}
-     average Numbers
-23.788
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="nv">average</span> <span class="k">IS</span> <span class="kp">OPERATION</span> <span class="nv">A</span> <span class="p">{</span><span class="kp">sum</span> <span class="nv">A</span> <span class="o">/</span> <span class="kp">tally</span> <span class="nv">A</span><span class="p">}</span>
+     <span class="nv">average</span> <span class="nv">Numbers</span>
+<span class="mf">23.788</span>
 
-     see "average
-average IS OPERATION A {
-sum A / tally A }
+     <span class="kp">see</span> <span class="ss">"average</span>
+<span class="nv">average</span> <span class="k">IS</span> <span class="kp">OPERATION</span> <span class="nv">A</span> <span class="p">{</span>
+<span class="kp">sum</span> <span class="nv">A</span> <span class="o">/</span> <span class="kp">tally</span> <span class="nv">A</span> <span class="p">}</span>
 </code></pre></div></div>
 
 <p>The next action is a definition of a new operation that computes the

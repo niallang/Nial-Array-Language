@@ -225,7 +225,8 @@
 
       <section class="page__content e-content" itemprop="text">
         
-        <h1 id="a-data-manipulation-language">A Data Manipulation Language</h1>
+        
+<h1 id="a-data-manipulation-language">A Data Manipulation Language</h1>
 
 <ul>
   <li><a href="#functional-objects">Functional Objects</a></li>
@@ -236,19 +237,19 @@
 <p>All data objects in Nial are treated as rectangular nested arrays with
 dimen sionality, extent and depth. The array</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>X := 2 3 reshape (8 9) 23 'hello world' "goodbye (tell 3 2)([sin,cos]0.5)
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">X</span> <span class="p">:=</span> <span class="mi">2</span> <span class="mi">3</span> <span class="kp">reshape</span> <span class="p">(</span><span class="mi">8</span> <span class="mi">9</span><span class="p">)</span> <span class="mi">23</span> <span class="s1">'hello world'</span> <span class="ss">"goodbye</span> <span class="p">(</span><span class="kp">tell</span> <span class="mi">3</span> <span class="mi">2</span><span class="p">)([</span><span class="kp">sin</span><span class="p">,</span><span class="kp">cos</span><span class="p">]</span><span class="mf">0.5</span><span class="p">)</span>
 
-+-----------------------------------+
-|8 9    |       23|hello world      |
-+-------+---------+-----------------|
-|goodbye|+-------+|0.479426 0.877583|
-|       ||0 0|0 1||                 |
-|       |+---+---||                 |
-|       ||1 0|1 1||                 |
-|       |+---+---||                 |
-|       ||2 0|2 1||                 |
-|       |+-------+|                 |
-+-----------------------------------+
+<span class="o">+-----------------------------------+</span>
+<span class="o">|</span><span class="mi">8</span> <span class="mi">9</span>    <span class="o">|</span>       <span class="mi">23</span><span class="o">|</span><span class="nv">hello</span> <span class="nv">world</span>      <span class="o">|</span>
+<span class="o">+-------+---------+-----------------|</span>
+<span class="o">|</span><span class="nv">goodbye</span><span class="o">|+-------+|</span><span class="mf">0.479426</span> <span class="mf">0.877583</span><span class="o">|</span>
+<span class="o">|</span>       <span class="o">||</span><span class="mi">0</span> <span class="mi">0</span><span class="o">|</span><span class="mi">0</span> <span class="mi">1</span><span class="o">||</span>                 <span class="o">|</span>
+<span class="o">|</span>       <span class="o">|+---+---||</span>                 <span class="o">|</span>
+<span class="o">|</span>       <span class="o">||</span><span class="mi">1</span> <span class="mi">0</span><span class="o">|</span><span class="mi">1</span> <span class="mi">1</span><span class="o">||</span>                 <span class="o">|</span>
+<span class="o">|</span>       <span class="o">|+---+---||</span>                 <span class="o">|</span>
+<span class="o">|</span>       <span class="o">||</span><span class="mi">2</span> <span class="mi">0</span><span class="o">|</span><span class="mi">2</span> <span class="mi">1</span><span class="o">||</span>                 <span class="o">|</span>
+<span class="o">|</span>       <span class="o">|+-------+|</span>                 <span class="o">|</span>
+<span class="o">+-----------------------------------+</span>
 </code></pre></div></div>
 
 <p>is a 2 by 3 array of other arrays. The upper left entry (at address 0 0)
@@ -284,8 +285,8 @@ phrase at address 1 0.</p>
 <p>The measurements are related. For every array A, the following equations
 hold:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>valence A = tally shape A
-tally A = product shape A
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kp">valence</span> <span class="nv">A</span> <span class="o">=</span> <span class="kp">tally</span> <span class="kp">shape</span> <span class="nv">A</span>
+<span class="kp">tally</span> <span class="nv">A</span> <span class="o">=</span> <span class="kp">product</span> <span class="kp">shape</span> <span class="nv">A</span>
 </code></pre></div></div>
 
 <p>The definitions along with the second equation indicate that the term
@@ -338,8 +339,8 @@ value 12.</p>
 argument. The following example shows the juxtaposition syntax for
 applying an operation.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     sum (3 4 5)
-12
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="kp">sum</span> <span class="p">(</span><span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">)</span>
+<span class="mi">12</span>
 </code></pre></div></div>
 
 <p>The parentheses used in the above example are not necessary. Nial would
@@ -349,14 +350,14 @@ give the same result if they were omitted.</p>
 operation between two arguments. It is interpreted as the operation
 applied to the pair formed by the two arguments.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     2 3 reshape 4 5 6 7 8 9
-4 5 6
-7 8 9
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="mi">2</span> <span class="mi">3</span> <span class="kp">reshape</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span>
+<span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span>
+<span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span>
 
 
-     reshape ((2 3) (4 5 6 7 8 9))
-4 5 6
-7 8 9
+     <span class="kp">reshape</span> <span class="p">((</span><span class="mi">2</span> <span class="mi">3</span><span class="p">)</span> <span class="p">(</span><span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span><span class="p">))</span>
+<span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span>
+<span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span>
 </code></pre></div></div>
 
 <p>A transformer is a functional object that maps an operation to a
@@ -369,14 +370,14 @@ modified operation (called the EACH transform of first) that applies
 application of a transformer to an operation. The application of the
 modified operation in</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     (EACH first) ((2 3) (4 5 6 7 8 9))
-2 4
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="p">(</span><span class="nb">EACH</span> <span class="kp">first</span><span class="p">)</span> <span class="p">((</span><span class="mi">2</span> <span class="mi">3</span><span class="p">)</span> <span class="p">(</span><span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span><span class="p">))</span>
+<span class="mi">2</span> <span class="mi">4</span>
 </code></pre></div></div>
 
 <p>is equivalent to applying first to the lists in the pair</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    (first (2 3)) (first (4 5 6 7 8 9))
-2 4
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="kp">first</span> <span class="p">(</span><span class="mi">2</span> <span class="mi">3</span><span class="p">))</span> <span class="p">(</span><span class="kp">first</span> <span class="p">(</span><span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span><span class="p">))</span>
+<span class="mi">2</span> <span class="mi">4</span>
 </code></pre></div></div>
 
 <p>Juxtaposition of objects can be used in three additional ways besides
@@ -408,7 +409,7 @@ interpretation of these juxtapositions.</p>
 in the operation labeltable described in the previous chapter, the
 expression</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Rowlabels EACHBOTH hitch rows Table
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Rowlabels</span> <span class="nb">EACHBOTH</span> <span class="kp">hitch</span> <span class="kp">rows</span> <span class="nv">Table</span>
 </code></pre></div></div>
 
 <p>uses <em>EACHBOTH hitch</em> in an infix manner between Rowlabels and the prefix
@@ -430,38 +431,38 @@ suggests that the juxtaposition sum link could be used to denote the
 composition of operations <em>sum</em> and <em>link</em>, resulting in the following
 equation:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(sum link) A = sum (link A)
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="kp">sum</span> <span class="kp">link</span><span class="p">)</span> <span class="nv">A</span> <span class="o">=</span> <span class="kp">sum</span> <span class="p">(</span><span class="kp">link</span> <span class="nv">A</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>As well, it is useful to have this notation for composition in order to
 specify the composition of two operations as the argument of a
 transformer. For example:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>EACH (link second) A
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">EACH</span> <span class="p">(</span><span class="kp">link</span> <span class="kp">second</span><span class="p">)</span> <span class="nv">A</span>
 </code></pre></div></div>
 
 <p>The interpretation of the above rules is illustrated by the following
 example:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2 3 4 EACH first sum 4 5 6
-= (2 3 4) EACH first sum (4 5 6)          (strand rule)
-= (2 3 4)(EACH first) sum (4 5 6)         (transformer precedence)
-= (2 3 4)(EACH first)(sum (4 5 6))        (prefix operations rule)
-= (2 3 4)(EACH first) 15                  (meaning of sum)
-= (EACH first) ((2 3 4) 15)               (infix rule)
-= (first (2 3 4)) (first 15)              (meaning of each)
-= 2 15                                    (meaning of first)
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="nb">EACH</span> <span class="kp">first</span> <span class="kp">sum</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span>
+<span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)</span> <span class="nb">EACH</span> <span class="kp">first</span> <span class="kp">sum</span> <span class="p">(</span><span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">)</span>          <span class="p">(</span><span class="nv">strand</span> <span class="nv">rule</span><span class="p">)</span>
+<span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)(</span><span class="nb">EACH</span> <span class="kp">first</span><span class="p">)</span> <span class="kp">sum</span> <span class="p">(</span><span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">)</span>         <span class="p">(</span><span class="kp">transformer</span> <span class="nv">precedence</span><span class="p">)</span>
+<span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)(</span><span class="nb">EACH</span> <span class="kp">first</span><span class="p">)(</span><span class="kp">sum</span> <span class="p">(</span><span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">))</span>        <span class="p">(</span><span class="nv">prefix</span> <span class="nv">operations</span> <span class="nv">rule</span><span class="p">)</span>
+<span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)(</span><span class="nb">EACH</span> <span class="kp">first</span><span class="p">)</span> <span class="mi">15</span>                  <span class="p">(</span><span class="nv">meaning</span> <span class="nv">of</span> <span class="kp">sum</span><span class="p">)</span>
+<span class="o">=</span> <span class="p">(</span><span class="nb">EACH</span> <span class="kp">first</span><span class="p">)</span> <span class="p">((</span><span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)</span> <span class="mi">15</span><span class="p">)</span>               <span class="p">(</span><span class="nv">infix</span> <span class="nv">rule</span><span class="p">)</span>
+<span class="o">=</span> <span class="p">(</span><span class="kp">first</span> <span class="p">(</span><span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">))</span> <span class="p">(</span><span class="kp">first</span> <span class="mi">15</span><span class="p">)</span>              <span class="p">(</span><span class="nv">meaning</span> <span class="nv">of</span> <span class="nb">each</span><span class="p">)</span>
+<span class="o">=</span> <span class="mi">2</span> <span class="mi">15</span>                                    <span class="p">(</span><span class="nv">meaning</span> <span class="nv">of</span> <span class="kp">first</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>A feature of Nial syntax is that all operations are implicitly unary and
 their interpretation when used in an infix way is determined by the
 above rules rather than by an operation precedence table. Thus,</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2 + 3 * 4
-= + (2 3) * 4
-= 5 * 4
-= * (5 4)
-= 20
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="mi">4</span>
+<span class="o">=</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span>
+<span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="mi">4</span>
+<span class="o">=</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span> <span class="mi">4</span><span class="p">)</span>
+<span class="o">=</span> <span class="mi">20</span>
 </code></pre></div></div>
 
 <p>This example demonstrates that infix uses of operations are evaluated
@@ -473,53 +474,53 @@ would be evaluated by doing the multiplication first.</p>
 <p>Nial syntax has a second way to construct a list. It is called
 bracket-comma notation. The expression</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[34,275,86,-52]
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="mi">34</span><span class="p">,</span><span class="mi">275</span><span class="p">,</span><span class="mi">86</span><span class="p">,</span><span class="mi">-52</span><span class="p">]</span>
 </code></pre></div></div>
 
 <p>has the same meaning as the strand</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>34 275 86 -52
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">34</span> <span class="mi">275</span> <span class="mi">86</span> <span class="mi">-52</span>
 </code></pre></div></div>
 
 <p>The bracket-comma notation has the advantage that it can represent lists
 of length one and length zero. Thus,</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[235]
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="mi">235</span><span class="p">]</span>
 </code></pre></div></div>
 
 <p>denotes the list of length one holding the atom 235 as its item and the
 empty list Null is denoted by</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[]
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[]</span>
 </code></pre></div></div>
 
 <p>There is a corresponding syntactic object for operations. It is called
 an atlas (a list of maps). An atlas applies each component operation to
 the argument producing a list of results. Thus,</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[sin,cos,sqrt] 3.14
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="kp">sin</span><span class="p">,</span><span class="kp">cos</span><span class="p">,</span><span class="kp">sqrt</span><span class="p">]</span> <span class="mf">3.14</span>
 </code></pre></div></div>
 
 <p>is equivalent to</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[sin 3.14,cos 3.14,sqrt 3.14]
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="kp">sin</span> <span class="mf">3.14</span><span class="p">,</span><span class="kp">cos</span> <span class="mf">3.14</span><span class="p">,</span><span class="kp">sqrt</span> <span class="mf">3.14</span><span class="p">]</span>
 </code></pre></div></div>
 
 <p>An elegant example of atlas notation is to rewrite the definition of
 average as:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>average IS / [sum,tally]
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">average</span> <span class="k">IS</span> <span class="o">/</span> <span class="p">[</span><span class="kp">sum</span><span class="p">,</span><span class="kp">tally</span><span class="p">]</span>
 </code></pre></div></div>
 
 <p>The equivalence with the earlier definition can be demonstrated as
 follows:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>average A
-= (/ [sum,tally]) A
-= / ([sum,tally] A)                  (prefix operations rule)
-= / [sum A,tally A]                  (atlas rule)
-= / (sum A) (tally A)                (strand equivalence)
-= (sum A) / ( tally A)               (infix rule)
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">average</span> <span class="nv">A</span>
+<span class="o">=</span> <span class="p">(</span><span class="o">/</span> <span class="p">[</span><span class="kp">sum</span><span class="p">,</span><span class="kp">tally</span><span class="p">])</span> <span class="nv">A</span>
+<span class="o">=</span> <span class="o">/</span> <span class="p">([</span><span class="kp">sum</span><span class="p">,</span><span class="kp">tally</span><span class="p">]</span> <span class="nv">A</span><span class="p">)</span>                  <span class="p">(</span><span class="nv">prefix</span> <span class="nv">operations</span> <span class="nv">rule</span><span class="p">)</span>
+<span class="o">=</span> <span class="o">/</span> <span class="p">[</span><span class="kp">sum</span> <span class="nv">A</span><span class="p">,</span><span class="kp">tally</span> <span class="nv">A</span><span class="p">]</span>                  <span class="p">(</span><span class="nv">atlas</span> <span class="nv">rule</span><span class="p">)</span>
+<span class="o">=</span> <span class="o">/</span> <span class="p">(</span><span class="kp">sum</span> <span class="nv">A</span><span class="p">)</span> <span class="p">(</span><span class="kp">tally</span> <span class="nv">A</span><span class="p">)</span>                <span class="p">(</span><span class="nv">strand</span> <span class="nv">equivalence</span><span class="p">)</span>
+<span class="o">=</span> <span class="p">(</span><span class="kp">sum</span> <span class="nv">A</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span> <span class="kp">tally</span> <span class="nv">A</span><span class="p">)</span>               <span class="p">(</span><span class="nv">infix</span> <span class="nv">rule</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>The atlas notation is mainly used as a shorthand for describing
@@ -541,20 +542,20 @@ to do a computation that accesses all the items of an array.</p>
 T, the addresses are given by the operation <em>grid</em> as an array of the same
 shape as T, with each location holding its own address.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    T := 3 4 reshape count 12
-1  2  3  4
-5  6  7  8
-9 10 11 12
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">T</span> <span class="p">:=</span> <span class="mi">3</span> <span class="mi">4</span> <span class="kp">reshape</span> <span class="kp">count</span> <span class="mi">12</span>
+<span class="mi">1</span>  <span class="mi">2</span>  <span class="mi">3</span>  <span class="mi">4</span>
+<span class="mi">5</span>  <span class="mi">6</span>  <span class="mi">7</span>  <span class="mi">8</span>
+<span class="mi">9</span> <span class="mi">10</span> <span class="mi">11</span> <span class="mi">12</span>
 
 
-grid T
-+---------------+
-|0 0|0 1|0 2|0 3|
-+---+---+---+---|
-|1 0|1 1|1 2|1 3|
-+---+---+---+---|
-|2 0|2 1|2 2|2 3|
-+---------------+
+<span class="kp">grid</span> <span class="nv">T</span>
+<span class="o">+---------------+</span>
+<span class="o">|</span><span class="mi">0</span> <span class="mi">0</span><span class="o">|</span><span class="mi">0</span> <span class="mi">1</span><span class="o">|</span><span class="mi">0</span> <span class="mi">2</span><span class="o">|</span><span class="mi">0</span> <span class="mi">3</span><span class="o">|</span>
+<span class="o">+---+---+---+---|</span>
+<span class="o">|</span><span class="mi">1</span> <span class="mi">0</span><span class="o">|</span><span class="mi">1</span> <span class="mi">1</span><span class="o">|</span><span class="mi">1</span> <span class="mi">2</span><span class="o">|</span><span class="mi">1</span> <span class="mi">3</span><span class="o">|</span>
+<span class="o">+---+---+---+---|</span>
+<span class="o">|</span><span class="mi">2</span> <span class="mi">0</span><span class="o">|</span><span class="mi">2</span> <span class="mi">1</span><span class="o">|</span><span class="mi">2</span> <span class="mi">2</span><span class="o">|</span><span class="mi">2</span> <span class="mi">3</span><span class="o">|</span>
+<span class="o">+---------------+</span>
 </code></pre></div></div>
 
 <p>The addresses of an array are integers for a 1-dimensional array (a
@@ -562,52 +563,52 @@ list) or lists of integers for other arrays. The numbering scheme uses
 zero-origin counting. For the table T above, the addresses are lists of
 length two. The list A below has addresses that are integers.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     set "diagram;
-     A := count 5
-+---------+
-|1|2|3|4|5|
-+---------+
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="kp">set</span> <span class="ss">"diagram</span><span class="p">;</span>
+     <span class="nv">A</span> <span class="p">:=</span> <span class="kp">count</span> <span class="mi">5</span>
+<span class="o">+---------+</span>
+<span class="o">|</span><span class="mi">1</span><span class="o">|</span><span class="mi">2</span><span class="o">|</span><span class="mi">3</span><span class="o">|</span><span class="mi">4</span><span class="o">|</span><span class="mi">5</span><span class="o">|</span>
+<span class="o">+---------+</span>
 
 
-     grid A
-+---------+
-|0|1|2|3|4|
-+---------+
+     <span class="kp">grid</span> <span class="nv">A</span>
+<span class="o">+---------+</span>
+<span class="o">|</span><span class="mi">0</span><span class="o">|</span><span class="mi">1</span><span class="o">|</span><span class="mi">2</span><span class="o">|</span><span class="mi">3</span><span class="o">|</span><span class="mi">4</span><span class="o">|</span>
+<span class="o">+---------+</span>
 </code></pre></div></div>
 
 <p>The operation <em>pick</em> is the fundamental selection operation in Nial based
 on addressing. The expression</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     1 2 pick T
-7
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="mi">1</span> <span class="mi">2</span> <span class="kp">pick</span> <span class="nv">T</span>
+<span class="mi">7</span>
 </code></pre></div></div>
 
 <p>selects the item of T at address 1 2. In picking from the list A, either
 an integer or a list of one integer corresponding to an address can be
 used:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     4 pick A
-5
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="mi">4</span> <span class="kp">pick</span> <span class="nv">A</span>
+<span class="mi">5</span>
 
 
-     [4] pick A
-5
+     <span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="kp">pick</span> <span class="nv">A</span>
+<span class="mi">5</span>
 </code></pre></div></div>
 
 <p>The operation <em>choose</em> can be used to select multiple items from an array.
 For example, in the expression below, <em>choose</em> returns the items of T at
 the three addresses in the left argument:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [1 2,2 3,0 0] choose T
-7 12 1
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span> <span class="mi">3</span><span class="p">,</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span> <span class="kp">choose</span> <span class="nv">T</span>
+<span class="mi">7</span> <span class="mi">12</span> <span class="mi">1</span>
 </code></pre></div></div>
 
 <p>Nial also has an indexing notation similar to subscript notation in
 other languages. The following expression selects the item of T at
 address 1 2.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     T@(1 2)
-7
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="nv">T</span><span class="o">@</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span><span class="p">)</span>
+<span class="mi">7</span>
 </code></pre></div></div>
 
 <p>This form of selection is called at-indexing. One difference between it

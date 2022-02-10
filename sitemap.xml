@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://www.nial-array-language.org/2021-10-24-welcome-to-nial/welcome-to-nial/html</loc>
-<lastmod>2021-10-24T00:00:00+05:30</lastmod>
-</url>
-<url>
-<loc>https://www.nial-array-language.org/_posts/2021-10-24-welcome-to-nial.html</loc>
-</url>
-<url>
 <loc>https://www.nial-array-language.org/ndocs/LanguageDefinition.html</loc>
 </url>
 <url>
@@ -45,9 +38,6 @@
 </url>
 <url>
 <loc>https://www.nial-array-language.org/examples/</loc>
-</url>
-<url>
-<loc>https://www.nial-array-language.org/old/</loc>
 </url>
 <url>
 <loc>https://www.nial-array-language.org/ndocs/lang/</loc>

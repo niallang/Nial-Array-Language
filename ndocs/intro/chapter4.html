@@ -225,7 +225,8 @@
 
       <section class="page__content e-content" itemprop="text">
         
-        <h1 id="language-mechanisms">Language Mechanisms</h1>
+        
+<h1 id="language-mechanisms">Language Mechanisms</h1>
 
 <ul>
   <li><a href="#assignment-expressions">Assignment Expressions</a></li>
@@ -249,9 +250,9 @@ assign-expression associates a name or a list of names to a value. There
 are three forms involving a single variable, a sequence of variables, or
 an indexed variable as the target:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>X gets count 20;
-A B C := 10 20 30;
-Y@3 := tell X@2;
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">X</span> <span class="k">gets</span> <span class="kp">count</span> <span class="mi">20</span><span class="p">;</span>
+<span class="nv">A</span> <span class="nv">B</span> <span class="nv">C</span> <span class="p">:=</span> <span class="mi">10</span> <span class="mi">20</span> <span class="mi">30</span><span class="p">;</span>
+<span class="nv">Y</span><span class="o">@</span><span class="mi">3</span> <span class="p">:=</span> <span class="kp">tell</span> <span class="nv">X</span><span class="o">@</span><span class="mi">2</span><span class="p">;</span>
 </code></pre></div></div>
 
 <p>In the first example, the keyword <em>gets</em> is used between the target and
@@ -274,23 +275,23 @@ The if-expression can have a single conditional expression or a sequence
 of conditional expressions. An optional else clause can be provided.
 Examples are:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>X gets IF A = 0 THEN
-  "Infinity
-ELSE
-  Y / abs A
-ENDIF;
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">X</span> <span class="k">gets</span> <span class="k">IF</span> <span class="nv">A</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">THEN</span>
+  <span class="ss">"Infinity</span>
+<span class="k">ELSE</span>
+  <span class="nv">Y</span> <span class="o">/</span> <span class="kp">abs</span> <span class="nv">A</span>
+<span class="k">ENDIF</span><span class="p">;</span>
 </code></pre></div></div>
 
 <p>in which an if-expression is used to select between values, and</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IF A=0 THEN
-  X:=?undefined ;
-ELSEIF A &lt; 0 THEN
-  X:=Y / opposite A;
-ELSE
-  X:=Y / A;
-ENDIF ;
-write link 'X is ' (string X);
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">IF</span> <span class="nv">A</span><span class="o">=</span><span class="mi">0</span> <span class="k">THEN</span>
+  <span class="nv">X</span><span class="p">:=</span><span class="gr">?undefined</span> <span class="p">;</span>
+<span class="k">ELSEIF</span> <span class="nv">A</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">THEN</span>
+  <span class="nv">X</span><span class="p">:=</span><span class="nv">Y</span> <span class="o">/</span> <span class="kp">opposite</span> <span class="nv">A</span><span class="p">;</span>
+<span class="k">ELSE</span>
+  <span class="nv">X</span><span class="p">:=</span><span class="nv">Y</span> <span class="o">/</span> <span class="nv">A</span><span class="p">;</span>
+<span class="k">ENDIF</span> <span class="p">;</span>
+<span class="kp">write</span> <span class="kp">link</span> <span class="s1">'X is '</span> <span class="p">(</span><span class="kp">string</span> <span class="nv">X</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>in which a selection is made among three expression sequences. In the
@@ -304,14 +305,14 @@ overall result is expected and semicolons appear after each clause.</p>
 <p>A case-expression is also used to choose among values or actions. A
 simple example is:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>X := CASE N FROM
-  1: sin Y END
-  2: cos Y END
-  3: tan Y END
-  ELSE
-    fault 'unexpected value of N
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">X</span> <span class="p">:=</span> <span class="k">CASE</span> <span class="nv">N</span> <span class="k">FROM</span>
+  <span class="mi">1</span><span class="p">:</span> <span class="kp">sin</span> <span class="nv">Y</span> <span class="k">END</span>
+  <span class="mi">2</span><span class="p">:</span> <span class="kp">cos</span> <span class="nv">Y</span> <span class="k">END</span>
+  <span class="mi">3</span><span class="p">:</span> <span class="kp">tan</span> <span class="nv">Y</span> <span class="k">END</span>
+  <span class="k">ELSE</span>
+    <span class="kp">fault</span> <span class="s1">'unexpected value of N
   ENDCASE;
-</code></pre></div></div>
+</span></code></pre></div></div>
 
 <p>The value of the expression after the keyword CASE is used to select one
 of the clauses following the FROM. The values preceding the colons are
@@ -334,13 +335,13 @@ determining the value of a converging series, or examining a data
 structure of unknown structure. A loop to process the records of a file
 using sequential file operations can be imple mented in Nial as</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>File := open "myfile "r;
-Record := readfile File;
-WHILE Record ~= ??eof DO
-  &lt;process record&gt;
-  Record := readfile File;
-ENDWHILE;
-close File;
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">File</span> <span class="p">:=</span> <span class="kp">open</span> <span class="ss">"myfile</span> <span class="ss">"r</span><span class="p">;</span>
+<span class="nv">Record</span> <span class="p">:=</span> <span class="kp">readfile</span> <span class="nv">File</span><span class="p">;</span>
+<span class="k">WHILE</span> <span class="nv">Record</span> <span class="o">~=</span> <span class="gr">??eof</span> <span class="k">DO</span>
+  <span class="o">&lt;</span><span class="nv">process</span> <span class="nv">record</span><span class="o">&gt;</span>
+  <span class="nv">Record</span> <span class="p">:=</span> <span class="kp">readfile</span> <span class="nv">File</span><span class="p">;</span>
+<span class="k">ENDWHILE</span><span class="p">;</span>
+<span class="kp">close</span> <span class="nv">File</span><span class="p">;</span>
 </code></pre></div></div>
 
 <p>The for-loop in Nial differs from the for-loop concept used in most
@@ -350,18 +351,18 @@ body will be evaluated. In the following example, the loop evaluates
 count 20 to the list of the first 20 integers. The body is then
 evaluated 20 times, first with one, then with two, etc.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FOR I WITH count 20 DO
-  X@I := I*I;
-ENDFOR
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FOR</span> <span class="nv">I</span> <span class="k">WITH</span> <span class="kp">count</span> <span class="mi">20</span> <span class="k">DO</span>
+  <span class="nv">X</span><span class="o">@</span><span class="nv">I</span> <span class="p">:=</span> <span class="nv">I</span><span class="o">*</span><span class="nv">I</span><span class="p">;</span>
+<span class="k">ENDFOR</span>
 </code></pre></div></div>
 
 <p>There is no restriction on the values used in the control array. The
 above loop to process the records of a file could also be programmed as</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Records := getfile "myfile;
-FOR Record with Records DO
-  &lt;process record&gt;
-ENDFOR;
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Records</span> <span class="p">:=</span> <span class="kp">getfile</span> <span class="ss">"myfile</span><span class="p">;</span>
+<span class="k">FOR</span> <span class="nv">Record</span> <span class="k">with</span> <span class="nv">Records</span> <span class="k">DO</span>
+  <span class="o">&lt;</span><span class="nv">process</span> <span class="nv">record</span><span class="o">&gt;</span>
+<span class="k">ENDFOR</span><span class="p">;</span>
 </code></pre></div></div>
 
 <p>In this case the operation <em>getfile</em> returns a list of character strings
@@ -383,11 +384,11 @@ sequence can be made into a simple expression by enclosing it in
 parentheses. Thus, the while-expression version of the read loop can be
 written as:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>File := open "myfile "r;
-WHILE (Record := readfile File) ~= ??eof DO
-  &lt;process record&gt;
-ENDWHILE;
-close File;
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">File</span> <span class="p">:=</span> <span class="kp">open</span> <span class="ss">"myfile</span> <span class="ss">"r</span><span class="p">;</span>
+<span class="k">WHILE</span> <span class="p">(</span><span class="nv">Record</span> <span class="p">:=</span> <span class="kp">readfile</span> <span class="nv">File</span><span class="p">)</span> <span class="o">~=</span> <span class="gr">??eof</span> <span class="k">DO</span>
+  <span class="o">&lt;</span><span class="nv">process</span> <span class="nv">record</span><span class="o">&gt;</span>
+<span class="k">ENDWHILE</span><span class="p">;</span>
+<span class="kp">close</span> <span class="nv">File</span><span class="p">;</span>
 </code></pre></div></div>
 
 <p>Although the embedding of assignments is permitted in Nial, it is a
@@ -404,20 +405,20 @@ or NONLOCAL. Without explicit declaration that it is NONLOCAL, a
 variable used as the target in an assignment is automatically treated as
 a local variable.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>loaddefs "block 1
-average IS OPERATION A {sum A / tally A}
-{ NONLOCAL X;
-  X := count 25;
-  Y := 5 5 reshape X;
-  EACH average cols Y }
-11. 12. 13. 14. 15.
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kp">loaddefs</span> <span class="ss">"block</span> <span class="mi">1</span>
+<span class="nv">average</span> <span class="k">IS</span> <span class="kp">OPERATION</span> <span class="nv">A</span> <span class="p">{</span><span class="kp">sum</span> <span class="nv">A</span> <span class="o">/</span> <span class="kp">tally</span> <span class="nv">A</span><span class="p">}</span>
+<span class="p">{</span> <span class="kp">NONLOCAL</span> <span class="nv">X</span><span class="p">;</span>
+  <span class="nv">X</span> <span class="p">:=</span> <span class="kp">count</span> <span class="mi">25</span><span class="p">;</span>
+  <span class="nv">Y</span> <span class="p">:=</span> <span class="mi">5</span> <span class="mi">5</span> <span class="kp">reshape</span> <span class="nv">X</span><span class="p">;</span>
+  <span class="nb">EACH</span> <span class="nv">average</span> <span class="kp">cols</span> <span class="nv">Y</span> <span class="p">}</span>
+<span class="mf">11.</span> <span class="mf">12.</span> <span class="mf">13.</span> <span class="mf">14.</span> <span class="mf">15.</span>
 
-X
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+<span class="nv">X</span>
+<span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">10</span> <span class="mi">11</span> <span class="mi">12</span> <span class="mi">13</span> <span class="mi">14</span> <span class="mi">15</span> <span class="mi">16</span> <span class="mi">17</span> <span class="mi">18</span> <span class="mi">19</span> <span class="mi">20</span> <span class="mi">21</span> <span class="mi">22</span> <span class="mi">23</span> <span class="mi">24</span> <span class="mi">25</span>
 
  
-Y
-?undefined identifier: Y &lt;***&gt;
+<span class="nv">Y</span>
+<span class="gr">?undefined</span> <span class="nv">identifier</span><span class="p">:</span> <span class="nv">Y</span> <span class="o">&lt;***&gt;</span>
 </code></pre></div></div>
 
 <p>The block above declares X as a nonlocal variable. This creates a global
@@ -434,13 +435,13 @@ before the block. The actions in the above session were stored in a file
 same example as the one above with the operation <em>average</em> made a local
 definition.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{ NONLOCAL X;
-  average IS OP A { sum A / tally A }
-  X := count 25;
-  Y := 5 5 reshape X;
-  EACH average cols Y }
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span> <span class="kp">NONLOCAL</span> <span class="nv">X</span><span class="p">;</span>
+  <span class="nv">average</span> <span class="k">IS</span> <span class="k">OP</span> <span class="nv">A</span> <span class="p">{</span> <span class="kp">sum</span> <span class="nv">A</span> <span class="o">/</span> <span class="kp">tally</span> <span class="nv">A</span> <span class="p">}</span>
+  <span class="nv">X</span> <span class="p">:=</span> <span class="kp">count</span> <span class="mi">25</span><span class="p">;</span>
+  <span class="nv">Y</span> <span class="p">:=</span> <span class="mi">5</span> <span class="mi">5</span> <span class="kp">reshape</span> <span class="nv">X</span><span class="p">;</span>
+  <span class="nb">EACH</span> <span class="nv">average</span> <span class="kp">cols</span> <span class="nv">Y</span> <span class="p">}</span>
   
-11. 12. 13. 14. 15.
+<span class="mf">11.</span> <span class="mf">12.</span> <span class="mf">13.</span> <span class="mf">14.</span> <span class="mf">15.</span>
 </code></pre></div></div>
 
 <h2 id="defining-a-parameterized-operation">Defining a Parameterized Operation</h2>
@@ -455,16 +456,16 @@ block or an expres sion-sequence in parentheses.</p>
 local variables that are initialized when the operation-form is used.
 For example:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>compare IS OPERATION X Y {
-  Maxs := EACH max X Y;
-  Mins := EACH min X Y;
-  &gt;= Maxs and &lt;= Mins }
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">compare</span> <span class="k">IS</span> <span class="kp">OPERATION</span> <span class="nv">X</span> <span class="nv">Y</span> <span class="p">{</span>
+  <span class="nv">Maxs</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="kp">max</span> <span class="nv">X</span> <span class="nv">Y</span><span class="p">;</span>
+  <span class="nv">Mins</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="kp">min</span> <span class="nv">X</span> <span class="nv">Y</span><span class="p">;</span>
+  <span class="o">&gt;=</span> <span class="nv">Maxs</span> <span class="kp">and</span> <span class="o">&lt;=</span> <span class="nv">Mins</span> <span class="p">}</span>
   
-2 5 3 9 compare 6 4 5
-l
+<span class="mi">2</span> <span class="mi">5</span> <span class="mi">3</span> <span class="mi">9</span> <span class="nv">compare</span> <span class="mi">6</span> <span class="mi">4</span> <span class="mi">5</span>
+<span class="mb">l</span>
 
-compare [3 4 5 6, 4 5 6 7]
-o
+<span class="nv">compare</span> <span class="p">[</span><span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span><span class="p">]</span>
+<span class="mb">o</span>
 </code></pre></div></div>
 
 <p>The name <em>compare</em> is associated with the operation-form by the keyword
@@ -506,11 +507,11 @@ the tally of the actual argument must agree.</p>
 Lisp. As in Lisp, an operation-form can be written in line and used
 without being given a name. For example:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(OPERATION X Y { Maxs:=EACH max X Y;
-    Mins := EACH min X Y;
-    &gt;= Maxs and &lt;= Mins }) [3 4 5 6, 4 5 6 7]
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="kp">OPERATION</span> <span class="nv">X</span> <span class="nv">Y</span> <span class="p">{</span> <span class="nv">Maxs</span><span class="p">:=</span><span class="nb">EACH</span> <span class="kp">max</span> <span class="nv">X</span> <span class="nv">Y</span><span class="p">;</span>
+    <span class="nv">Mins</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="kp">min</span> <span class="nv">X</span> <span class="nv">Y</span><span class="p">;</span>
+    <span class="o">&gt;=</span> <span class="nv">Maxs</span> <span class="kp">and</span> <span class="o">&lt;=</span> <span class="nv">Mins</span> <span class="p">})</span> <span class="p">[</span><span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span><span class="p">]</span>
     
- o
+ <span class="mb">o</span>
 </code></pre></div></div>
 
 <p>In such a use, the operation-form must be enclosed in parentheses.</p>
@@ -529,9 +530,9 @@ for the keyword.</p>
 
 <p>A simple example of a transformer definition using a transformer-form is</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>TWICE is TRANSFORMER f OPERATION A { f f A}
-TWICE (5+) 20
-30
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">TWICE</span> <span class="k">is</span> <span class="kp">TRANSFORMER</span> <span class="nv">f</span> <span class="kp">OPERATION</span> <span class="nv">A</span> <span class="p">{</span> <span class="nv">f</span> <span class="nv">f</span> <span class="nv">A</span><span class="p">}</span>
+<span class="nv">TWICE</span> <span class="p">(</span><span class="mi">5</span><span class="o">+</span><span class="p">)</span> <span class="mi">20</span>
+<span class="mi">30</span>
 </code></pre></div></div>
 
 <p>The transformer modifies the operation parameter f by applying it twice
@@ -546,30 +547,30 @@ each node the first item is the label and the rest of the items form a
 list of nodes holding the “children”. A leaf of the tree is a node with
 a single item.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RECUR is TR process_leaf process_label combine
-OP Tree {
-  IF tally Tree = 1 THEN
-    process_leaf first Tree
-  ELSE
-    New_label := process_label first Tree;
-    Children := rest Tree;
-    New_children := EACH (RECUR [process_leaf, process_label, combine]) Children;
-    New_label combine New_children
-  ENDIF }
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">RECUR</span> <span class="k">is</span> <span class="k">TR</span> <span class="nv">process_leaf</span> <span class="nv">process_label</span> <span class="nv">combine</span>
+<span class="k">OP</span> <span class="nv">Tree</span> <span class="p">{</span>
+  <span class="k">IF</span> <span class="kp">tally</span> <span class="nv">Tree</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">THEN</span>
+    <span class="nv">process_leaf</span> <span class="kp">first</span> <span class="nv">Tree</span>
+  <span class="k">ELSE</span>
+    <span class="nv">New_label</span> <span class="p">:=</span> <span class="nv">process_label</span> <span class="kp">first</span> <span class="nv">Tree</span><span class="p">;</span>
+    <span class="nv">Children</span> <span class="p">:=</span> <span class="kp">rest</span> <span class="nv">Tree</span><span class="p">;</span>
+    <span class="nv">New_children</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="p">(</span><span class="nb">RECUR</span> <span class="p">[</span><span class="nv">process_leaf</span><span class="p">,</span> <span class="nv">process_label</span><span class="p">,</span> <span class="nv">combine</span><span class="p">])</span> <span class="nv">Children</span><span class="p">;</span>
+    <span class="nv">New_label</span> <span class="nv">combine</span> <span class="nv">New_children</span>
+  <span class="k">ENDIF</span> <span class="p">}</span>
   
 
-Tree gets ["Root,
-            ["L10,
-              ["L20, 25 ,13 ],
-              ["L21, -20, 45, 15 ]],
-            ["L11, 100],
-            ["L12, 1000] ]
+<span class="nv">Tree</span> <span class="k">gets</span> <span class="p">[</span><span class="ss">"Root</span><span class="p">,</span>
+            <span class="p">[</span><span class="ss">"L10</span><span class="p">,</span>
+              <span class="p">[</span><span class="ss">"L20</span><span class="p">,</span> <span class="mi">25</span> <span class="p">,</span><span class="mi">13</span> <span class="p">],</span>
+              <span class="p">[</span><span class="ss">"L21</span><span class="p">,</span> <span class="mi">-20</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">15</span> <span class="p">]],</span>
+            <span class="p">[</span><span class="ss">"L11</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
+            <span class="p">[</span><span class="ss">"L12</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]</span> <span class="p">]</span>
             
-+---------------------------------------------------+
-|Root|+---------------------------+|L11 100|L12 1000|
-|    ||L10|L20 25 13|L21 -20 45 15||       |        |
-|    |+---------------------------+|       |        |
-+---------------------------------------------------+
+<span class="o">+---------------------------------------------------+</span>
+<span class="o">|</span><span class="nv">Root</span><span class="o">|+---------------------------+|</span><span class="nv">L11</span> <span class="mi">100</span><span class="o">|</span><span class="nv">L12</span> <span class="mi">1000</span><span class="o">|</span>
+<span class="o">|</span>    <span class="o">||</span><span class="nv">L10</span><span class="o">|</span><span class="nv">L20</span> <span class="mi">25</span> <span class="mi">13</span><span class="o">|</span><span class="nv">L21</span> <span class="mi">-20</span> <span class="mi">45</span> <span class="mi">15</span><span class="o">||</span>       <span class="o">|</span>        <span class="o">|</span>
+<span class="o">|</span>    <span class="o">|+---------------------------+|</span>       <span class="o">|</span>        <span class="o">|</span>
+<span class="o">+---------------------------------------------------+</span>
 </code></pre></div></div>
 
 <p>The schema does a depth-first recursion on the tree data structure
@@ -580,10 +581,10 @@ the node and the two results are combined using operation parameter
 <em>combine</em>. In a use of <em>RECUR</em>, the actual operation arguments are provided
 as an atlas.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>leaves is RECUR [pass, pass, link sec ond]
-leaves Tree
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">leaves</span> <span class="k">is</span> <span class="nb">RECUR</span> <span class="p">[</span><span class="kp">pass</span><span class="p">,</span> <span class="kp">pass</span><span class="p">,</span> <span class="kp">link</span> <span class="nv">sec</span> <span class="nv">ond</span><span class="p">]</span>
+<span class="nv">leaves</span> <span class="nv">Tree</span>
 
-25 13 -20 45 15 100 1000
+<span class="mi">25</span> <span class="mi">13</span> <span class="mi">-20</span> <span class="mi">45</span> <span class="mi">15</span> <span class="mi">100</span> <span class="mi">1000</span>
 </code></pre></div></div>
 
 <p>In leaves, operation <em>pass</em> is used for the first two arguments
@@ -592,22 +593,22 @@ composed operation <em>link second</em> is passed as the third argument and has
 the effect of linking the result of applying the schema to the children.
 The effect is to gather all the leaves of the tree into a list.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sum_leaves IS RECUR[pass,pass,sum second]
-sum_leaves Tree
-1178
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">sum_leaves</span> <span class="k">IS</span> <span class="nb">RECUR</span><span class="p">[</span><span class="kp">pass</span><span class="p">,</span><span class="kp">pass</span><span class="p">,</span><span class="kp">sum</span> <span class="kp">second</span><span class="p">]</span>
+<span class="nv">sum_leaves</span> <span class="nv">Tree</span>
+<span class="mi">1178</span>
 </code></pre></div></div>
 
 <p>In <em>sum_leaves</em>, the effect is similar except the child nodes are
 combined with the composed operation <em>sum second</em>. The effect is to form
 the sum of the leaves.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>add_one IS RECUR [1+,pass,hitch]
-add_one Tree
-+---------------------------------------------------+
-|Root|+---------------------------+|L11 101|L12 1002|
-|    ||L10|L20 26 14|L21 -19 46 16||       |        |
-|    |+---------------------------+|       |        |
-+---------------------------------------------------+
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">add_one</span> <span class="k">IS</span> <span class="nb">RECUR</span> <span class="p">[</span><span class="mi">1</span><span class="o">+</span><span class="p">,</span><span class="kp">pass</span><span class="p">,</span><span class="kp">hitch</span><span class="p">]</span>
+<span class="nv">add_one</span> <span class="nv">Tree</span>
+<span class="o">+---------------------------------------------------+</span>
+<span class="o">|</span><span class="nv">Root</span><span class="o">|+---------------------------+|</span><span class="nv">L11</span> <span class="mi">101</span><span class="o">|</span><span class="nv">L12</span> <span class="mi">1002</span><span class="o">|</span>
+<span class="o">|</span>    <span class="o">||</span><span class="nv">L10</span><span class="o">|</span><span class="nv">L20</span> <span class="mi">26</span> <span class="mi">14</span><span class="o">|</span><span class="nv">L21</span> <span class="mi">-19</span> <span class="mi">46</span> <span class="mi">16</span><span class="o">||</span>       <span class="o">|</span>        <span class="o">|</span>
+<span class="o">|</span>    <span class="o">|+---------------------------+|</span>       <span class="o">|</span>        <span class="o">|</span>
+<span class="o">+---------------------------------------------------+</span>
 </code></pre></div></div>
 
 <p>In <em>add_one</em>, the effect is to form the array of the same structure as
@@ -615,14 +616,14 @@ Tree with one added to each of the leaves. This is achieved by using
 (1+) to process the leaves, using pass on the labels and using <em>hitch</em> to
 rebuild the tree at each level.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>change_labels IS RECUR [pass,?LAB first,hitch]
-change_labels Tree
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">change_labels</span> <span class="k">IS</span> <span class="nb">RECUR</span> <span class="p">[</span><span class="kp">pass</span><span class="p">,</span><span class="gr">?LAB</span> <span class="kp">first</span><span class="p">,</span><span class="kp">hitch</span><span class="p">]</span>
+<span class="nv">change_labels</span> <span class="nv">Tree</span>
 
-+--------------------------------------------------+
-|LAB|+---------------------------+|LAB 100|LAB 1000|
-|   ||LAB|LAB 25 13|LAB -20 45 15||       |        |
-|   |+---------------------------+|       |        |
-+--------------------------------------------------+
+<span class="o">+--------------------------------------------------+</span>
+<span class="o">|</span><span class="nv">LAB</span><span class="o">|+---------------------------+|</span><span class="nv">LAB</span> <span class="mi">100</span><span class="o">|</span><span class="nv">LAB</span> <span class="mi">1000</span><span class="o">|</span>
+<span class="o">|</span>   <span class="o">||</span><span class="nv">LAB</span><span class="o">|</span><span class="nv">LAB</span> <span class="mi">25</span> <span class="mi">13</span><span class="o">|</span><span class="nv">LAB</span> <span class="mi">-20</span> <span class="mi">45</span> <span class="mi">15</span><span class="o">||</span>       <span class="o">|</span>        <span class="o">|</span>
+<span class="o">|</span>   <span class="o">|+---------------------------+|</span>       <span class="o">|</span>        <span class="o">|</span>
+<span class="o">+--------------------------------------------------+</span>
 </code></pre></div></div>
 
 <p>In <em>change_labels</em> the effect is to form the array of the same structure

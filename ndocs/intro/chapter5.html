@@ -225,7 +225,8 @@
 
       <section class="page__content e-content" itemprop="text">
         
-        <h1 id="problem-solving-with-nial">Problem Solving with Nial</h1>
+        
+<h1 id="problem-solving-with-nial">Problem Solving with Nial</h1>
 
 <ul>
   <li><a href="#the-problem">The Problem</a></li>
@@ -241,7 +242,7 @@ about the problem by trying steps towards a solution.</p>
 <p>This chapter consists of a log of an interactive session used to explore
 a problem in graph theory. The recording of the log is started using</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set "log ;
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kp">set</span> <span class="ss">"log</span> <span class="p">;</span>
 </code></pre></div></div>
 
 <h2 id="the-problem">The Problem</h2>
@@ -250,28 +251,28 @@ a problem in graph theory. The recording of the log is started using</p>
 indicate a directed link between some of the nodes. For example,
 consider the following graph:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                  +---+
-   +--------&gt;-----| b |
-   |              +---+
-   |
- +---+      +---+     +---+     +---+
- | a |---&gt;--| c |--&gt;--| g |--&gt;--| k |
- +---+      +---+     +---+     +---+
-                                  |
- +---+                +---+       |
- | d |------------&gt;---| e |---&gt;---+
- +---+                +---+
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                  <span class="o">+---+</span>
+   <span class="o">+--------&gt;-----|</span> <span class="nv">b</span> <span class="o">|</span>
+   <span class="o">|</span>              <span class="o">+---+</span>
+   <span class="o">|</span>
+ <span class="o">+---+</span>      <span class="o">+---+</span>     <span class="o">+---+</span>     <span class="o">+---+</span>
+ <span class="o">|</span> <span class="nv">a</span> <span class="o">|---&gt;--|</span> <span class="nv">c</span> <span class="o">|--&gt;--|</span> <span class="nv">g</span> <span class="o">|--&gt;--|</span> <span class="nv">k</span> <span class="o">|</span>
+ <span class="o">+---+</span>      <span class="o">+---+</span>     <span class="o">+---+</span>     <span class="o">+---+</span>
+                                  <span class="o">|</span>
+ <span class="o">+---+</span>                <span class="o">+---+</span>       <span class="o">|</span>
+ <span class="o">|</span> <span class="nv">d</span> <span class="o">|------------&gt;---|</span> <span class="nv">e</span> <span class="o">|---&gt;---+</span>
+ <span class="o">+---+</span>                <span class="o">+---+</span>
 </code></pre></div></div>
 
 <p>One way to represent the graph is to provide a list of edges in which
 each edge is a pair of nodes indicating a link from the first node to
 the second.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Edges := ("a "b) ("a "c) ("c "g) ("g "k) ("d "e) ("e "k)
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Edges</span> <span class="p">:=</span> <span class="p">(</span><span class="ss">"a</span> <span class="ss">"b</span><span class="p">)</span> <span class="p">(</span><span class="ss">"a</span> <span class="ss">"c</span><span class="p">)</span> <span class="p">(</span><span class="ss">"c</span> <span class="ss">"g</span><span class="p">)</span> <span class="p">(</span><span class="ss">"g</span> <span class="ss">"k</span><span class="p">)</span> <span class="p">(</span><span class="ss">"d</span> <span class="ss">"e</span><span class="p">)</span> <span class="p">(</span><span class="ss">"e</span> <span class="ss">"k</span><span class="p">)</span>
 
-+-----------------------+
-|a b|a c|c g|g k|d e|e k|
-+-----------------------+
+<span class="o">+-----------------------+</span>
+<span class="o">|</span><span class="nv">a</span> <span class="nv">b</span><span class="o">|</span><span class="nv">a</span> <span class="nv">c</span><span class="o">|</span><span class="nv">c</span> <span class="nv">g</span><span class="o">|</span><span class="nv">g</span> <span class="nv">k</span><span class="o">|</span><span class="nv">d</span> <span class="nv">e</span><span class="o">|</span><span class="nv">e</span> <span class="nv">k</span><span class="o">|</span>
+<span class="o">+-----------------------+</span>
 </code></pre></div></div>
 
 <p>This array describes the graph completely.</p>
@@ -288,71 +289,71 @@ test this finding computationally.</p>
 <p>We begin experimenting by looking for the path from a to k. First, look
 for all the links that start at a.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     EACH first Edge
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="nb">EACH</span> <span class="kp">first</span> <span class="nv">Edge</span>
      
-a a c g d e
+<span class="nv">a</span> <span class="nv">a</span> <span class="nv">c</span> <span class="nv">g</span> <span class="nv">d</span> <span class="nv">e</span>
 
-     EACH first Edges = "a
-o
+     <span class="nb">EACH</span> <span class="kp">first</span> <span class="nv">Edges</span> <span class="o">=</span> <span class="ss">"a</span>
+<span class="mb">o</span>
 </code></pre></div></div>
 
 <p>Using <em>equal</em> returns only a single result. Try <em>match</em>.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     EACH first Edges match "a
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="nb">EACH</span> <span class="kp">first</span> <span class="nv">Edges</span> <span class="kp">match</span> <span class="ss">"a</span>
      
-lloooo
+<span class="mb">lloooo</span>
 </code></pre></div></div>
 
 <p>This gives a bitstring, a string of booleans, that can be used with
 <em>sublist</em> to extract the desired links.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Lnksfrm_a := EACH first Edges match "a sublist Edges
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">Lnksfrm_a</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="kp">first</span> <span class="nv">Edges</span> <span class="kp">match</span> <span class="ss">"a</span> <span class="kp">sublist</span> <span class="nv">Edges</span>
     
-+-------+
-|a b|a c|
-+-------+
+<span class="o">+-------+</span>
+<span class="o">|</span><span class="nv">a</span> <span class="nv">b</span><span class="o">|</span><span class="nv">a</span> <span class="nv">c</span><span class="o">|</span>
+<span class="o">+-------+</span>
 </code></pre></div></div>
 
 <p>Then, test whether or not a direct path to k has been found.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     "k in EACH second Lnksfrm_a
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="ss">"k</span> <span class="kp">in</span> <span class="nb">EACH</span> <span class="kp">second</span> <span class="nv">Lnksfrm_a</span>
      
-o
+<span class="mb">o</span>
 </code></pre></div></div>
 
 <p>The answer is negative. Now repeat the process to see if there is a link
 through b or c.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     Lnksfrm_b := EACH first Edges match "b sublist Edges
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="nv">Lnksfrm_b</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="kp">first</span> <span class="nv">Edges</span> <span class="kp">match</span> <span class="ss">"b</span> <span class="kp">sublist</span> <span class="nv">Edges</span>
      
-     Lnksfrm_c := EACH first Edges match "c sublist Edges
+     <span class="nv">Lnksfrm_c</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="kp">first</span> <span class="nv">Edges</span> <span class="kp">match</span> <span class="ss">"c</span> <span class="kp">sublist</span> <span class="nv">Edges</span>
      
-+---+
-|c g|
-+---+
+<span class="o">+---+</span>
+<span class="o">|</span><span class="nv">c</span> <span class="nv">g</span><span class="o">|</span>
+<span class="o">+---+</span>
 </code></pre></div></div>
 
 <p>There are no links found from b and only one from c. Test to see if the
 link from c completes a path.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     "k in EACH second Lnksfrm_c
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="ss">"k</span> <span class="kp">in</span> <span class="nb">EACH</span> <span class="kp">second</span> <span class="nv">Lnksfrm_c</span>
      
-o
+<span class="mb">o</span>
 </code></pre></div></div>
 
 <p>The result is negative so the process is repeated on the node to which c
 links.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     Lnksfrm_g := EACH first Edges match "g sublist Edges
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="nv">Lnksfrm_g</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="kp">first</span> <span class="nv">Edges</span> <span class="kp">match</span> <span class="ss">"g</span> <span class="kp">sublist</span> <span class="nv">Edges</span>
      
-+---+
-|g k|
-+---+
+<span class="o">+---+</span>
+<span class="o">|</span><span class="nv">g</span> <span class="nv">k</span><span class="o">|</span>
+<span class="o">+---+</span>
 
 
-     "k in EACH second Lnksfrm_g
+     <span class="ss">"k</span> <span class="kp">in</span> <span class="nb">EACH</span> <span class="kp">second</span> <span class="nv">Lnksfrm_g</span>
      
-l
+<span class="mb">l</span>
 </code></pre></div></div>
 
 <p>A path has been found. This exploration indicates that a path test can
@@ -360,42 +361,42 @@ be written in this style. It will have two parts: a test to see if a
 direct link occurs or the use of a loop to find whether or not one of
 the links leads to a path.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pathtest is OP Edges Node1 Node2 {
-  Lnksfrm_node1 := EACH first Edges match Node1 sublist Edges;
-  IF Node2 in EACH second Lnksfrm_Node1 THEN
-    % direct path Node1 to Node2;
-    True
-  ELSE
-    % loop through linked nodes to see if a path to Node2 exists;
-    Linkednodes := EACH second Lnksfrm_node1;
-    Found := False;
-    I := 0;
-    WHILE not Found and (I &lt; tally Linked nodes) DO
-      Node := Linkednodes@I;
-      Lnksfrm_node := EACH first Edges match Node sublist Edges;
-      Found := Node2 in EACH second Lnksfrm_Node;
-      I := I + 1;
-    ENDWHILE;
-    Found
-  ENDIF }
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">pathtest</span> <span class="k">is</span> <span class="k">OP</span> <span class="nv">Edges</span> <span class="nv">Node1</span> <span class="nv">Node2</span> <span class="p">{</span>
+  <span class="nv">Lnksfrm_node1</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="kp">first</span> <span class="nv">Edges</span> <span class="kp">match</span> <span class="nv">Node1</span> <span class="kp">sublist</span> <span class="nv">Edges</span><span class="p">;</span>
+  <span class="k">IF</span> <span class="nv">Node2</span> <span class="kp">in</span> <span class="nb">EACH</span> <span class="kp">second</span> <span class="nv">Lnksfrm_Node1</span> <span class="k">THEN</span>
+    <span class="cm">% direct path Node1 to Node2;</span>
+    <span class="kc">True</span>
+  <span class="k">ELSE</span>
+    <span class="cm">% loop through linked nodes to see if a path to Node2 exists;</span>
+    <span class="nv">Linkednodes</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="kp">second</span> <span class="nv">Lnksfrm_node1</span><span class="p">;</span>
+    <span class="nv">Found</span> <span class="p">:=</span> <span class="kc">False</span><span class="p">;</span>
+    <span class="nv">I</span> <span class="p">:=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">WHILE</span> <span class="kp">not</span> <span class="nv">Found</span> <span class="kp">and</span> <span class="p">(</span><span class="nv">I</span> <span class="o">&lt;</span> <span class="kp">tally</span> <span class="nv">Linked</span> <span class="nv">nodes</span><span class="p">)</span> <span class="k">DO</span>
+      <span class="nv">Node</span> <span class="p">:=</span> <span class="nv">Linkednodes</span><span class="o">@</span><span class="nv">I</span><span class="p">;</span>
+      <span class="nv">Lnksfrm_node</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="kp">first</span> <span class="nv">Edges</span> <span class="kp">match</span> <span class="nv">Node</span> <span class="kp">sublist</span> <span class="nv">Edges</span><span class="p">;</span>
+      <span class="nv">Found</span> <span class="p">:=</span> <span class="nv">Node2</span> <span class="kp">in</span> <span class="nb">EACH</span> <span class="kp">second</span> <span class="nv">Lnksfrm_Node</span><span class="p">;</span>
+      <span class="nv">I</span> <span class="p">:=</span> <span class="nv">I</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">ENDWHILE</span><span class="p">;</span>
+    <span class="nv">Found</span>
+  <span class="k">ENDIF</span> <span class="p">}</span>
   
 
-     pathtest Edges "a "k
-o
+     <span class="nv">pathtest</span> <span class="nv">Edges</span> <span class="ss">"a</span> <span class="ss">"k</span>
+<span class="mb">o</span>
 </code></pre></div></div>
 
 <p>The test of this version shows that the algorithm fails.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     pathtest Edges "a "b
-l
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="nv">pathtest</span> <span class="nv">Edges</span> <span class="ss">"a</span> <span class="ss">"b</span>
+<span class="mb">l</span>
 
 
-     pathtest Edges "a "c
-l
+     <span class="nv">pathtest</span> <span class="nv">Edges</span> <span class="ss">"a</span> <span class="ss">"c</span>
+<span class="mb">l</span>
 
 
-     pathtest Edges "a "g
-l
+     <span class="nv">pathtest</span> <span class="nv">Edges</span> <span class="ss">"a</span> <span class="ss">"g</span>
+<span class="mb">l</span>
 </code></pre></div></div>
 
 <p>Further testing shows that the algorithm is close to working. It finds a
@@ -406,29 +407,29 @@ loop that looks for a path from a node in the list of linked nodes.</p>
 the routine recursively to get the path test to go down an arbitrary
 number of links.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pathtest is OP Edges Node1 Node2 {
-  Lnksfrm_node1 := EACH first Edges match Node1 sublist Edges;
-  IF Node2 in EACH second Lnksfrm_Node1 THEN
-    % direct path from Node1 to Node2;
-    True
-  ELSE
-    % loop through linked nodes to see if a path to Node2 exists;
-    Linkednodes := EACH second Lnksfrm_node1;
-    Found := False;
-    I := 0;
-    WHILE not Found and (I &lt; tally Linked nodes) DO
-      Found := pathtest Edges Linkednodes@I Node2;
-      I := I + 1;
-    ENDWHILE;
-    Found
-  ENDIF }
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">pathtest</span> <span class="k">is</span> <span class="k">OP</span> <span class="nv">Edges</span> <span class="nv">Node1</span> <span class="nv">Node2</span> <span class="p">{</span>
+  <span class="nv">Lnksfrm_node1</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="kp">first</span> <span class="nv">Edges</span> <span class="kp">match</span> <span class="nv">Node1</span> <span class="kp">sublist</span> <span class="nv">Edges</span><span class="p">;</span>
+  <span class="k">IF</span> <span class="nv">Node2</span> <span class="kp">in</span> <span class="nb">EACH</span> <span class="kp">second</span> <span class="nv">Lnksfrm_Node1</span> <span class="k">THEN</span>
+    <span class="cm">% direct path from Node1 to Node2;</span>
+    <span class="kc">True</span>
+  <span class="k">ELSE</span>
+    <span class="cm">% loop through linked nodes to see if a path to Node2 exists;</span>
+    <span class="nv">Linkednodes</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="kp">second</span> <span class="nv">Lnksfrm_node1</span><span class="p">;</span>
+    <span class="nv">Found</span> <span class="p">:=</span> <span class="kc">False</span><span class="p">;</span>
+    <span class="nv">I</span> <span class="p">:=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">WHILE</span> <span class="kp">not</span> <span class="nv">Found</span> <span class="kp">and</span> <span class="p">(</span><span class="nv">I</span> <span class="o">&lt;</span> <span class="kp">tally</span> <span class="nv">Linked</span> <span class="nv">nodes</span><span class="p">)</span> <span class="k">DO</span>
+      <span class="nv">Found</span> <span class="p">:=</span> <span class="nv">pathtest</span> <span class="nv">Edges</span> <span class="nv">Linkednodes</span><span class="o">@</span><span class="nv">I</span> <span class="nv">Node2</span><span class="p">;</span>
+      <span class="nv">I</span> <span class="p">:=</span> <span class="nv">I</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">ENDWHILE</span><span class="p">;</span>
+    <span class="nv">Found</span>
+  <span class="k">ENDIF</span> <span class="p">}</span>
 
-     pathtest Edges "a "k
-l
+     <span class="nv">pathtest</span> <span class="nv">Edges</span> <span class="ss">"a</span> <span class="ss">"k</span>
+<span class="mb">l</span>
 
 
-     pathtest Edges "b "d
-o
+     <span class="nv">pathtest</span> <span class="nv">Edges</span> <span class="ss">"b</span> <span class="ss">"d</span>
+<span class="mb">o</span>
 </code></pre></div></div>
 
 <p>The operation has succeeded.</p>
@@ -441,31 +442,31 @@ boolean value in the direct test, the link would be returned. In the
 loop, an empty path would be set and it would be replaced by a found
 path in the loop. The first attempt is:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>findpath is OP Edges Node1 Node2 {
-  Lnksfrm_node1 := EACH first Edges match Node1 sublist Edges;
-  IF Node2 in EACH second Lnksfrm_node1 THEN
-    % direct path from Node1 to Node2;
-    Node1 Node2
-  ELSE
-    % loop through linked nodes to see if a path to Node2 exists;
-    Linkednodes := EACH second Lnksfrm_node1;
-    Foundpath := Null;
-    I := 0;
-    WHILE empty Foundpath and (I &lt; tally Linkednodes) DO
-      Foundpath := findpath Edges Linkednodes@I Node2;
-      IF not empty Foundpath THEN
-         Foundpath := Linkednodes@I hitch Foundpath;
-      ENDIF;
-      I := I + 1;
-    ENDWHILE;
-    Foundpath
-  ENDIF }
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">findpath</span> <span class="k">is</span> <span class="k">OP</span> <span class="nv">Edges</span> <span class="nv">Node1</span> <span class="nv">Node2</span> <span class="p">{</span>
+  <span class="nv">Lnksfrm_node1</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="kp">first</span> <span class="nv">Edges</span> <span class="kp">match</span> <span class="nv">Node1</span> <span class="kp">sublist</span> <span class="nv">Edges</span><span class="p">;</span>
+  <span class="k">IF</span> <span class="nv">Node2</span> <span class="kp">in</span> <span class="nb">EACH</span> <span class="kp">second</span> <span class="nv">Lnksfrm_node1</span> <span class="k">THEN</span>
+    <span class="cm">% direct path from Node1 to Node2;</span>
+    <span class="nv">Node1</span> <span class="nv">Node2</span>
+  <span class="k">ELSE</span>
+    <span class="cm">% loop through linked nodes to see if a path to Node2 exists;</span>
+    <span class="nv">Linkednodes</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="kp">second</span> <span class="nv">Lnksfrm_node1</span><span class="p">;</span>
+    <span class="nv">Foundpath</span> <span class="p">:=</span> <span class="kc">Null</span><span class="p">;</span>
+    <span class="nv">I</span> <span class="p">:=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">WHILE</span> <span class="kp">empty</span> <span class="nv">Foundpath</span> <span class="kp">and</span> <span class="p">(</span><span class="nv">I</span> <span class="o">&lt;</span> <span class="kp">tally</span> <span class="nv">Linkednodes</span><span class="p">)</span> <span class="k">DO</span>
+      <span class="nv">Foundpath</span> <span class="p">:=</span> <span class="nv">findpath</span> <span class="nv">Edges</span> <span class="nv">Linkednodes</span><span class="o">@</span><span class="nv">I</span> <span class="nv">Node2</span><span class="p">;</span>
+      <span class="k">IF</span> <span class="kp">not</span> <span class="kp">empty</span> <span class="nv">Foundpath</span> <span class="k">THEN</span>
+         <span class="nv">Foundpath</span> <span class="p">:=</span> <span class="nv">Linkednodes</span><span class="o">@</span><span class="nv">I</span> <span class="kp">hitch</span> <span class="nv">Foundpath</span><span class="p">;</span>
+      <span class="k">ENDIF</span><span class="p">;</span>
+      <span class="nv">I</span> <span class="p">:=</span> <span class="nv">I</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">ENDWHILE</span><span class="p">;</span>
+    <span class="nv">Foundpath</span>
+  <span class="k">ENDIF</span> <span class="p">}</span>
   
 
-     findpath Edges "a "c
- a c
-     findpath Edges "a "k
- c g g k
+     <span class="nv">findpath</span> <span class="nv">Edges</span> <span class="ss">"a</span> <span class="ss">"c</span>
+ <span class="nv">a</span> <span class="nv">c</span>
+     <span class="nv">findpath</span> <span class="nv">Edges</span> <span class="ss">"a</span> <span class="ss">"k</span>
+ <span class="nv">c</span> <span class="nv">g</span> <span class="nv">g</span> <span class="nv">k</span>
 </code></pre></div></div>
 
 <p>The operation works on a direct link but has a missing node and a
@@ -473,29 +474,29 @@ repetition in a path of length four. The problem is caused by the path
 computation after the recursion has returned a path. It should be Node1
 rather than the linked node that is added to the path.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>findpath is OP Edges Node1 Node2 {
-  Lnksfrm_node1 := EACH first Edges match Node1 sublist Edges;
-  IF Node2 in EACH second Lnksfrm_Node1 THEN
-    % direct path from Node1 to Node2;
-    Node1 Node2
-  ELSE
-    % loop through linked nodes to see if a path to Node2 exists;
-    Linkednodes := EACH second Lnksfrm_node1;
-    Foundpath := Null;
-    I := 0;
-    WHILE empty Foundpath and (I &lt; tally Linkednodes) DO
-      Foundpath := findpath Edges Linkednodes@I Node2;
-      I := I + 1;
-    ENDWHILE;
-    IF not empty Foundpath THEN
-      Foundpath := Node1 hitch Foundpath;
-    ENDIF;
-    Foundpath
-  ENDIF }
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">findpath</span> <span class="k">is</span> <span class="k">OP</span> <span class="nv">Edges</span> <span class="nv">Node1</span> <span class="nv">Node2</span> <span class="p">{</span>
+  <span class="nv">Lnksfrm_node1</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="kp">first</span> <span class="nv">Edges</span> <span class="kp">match</span> <span class="nv">Node1</span> <span class="kp">sublist</span> <span class="nv">Edges</span><span class="p">;</span>
+  <span class="k">IF</span> <span class="nv">Node2</span> <span class="kp">in</span> <span class="nb">EACH</span> <span class="kp">second</span> <span class="nv">Lnksfrm_Node1</span> <span class="k">THEN</span>
+    <span class="cm">% direct path from Node1 to Node2;</span>
+    <span class="nv">Node1</span> <span class="nv">Node2</span>
+  <span class="k">ELSE</span>
+    <span class="cm">% loop through linked nodes to see if a path to Node2 exists;</span>
+    <span class="nv">Linkednodes</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="kp">second</span> <span class="nv">Lnksfrm_node1</span><span class="p">;</span>
+    <span class="nv">Foundpath</span> <span class="p">:=</span> <span class="kc">Null</span><span class="p">;</span>
+    <span class="nv">I</span> <span class="p">:=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">WHILE</span> <span class="kp">empty</span> <span class="nv">Foundpath</span> <span class="kp">and</span> <span class="p">(</span><span class="nv">I</span> <span class="o">&lt;</span> <span class="kp">tally</span> <span class="nv">Linkednodes</span><span class="p">)</span> <span class="k">DO</span>
+      <span class="nv">Foundpath</span> <span class="p">:=</span> <span class="nv">findpath</span> <span class="nv">Edges</span> <span class="nv">Linkednodes</span><span class="o">@</span><span class="nv">I</span> <span class="nv">Node2</span><span class="p">;</span>
+      <span class="nv">I</span> <span class="p">:=</span> <span class="nv">I</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">ENDWHILE</span><span class="p">;</span>
+    <span class="k">IF</span> <span class="kp">not</span> <span class="kp">empty</span> <span class="nv">Foundpath</span> <span class="k">THEN</span>
+      <span class="nv">Foundpath</span> <span class="p">:=</span> <span class="nv">Node1</span> <span class="kp">hitch</span> <span class="nv">Foundpath</span><span class="p">;</span>
+    <span class="k">ENDIF</span><span class="p">;</span>
+    <span class="nv">Foundpath</span>
+  <span class="k">ENDIF</span> <span class="p">}</span>
   
 
-     findpath Edges "a "k
-a c g k
+     <span class="nv">findpath</span> <span class="nv">Edges</span> <span class="ss">"a</span> <span class="ss">"k</span>
+<span class="nv">a</span> <span class="nv">c</span> <span class="nv">g</span> <span class="nv">k</span>
 </code></pre></div></div>
 
 <h2 id="finding-paths-in-a-cyclic-graph">Finding Paths in a Cyclic Graph</h2>
@@ -505,10 +506,10 @@ two nodes. It may be desirable to compute all the paths between nodes.
 Consider the graph which is the same as the previous one except that it
 adds a link from a to d.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     Edges:=("a "b)("a "c)("c "g)("g "k)("d "e)("e "k)("a "d)
-+---------------------------+
-|a b|a c|c g|g k|d e|e k|a d|
-+---------------------------+
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="nv">Edges</span><span class="p">:=(</span><span class="ss">"a</span> <span class="ss">"b</span><span class="p">)(</span><span class="ss">"a</span> <span class="ss">"c</span><span class="p">)(</span><span class="ss">"c</span> <span class="ss">"g</span><span class="p">)(</span><span class="ss">"g</span> <span class="ss">"k</span><span class="p">)(</span><span class="ss">"d</span> <span class="ss">"e</span><span class="p">)(</span><span class="ss">"e</span> <span class="ss">"k</span><span class="p">)(</span><span class="ss">"a</span> <span class="ss">"d</span><span class="p">)</span>
+<span class="o">+---------------------------+</span>
+<span class="o">|</span><span class="nv">a</span> <span class="nv">b</span><span class="o">|</span><span class="nv">a</span> <span class="nv">c</span><span class="o">|</span><span class="nv">c</span> <span class="nv">g</span><span class="o">|</span><span class="nv">g</span> <span class="nv">k</span><span class="o">|</span><span class="nv">d</span> <span class="nv">e</span><span class="o">|</span><span class="nv">e</span> <span class="nv">k</span><span class="o">|</span><span class="nv">a</span> <span class="nv">d</span><span class="o">|</span>
+<span class="o">+---------------------------+</span>
 </code></pre></div></div>
 
 <p>The modification needed is twofold. On a direct link, the result must be
@@ -517,41 +518,41 @@ existing path. For the linked nodes, the loop has to be changed to check
 all of the nodes for paths and these have to be combined to give the
 list of all paths.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>findpaths is OP Edges Node1 Node2 {
-  Lnksfrm_node1 := EACH first Edges match Node1 sublist Edges;
-  IF Node2 in EACH second Lnksfrm_Node1 THEN 
-    % there is a direct path from Node1 to Node2;
-    Paths := [ Node1 Node2 ];
-  ELSE
-    Paths := Null;
-  ENDIF;
-  % loop through linked nodes to add any additional paths;
-  Linkednodes := EACH second Lnksfrm_node1;
-  FOR Node WITH Linkednodes except [Node2] DO 
-    Newpaths := findpaths Edges Node Node2;
-    Paths := Paths link (Node1 EACHRIGHT hitch Newpaths);
-  ENDFOR;
-  Paths }
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">findpaths</span> <span class="k">is</span> <span class="k">OP</span> <span class="nv">Edges</span> <span class="nv">Node1</span> <span class="nv">Node2</span> <span class="p">{</span>
+  <span class="nv">Lnksfrm_node1</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="kp">first</span> <span class="nv">Edges</span> <span class="kp">match</span> <span class="nv">Node1</span> <span class="kp">sublist</span> <span class="nv">Edges</span><span class="p">;</span>
+  <span class="k">IF</span> <span class="nv">Node2</span> <span class="kp">in</span> <span class="nb">EACH</span> <span class="kp">second</span> <span class="nv">Lnksfrm_Node1</span> <span class="k">THEN</span> 
+    <span class="cm">% there is a direct path from Node1 to Node2;</span>
+    <span class="nv">Paths</span> <span class="p">:=</span> <span class="p">[</span> <span class="nv">Node1</span> <span class="nv">Node2</span> <span class="p">];</span>
+  <span class="k">ELSE</span>
+    <span class="nv">Paths</span> <span class="p">:=</span> <span class="kc">Null</span><span class="p">;</span>
+  <span class="k">ENDIF</span><span class="p">;</span>
+  <span class="cm">% loop through linked nodes to add any additional paths;</span>
+  <span class="nv">Linkednodes</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="kp">second</span> <span class="nv">Lnksfrm_node1</span><span class="p">;</span>
+  <span class="k">FOR</span> <span class="nv">Node</span> <span class="k">WITH</span> <span class="nv">Linkednodes</span> <span class="kp">except</span> <span class="p">[</span><span class="nv">Node2</span><span class="p">]</span> <span class="k">DO</span> 
+    <span class="nv">Newpaths</span> <span class="p">:=</span> <span class="nv">findpaths</span> <span class="nv">Edges</span> <span class="nv">Node</span> <span class="nv">Node2</span><span class="p">;</span>
+    <span class="nv">Paths</span> <span class="p">:=</span> <span class="nv">Paths</span> <span class="kp">link</span> <span class="p">(</span><span class="nv">Node1</span> <span class="nb">EACHRIGHT</span> <span class="kp">hitch</span> <span class="nv">Newpaths</span><span class="p">);</span>
+  <span class="k">ENDFOR</span><span class="p">;</span>
+  <span class="nv">Paths</span> <span class="p">}</span>
   
 
-     findpaths Edges "a "k
-+---------------+
-|a c g k|a d e k|
-+---------------+
+     <span class="nv">findpaths</span> <span class="nv">Edges</span> <span class="ss">"a</span> <span class="ss">"k</span>
+<span class="o">+---------------+</span>
+<span class="o">|</span><span class="nv">a</span> <span class="nv">c</span> <span class="nv">g</span> <span class="nv">k</span><span class="o">|</span><span class="nv">a</span> <span class="nv">d</span> <span class="nv">e</span> <span class="nv">k</span><span class="o">|</span>
+<span class="o">+---------------+</span>
 </code></pre></div></div>
 
 <p>The algorithm worked on the first attempt.</p>
 
 <p>The limits of the algorithm can be explored. Consider the test:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     Cyclic_graph := ("a "b)("b "c)("b "d)("c "a)
-+---------------+
-|a b|b c|b d|c a|
-+---------------+
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="nv">Cyclic_graph</span> <span class="p">:=</span> <span class="p">(</span><span class="ss">"a</span> <span class="ss">"b</span><span class="p">)(</span><span class="ss">"b</span> <span class="ss">"c</span><span class="p">)(</span><span class="ss">"b</span> <span class="ss">"d</span><span class="p">)(</span><span class="ss">"c</span> <span class="ss">"a</span><span class="p">)</span>
+<span class="o">+---------------+</span>
+<span class="o">|</span><span class="nv">a</span> <span class="nv">b</span><span class="o">|</span><span class="nv">b</span> <span class="nv">c</span><span class="o">|</span><span class="nv">b</span> <span class="nv">d</span><span class="o">|</span><span class="nv">c</span> <span class="nv">a</span><span class="o">|</span>
+<span class="o">+---------------+</span>
 
 
-     findpath Cyclic_graph "a "d
-system warning: C stack overflow
+     <span class="nv">findpath</span> <span class="nv">Cyclic_graph</span> <span class="ss">"a</span> <span class="ss">"d</span>
+<span class="kp">system</span> <span class="nv">warning</span><span class="p">:</span> <span class="nv">C</span> <span class="nv">stack</span> <span class="nv">overflow</span>
 </code></pre></div></div>
 
 <p>The algorithm fails with a stack overflow. The problem is caused by the
@@ -569,27 +570,27 @@ new parameter Encountered. Encountered is a list which is extended when
 a new node is considered. The list is used to remove can didates from
 the list of linked nodes that have already been processed.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>findpaths is OPERATION Edges Node1 Node2 Encountered {
-  Lnksfrm_node1 := EACH first Edges match Node1 sublist Edges;
-  IF Node2 in EACH second Lnksfrm_Node1 THEN
-    % direct path from Node1 to Node2;
-    Paths := [ Node1 Node2 ];
-  ELSE
-    Paths := Null;
-  ENDIF;
-  Encountered := Encountered append Node1;
-  % loop through linked nodes not encountered to add paths ;
-  Linkednodes :=EACH second Lnksfrm_node1 except Encountered;
-  FOR Node WITH Linkednodes except [Node2] DO
-    Newpaths := findpaths Edges Node Node2 Encountered;
-    Paths := Paths link (Node1 EACHRIGHT hitch Newpaths)
-  ENDFOR }
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">findpaths</span> <span class="k">is</span> <span class="kp">OPERATION</span> <span class="nv">Edges</span> <span class="nv">Node1</span> <span class="nv">Node2</span> <span class="nv">Encountered</span> <span class="p">{</span>
+  <span class="nv">Lnksfrm_node1</span> <span class="p">:=</span> <span class="nb">EACH</span> <span class="kp">first</span> <span class="nv">Edges</span> <span class="kp">match</span> <span class="nv">Node1</span> <span class="kp">sublist</span> <span class="nv">Edges</span><span class="p">;</span>
+  <span class="k">IF</span> <span class="nv">Node2</span> <span class="kp">in</span> <span class="nb">EACH</span> <span class="kp">second</span> <span class="nv">Lnksfrm_Node1</span> <span class="k">THEN</span>
+    <span class="cm">% direct path from Node1 to Node2;</span>
+    <span class="nv">Paths</span> <span class="p">:=</span> <span class="p">[</span> <span class="nv">Node1</span> <span class="nv">Node2</span> <span class="p">];</span>
+  <span class="k">ELSE</span>
+    <span class="nv">Paths</span> <span class="p">:=</span> <span class="kc">Null</span><span class="p">;</span>
+  <span class="k">ENDIF</span><span class="p">;</span>
+  <span class="nv">Encountered</span> <span class="p">:=</span> <span class="nv">Encountered</span> <span class="kp">append</span> <span class="nv">Node1</span><span class="p">;</span>
+  <span class="cm">% loop through linked nodes not encountered to add paths ;</span>
+  <span class="nv">Linkednodes</span> <span class="p">:=</span><span class="nb">EACH</span> <span class="kp">second</span> <span class="nv">Lnksfrm_node1</span> <span class="kp">except</span> <span class="nv">Encountered</span><span class="p">;</span>
+  <span class="k">FOR</span> <span class="nv">Node</span> <span class="k">WITH</span> <span class="nv">Linkednodes</span> <span class="kp">except</span> <span class="p">[</span><span class="nv">Node2</span><span class="p">]</span> <span class="k">DO</span>
+    <span class="nv">Newpaths</span> <span class="p">:=</span> <span class="nv">findpaths</span> <span class="nv">Edges</span> <span class="nv">Node</span> <span class="nv">Node2</span> <span class="nv">Encountered</span><span class="p">;</span>
+    <span class="nv">Paths</span> <span class="p">:=</span> <span class="nv">Paths</span> <span class="kp">link</span> <span class="p">(</span><span class="nv">Node1</span> <span class="nb">EACHRIGHT</span> <span class="kp">hitch</span> <span class="nv">Newpaths</span><span class="p">)</span>
+  <span class="k">ENDFOR</span> <span class="p">}</span>
   
  
-     findpaths Cyclic_graph "a "d Null
-+-----+
-|a b d|
-+-----+
+     <span class="nv">findpaths</span> <span class="nv">Cyclic_graph</span> <span class="ss">"a</span> <span class="ss">"d</span> <span class="kc">Null</span>
+<span class="o">+-----+</span>
+<span class="o">|</span><span class="nv">a</span> <span class="nv">b</span> <span class="nv">d</span><span class="o">|</span>
+<span class="o">+-----+</span>
 </code></pre></div></div>
 
 <p>Exploring directed graph computations could continue in other ways. For
