@@ -14,7 +14,7 @@ ff62b92da2994176f1efd817f1249fb49d319670		branch 'feature.scheme-separated-comme
 bdcc8aaf124e34719f289236aecbf5ede7157f70		branch 'fix_warnings' of https://github.com/razetime/rouge
 fa08541443da723eef337203b1ade27e9e40c225		branch 'hotfix.line-number-alignment' of https://github.com/razetime/rouge
 090acd58911705036f9a1891fdb9267292d182ec		branch 'maint.rougify-server' of https://github.com/razetime/rouge
-fa13031afd12135e6e5e2dc7744f0492ba9ead6e		branch 'master' of https://github.com/razetime/rouge
+67366f658dd1775b0c8eb8a85592318511d1791a		branch 'master' of https://github.com/razetime/rouge
 0192aff2f8da119ae8abccd0d8957e0601100f4e		branch 'open-shading-lang' of https://github.com/razetime/rouge
 944dcac7320552ef205fd4a2e8bfb323210b7499		branch 'pre.version-4' of https://github.com/razetime/rouge
 b7c364a3be25d14c25e1d17bf471223a03275cb1		branch 'spike.inheritance' of https://github.com/razetime/rouge

@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/razetime/rouge
-  revision: fa13031afd12135e6e5e2dc7744f0492ba9ead6e
+  revision: 67366f658dd1775b0c8eb8a85592318511d1791a
   branch: master
   specs:
     rouge (3.28.0)
@@ -102,7 +102,9 @@ GEM
     rexml (3.2.5)
     ruby2_keywords (0.0.5)
     safe_yaml (1.0.5)
-    sassc (2.4.0)
+    sassc (2.1.0)
+      ffi (~> 1.9)
+    sassc (2.1.0-x86_64-linux)
       ffi (~> 1.9)
     sawyer (0.8.2)
       addressable (>= 2.3.5)
@@ -121,6 +123,7 @@ DEPENDENCIES
   minimal-mistakes-jekyll!
   rake (>= 12.3.3)
   rouge!
+  sassc (< 2.2.0)
   webrick (~> 1.7)
 
 BUNDLED WITH
