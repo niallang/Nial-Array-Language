@@ -4,6 +4,7 @@ layout: single
 classes: wide
 ---
 
+{::options syntax_highlighter_opts="default_lang: nial" /}
 
 # Chapter 1
 
@@ -38,23 +39,25 @@ you type *Bye* or *Continue*.
 The following session uses the Linux Console Version of Q'Nial:
 
 
-    > nial -i
-    Q'Nial V7.0 Open Source Edition Intel x86 64bit Linux Jul 29 2015
-    Copyright (c) NIAL Systems Limited
-    clear workspace created    
-    
-         A := 'hello'
-    hello
+```
+> nial -i # start a session
+Q'Nial V7.0 Open Source Edition Intel x86 64bit Linux Jul 29 2015
+Copyright (c) NIAL Systems Limited
+clear workspace created    
 
-         B := 'world';
+     A := 'hello'
+hello
 
-         A link B
-    helloworld
+     B := 'world';
 
-         link A ' ' B
-    hello world
+     A link B
+helloworld
 
-         Bye
+     link A ' ' B
+hello world
+
+     Bye
+```
 
 
 

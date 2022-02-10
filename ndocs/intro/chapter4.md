@@ -4,6 +4,7 @@ layout: single
 classes: wide
 ---
 
+{::options syntax_highlighter_opts="default_lang: nial" /}
 
 # Language Mechanisms
 

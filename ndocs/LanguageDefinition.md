@@ -3,7 +3,7 @@ title: Manual
 layout: single
 toc: true
 ---
-{::options syntax_highlighter_opts="default_lang: python" /}
+{::options syntax_highlighter_opts="default_lang: nial" /}
 **Version 6.3**
 
 **August 2006**
