@@ -23,7 +23,7 @@ subtitle                 : # site tagline that appears below site title in masth
 name                     : "John Gibbons"
 description              : "Nial Community Site"
 url                      : "https://www.nial-array-language.org" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
-baseurl                  : ""# the subpath of your site, e.g. "/blog"
+baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "gibbonsja/Nial_Development"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : "/assets/images/Longboat.png"
