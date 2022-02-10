@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>The Nial Language Manual - Nial Array Language</title>
+<!-- begin _includes/seo.html --><title>Manual - Nial Array Language</title>
 <meta name="description" content="Nial Community Site">
 
 
@@ -20,8 +20,8 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Nial Array Language">
-<meta property="og:title" content="The Nial Language Manual">
-<meta property="og:url" content="http://localhost:4000/ndocs/LanguageDefinition.html">
+<meta property="og:title" content="Manual">
+<meta property="og:url" content="https://www.nial-array-language.org/ndocs/LanguageDefinition.html">
 
 
   <meta property="og:description" content="Nial Community Site">
@@ -41,7 +41,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/ndocs/LanguageDefinition.html">
+<link rel="canonical" href="https://www.nial-array-language.org/ndocs/LanguageDefinition.html">
 
 
 
@@ -52,7 +52,7 @@
     
       "@type": "Person",
       "name": "John Gibbons",
-      "url": "http://localhost:4000/"
+      "url": "https://www.nial-array-language.org/"
     
   }
 </script>
@@ -66,8 +66,6 @@
 <!-- end _includes/seo.html -->
 
 
-
-  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Nial Array Language Feed">
 
 
 <!-- https://t.co/dKP3o1e -->
@@ -86,13 +84,24 @@
 
     <!-- start custom head snippets -->
 
-<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<!-- Favicons from https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#ffffff">
+
+
+
 
 <!-- end custom head snippets -->
 
   </head>
 
   <body class="layout--single">
+
     <nav class="skip-links">
   <ul>
     <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
@@ -122,6 +131,8 @@
               <a href="/">Home</a>
             </li><li class="masthead__menu-item">
               <a href="/download/">Download</a>
+            </li><li class="masthead__menu-item">
+              <a href="/examples/">Examples</a>
             </li><li class="masthead__menu-item">
               <a href="/ndocs/">Documentation</a>
             </li></ul>
@@ -170,7 +181,7 @@
     
       
       
-        <li class="current">The Nial Language Manual</li>
+        <li class="current">Manual</li>
       
     
   </ol>
@@ -184,7 +195,7 @@
 
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="The Nial Language Manual">
+    <meta itemprop="headline" content="Manual">
     
     
     
@@ -193,7 +204,7 @@
       
         <header>
           <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="http://localhost:4000/ndocs/LanguageDefinition.html" class="u-url" itemprop="url">The Nial Language Manual
+            <a href="https://www.nial-array-language.org/ndocs/LanguageDefinition.html" class="u-url" itemprop="url">Manual
 </a>
           </h1>
           
@@ -220,17 +231,23 @@
 the Nial language at a technical level and provides summary informa tion
 on the capabilities of the Q’Nial interpreter.</p>
 
-<p><em>Chapter 1</em>  introduces some of the concepts and terminology of Nial.
-<em>Chapter 2</em> describes the data objects of the language.
-<em>Chapters 3 and 4</em> cover the predefined operations and transformers in Nial.
-<em>Chapter 5</em> gives a formal description of the syntax and semantics of Nial
+<p><em>Chapter 1</em>  introduces some of the concepts and terminology of Nial.</p>
+
+<p><em>Chapter 2</em> describes the data objects of the language.</p>
+
+<p><em>Chapters 3 and 4</em> cover the predefined operations and transformers in Nial.</p>
+
+<p><em>Chapter 5</em> gives a formal description of the syntax and semantics of Nial
  using BNF style syntax descriptions and natural language descriptions of
  the meaning of the constructs.
-<em>Chapter 6</em> covers the file input and output operations.
-<em>Chapter 7</em> describes the operations that provide access to the mechanisms
-of the Q’Nial interpreter.
-<em>Chapter 8</em> introduces the Q’Nial environment.
-<em>Chapter 9</em> describes the debugging and profiling capabilities of the Q’Nial interpreter.</p>
+<em>Chapter 6</em> covers the file input and output operations.</p>
+
+<p><em>Chapter 7</em> describes the operations that provide access to the mechanisms
+of the Q’Nial interpreter.</p>
+
+<p><em>Chapter 8</em> introduces the Q’Nial environment.</p>
+
+<p><em>Chapter 9</em> describes the debugging and profiling capabilities of the Q’Nial interpreter.</p>
 
 <h1 id="chapter-1-introduction">Chapter 1 Introduction</h1>
 
@@ -411,15 +428,15 @@ zero, one, two or more directions. For example, the following array is a
 4 by 6 table of numbers. It has 24 items arranged along two directions
 of length 4 and 6 respectively.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+---+---+---+---+---+---+
-|499|434|122|770|733|890|
-+---+---+---+---+---+---+
-|660| 32|808| 24|  5|473|
-+---+---+---+---+---+---+
-|499|434|122|770|733|890|
-+---+---+---+---+---+---+
-|660| 32|808| 24|  5|473|
-+---+---+---+---+---+---+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">+---+---+---+---+---+---+</span>
+<span class="o">|</span><span class="mi">499</span><span class="o">|</span><span class="mi">434</span><span class="o">|</span><span class="mi">122</span><span class="o">|</span><span class="mi">770</span><span class="o">|</span><span class="mi">733</span><span class="o">|</span><span class="mi">890</span><span class="o">|</span>
+<span class="o">+---+---+---+---+---+---+</span>
+<span class="o">|</span><span class="mi">660</span><span class="o">|</span> <span class="mi">32</span><span class="o">|</span><span class="mi">808</span><span class="o">|</span> <span class="mi">24</span><span class="o">|</span>  <span class="mi">5</span><span class="o">|</span><span class="mi">473</span><span class="o">|</span>
+<span class="o">+---+---+---+---+---+---+</span>
+<span class="o">|</span><span class="mi">499</span><span class="o">|</span><span class="mi">434</span><span class="o">|</span><span class="mi">122</span><span class="o">|</span><span class="mi">770</span><span class="o">|</span><span class="mi">733</span><span class="o">|</span><span class="mi">890</span><span class="o">|</span>
+<span class="o">+---+---+---+---+---+---+</span>
+<span class="o">|</span><span class="mi">660</span><span class="o">|</span> <span class="mi">32</span><span class="o">|</span><span class="mi">808</span><span class="o">|</span> <span class="mi">24</span><span class="o">|</span>  <span class="mi">5</span><span class="o">|</span><span class="mi">473</span><span class="o">|</span>
+<span class="o">+---+---+---+---+---+---+</span>
 </code></pre></div></div>
 
 <p>The number of axes of an array is referred to as its dimensionality. The
@@ -471,9 +488,9 @@ The <em>shape</em> of an array is itself an array.</p>
 
 <p>The array displayed above is a table that has, as its shape, the array:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+-+-+
-|4|6|
-+-+-+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">+-+-+</span>
+<span class="o">|</span><span class="mi">4</span><span class="o">|</span><span class="mi">6</span><span class="o">|</span>
+<span class="o">+-+-+</span>
 </code></pre></div></div>
 
 <p>The shape of an array with no axes, a <strong>single</strong>, is the predefined
@@ -575,23 +592,23 @@ rectangular structure as the array itself. Such an array is called the
 <strong>grid</strong> of an array. The grid of a list is a list of integers. The grid
 of table <em>T</em>above is the following table of pairs of integers.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+-----+-----+-----+-----+-----+-----+
-|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|
-||0|0|||0|1|||0|2|||0|3|||0|4|||0|5||
-|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|
-+-----+-----+-----+-----+-----+-----+
-|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|
-||1|0|||1|1|||1|2|||1|3|||1|4|||1|5||
-|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|
-+-----+-----+-----+-----+-----+-----+
-|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|
-||2|0|||2|1|||2|2|||2|3|||2|4|||2|5||
-|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|
-+-----+-----+-----+-----+-----+-----+
-|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|
-||3|0|||3|1|||3|2|||3|3|||3|4|||3|5||
-|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|
-+-----+-----+-----+-----+-----+-----+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">+-----+-----+-----+-----+-----+-----+</span>
+<span class="o">|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|</span>
+<span class="o">||</span><span class="mi">0</span><span class="o">|</span><span class="mi">0</span><span class="o">|||</span><span class="mi">0</span><span class="o">|</span><span class="mi">1</span><span class="o">|||</span><span class="mi">0</span><span class="o">|</span><span class="mi">2</span><span class="o">|||</span><span class="mi">0</span><span class="o">|</span><span class="mi">3</span><span class="o">|||</span><span class="mi">0</span><span class="o">|</span><span class="mi">4</span><span class="o">|||</span><span class="mi">0</span><span class="o">|</span><span class="mi">5</span><span class="o">||</span>
+<span class="o">|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|</span>
+<span class="o">+-----+-----+-----+-----+-----+-----+</span>
+<span class="o">|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|</span>
+<span class="o">||</span><span class="mi">1</span><span class="o">|</span><span class="mi">0</span><span class="o">|||</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="o">|||</span><span class="mi">1</span><span class="o">|</span><span class="mi">2</span><span class="o">|||</span><span class="mi">1</span><span class="o">|</span><span class="mi">3</span><span class="o">|||</span><span class="mi">1</span><span class="o">|</span><span class="mi">4</span><span class="o">|||</span><span class="mi">1</span><span class="o">|</span><span class="mi">5</span><span class="o">||</span>
+<span class="o">|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|</span>
+<span class="o">+-----+-----+-----+-----+-----+-----+</span>
+<span class="o">|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|</span>
+<span class="o">||</span><span class="mi">2</span><span class="o">|</span><span class="mi">0</span><span class="o">|||</span><span class="mi">2</span><span class="o">|</span><span class="mi">1</span><span class="o">|||</span><span class="mi">2</span><span class="o">|</span><span class="mi">2</span><span class="o">|||</span><span class="mi">2</span><span class="o">|</span><span class="mi">3</span><span class="o">|||</span><span class="mi">2</span><span class="o">|</span><span class="mi">4</span><span class="o">|||</span><span class="mi">2</span><span class="o">|</span><span class="mi">5</span><span class="o">||</span>
+<span class="o">|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|</span>
+<span class="o">+-----+-----+-----+-----+-----+-----+</span>
+<span class="o">|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|</span>
+<span class="o">||</span><span class="mi">3</span><span class="o">|</span><span class="mi">0</span><span class="o">|||</span><span class="mi">3</span><span class="o">|</span><span class="mi">1</span><span class="o">|||</span><span class="mi">3</span><span class="o">|</span><span class="mi">2</span><span class="o">|||</span><span class="mi">3</span><span class="o">|</span><span class="mi">3</span><span class="o">|||</span><span class="mi">3</span><span class="o">|</span><span class="mi">4</span><span class="o">|||</span><span class="mi">3</span><span class="o">|</span><span class="mi">5</span><span class="o">||</span>
+<span class="o">|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|</span>
+<span class="o">+-----+-----+-----+-----+-----+-----+</span>
 </code></pre></div></div>
 
 <h2 id="nesting-structure">Nesting Structure</h2>
@@ -629,7 +646,7 @@ same. For example, in the following array, the phrase “hello is at the
 first level, the integer 23 is at the second level and the character `b
 is at the third level.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[ 23 'abc', "hello , tell 2 2 ]
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span> <span class="mi">23</span> <span class="s">'abc'</span><span class="p">,</span> <span class="s">"hello , tell 2 2 ]
 
 +------------+-----+-------------+
 |+--+-------+|hello|+-----+-----+|
@@ -642,7 +659,7 @@ is at the third level.</p>
 |            |     ||+-+-+|+-+-+||
 |            |     |+-----+-----+|
 +------------+-----+-------------+
-</code></pre></div></div>
+</span></code></pre></div></div>
 
 <h2 id="empty-arrays">Empty Arrays</h2>
 
@@ -716,44 +733,44 @@ with increasing space between the pictures of lower dimensional arrays.</p>
 <p>The sketch displays of an array of integers of shape 2 3 2 3 and of a 2
 3 table of 2 3 tables are:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a := 2 3 2 3 reshape count 36
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="p">:</span><span class="o">=</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">3</span> <span class="n">reshape</span> <span class="n">count</span> <span class="mi">36</span>
 
-1   2  3  7  8  9 13 14 15
-4   5  6 10 11 12 16 17 18
-19 20 21 25 26 27 31 32 33
-22 23 24 28 29 30 34 35 36
+<span class="mi">1</span>   <span class="mi">2</span>  <span class="mi">3</span>  <span class="mi">7</span>  <span class="mi">8</span>  <span class="mi">9</span> <span class="mi">13</span> <span class="mi">14</span> <span class="mi">15</span>
+<span class="mi">4</span>   <span class="mi">5</span>  <span class="mi">6</span> <span class="mi">10</span> <span class="mi">11</span> <span class="mi">12</span> <span class="mi">16</span> <span class="mi">17</span> <span class="mi">18</span>
+<span class="mi">19</span> <span class="mi">20</span> <span class="mi">21</span> <span class="mi">25</span> <span class="mi">26</span> <span class="mi">27</span> <span class="mi">31</span> <span class="mi">32</span> <span class="mi">33</span>
+<span class="mi">22</span> <span class="mi">23</span> <span class="mi">24</span> <span class="mi">28</span> <span class="mi">29</span> <span class="mi">30</span> <span class="mi">34</span> <span class="mi">35</span> <span class="mi">36</span>
 
 
-2 raise A
+<span class="mi">2</span> <span class="k">raise</span> <span class="n">A</span>
 
-+--------+--------+--------+
-|  1 2 3 |   7 8 9|13 14 15|
-|  4 5 6 |10 11 12|16 17 18|
-+--------+--------+--------+
-|19 20 21|25 26 27|31 32 33|
-|22 23 24|28 29 30|34 35 36|
-+--------+--------+--------+
+<span class="o">+--------+--------+--------+</span>
+<span class="o">|</span>  <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="o">|</span>   <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span><span class="o">|</span><span class="mi">13</span> <span class="mi">14</span> <span class="mi">15</span><span class="o">|</span>
+<span class="o">|</span>  <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="o">|</span><span class="mi">10</span> <span class="mi">11</span> <span class="mi">12</span><span class="o">|</span><span class="mi">16</span> <span class="mi">17</span> <span class="mi">18</span><span class="o">|</span>
+<span class="o">+--------+--------+--------+</span>
+<span class="o">|</span><span class="mi">19</span> <span class="mi">20</span> <span class="mi">21</span><span class="o">|</span><span class="mi">25</span> <span class="mi">26</span> <span class="mi">27</span><span class="o">|</span><span class="mi">31</span> <span class="mi">32</span> <span class="mi">33</span><span class="o">|</span>
+<span class="o">|</span><span class="mi">22</span> <span class="mi">23</span> <span class="mi">24</span><span class="o">|</span><span class="mi">28</span> <span class="mi">29</span> <span class="mi">30</span><span class="o">|</span><span class="mi">34</span> <span class="mi">35</span> <span class="mi">36</span><span class="o">|</span>
+<span class="o">+--------+--------+--------+</span>
 </code></pre></div></div>
 
 <p>A single has no axes and hence cannot be diagrammed in a conventional
 way. If a non-atomic array is a single, its picture has the character o
 in the upper left corner.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>single 1 2 3
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">single</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
 
-o-----+
-|1 2 3|
-+-----+
+<span class="n">o</span><span class="o">-----+</span>
+<span class="o">|</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="o">|</span>
+<span class="o">+-----+</span>
 </code></pre></div></div>
 
 <p>The diagram of a solitary has the usual corner box character in the
 upper left corner.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>solitary 1 2 3
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">solitary</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
 
-+-----+
-|1 2 3|
-+-----+
+<span class="o">+-----+</span>
+<span class="o">|</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="o">|</span>
+<span class="o">+-----+</span>
 </code></pre></div></div>
 
 <p>In sketch mode, the display of an empty array is suppressed. In diagram
@@ -761,59 +778,59 @@ mode, the display of an empty array shows the frame border. For example,
 the display of an empty list is the left border of the frame diagram for
 a list.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set "diagram; Null
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">set</span> <span class="s">"diagram; Null
 
 +
 |
 +
-</code></pre></div></div>
+</span></code></pre></div></div>
 
 <p>The display of an empty table is the upper left corner of the frame and
 if the table has a non zero length, the display includes the frame along
 one side. The array <em>A</em>, defined below, is displayed in the four mode
 combinations as follows:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A := 2 3 reshape [5 'PC', "hello, single 2 4, tell 1 2, solitary 'Hi', tell 0 2];
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">A</span> <span class="p">:</span><span class="o">=</span> <span class="mi">2</span> <span class="mi">3</span> <span class="n">reshape</span> <span class="p">[</span><span class="mi">5</span> <span class="s">'PC'</span><span class="p">,</span> <span class="s">"hello, single 2 4, tell 1 2, solitary 'Hi', tell 0 2];
 
-set "diagram; set "decor; A
+set "</span><span class="n">diagram</span><span class="p">;</span> <span class="nb">set</span> <span class="s">"decor; A
 
 +--------------+---------+-------+
-|+-+---------+|"hello   |o-----+|
-||5|+---+---+||         ||+-+-+||
-|| ||`P |`C |||         |||2|4|||
-|| |+---+---+||         ||+-+-+||
-|+-+---------+|         |+-----+|
-+-------------+---------+-------+  
-|+-----+-----+|+-------+|+-+-+  |
-||+-+-+|+-+-+|||+--+--+||       |
-|||0|0|||0|1|||||`H|`i|||       |
-||+-+-+|+-+-+|||+--+--+||       |
-|+-----+-----+|+-------+|       |
-+-------------+---------+-------+
+|+-+---------+|"</span><span class="n">hello</span>   <span class="o">|</span><span class="n">o</span><span class="o">-----+|</span>
+<span class="o">||</span><span class="mi">5</span><span class="o">|+---+---+||</span>         <span class="o">||+-+-+||</span>
+<span class="o">||</span> <span class="o">||</span><span class="sb">`P |`</span><span class="n">C</span> <span class="o">|||</span>         <span class="o">|||</span><span class="mi">2</span><span class="o">|</span><span class="mi">4</span><span class="o">|||</span>
+<span class="o">||</span> <span class="o">|+---+---+||</span>         <span class="o">||+-+-+||</span>
+<span class="o">|+-+---------+|</span>         <span class="o">|+-----+|</span>
+<span class="o">+-------------+---------+-------+</span>  
+<span class="o">|+-----+-----+|+-------+|+-+-+</span>  <span class="o">|</span>
+<span class="o">||+-+-+|+-+-+|||+--+--+||</span>       <span class="o">|</span>
+<span class="o">|||</span><span class="mi">0</span><span class="o">|</span><span class="mi">0</span><span class="o">|||</span><span class="mi">0</span><span class="o">|</span><span class="mi">1</span><span class="o">|||||</span><span class="sb">`H|`</span><span class="n">i</span><span class="o">|||</span>       <span class="o">|</span>
+<span class="o">||+-+-+|+-+-+|||+--+--+||</span>       <span class="o">|</span>
+<span class="o">|+-----+-----+|+-------+|</span>       <span class="o">|</span>
+<span class="o">+-------------+---------+-------+</span>
 
 
-set"diagram; set "nodecor; A
+<span class="nb">set</span><span class="s">"diagram; set "</span><span class="n">nodecor</span><span class="p">;</span> <span class="n">A</span>
 
-+-------------+-------+-------+
-|+-+-----+ |hello     |o-----+|
-||5|+-+-+| |          ||+-+-+||
-|| ||P|C|| |          |||2|4|||
-|| |+-+-+| |          ||+-+-+||
-|+-+-----+ |          |+-----+|
-+-------------+-------+-------+
-|+-----+-----+|+-----+|+-+-+  |
-||+-+-+|+-+-+|||+-+-+||       |
-|||0|0|||0|1|||||H|i|||       |
-||+-+-+|+-+-+|||+-+-+||       |
-|+-----+-----+|+-----+|       |
-+-------------+-------+-------+
+<span class="o">+-------------+-------+-------+</span>
+<span class="o">|+-+-----+</span> <span class="o">|</span><span class="n">hello</span>     <span class="o">|</span><span class="n">o</span><span class="o">-----+|</span>
+<span class="o">||</span><span class="mi">5</span><span class="o">|+-+-+|</span> <span class="o">|</span>          <span class="o">||+-+-+||</span>
+<span class="o">||</span> <span class="o">||</span><span class="n">P</span><span class="o">|</span><span class="n">C</span><span class="o">||</span> <span class="o">|</span>          <span class="o">|||</span><span class="mi">2</span><span class="o">|</span><span class="mi">4</span><span class="o">|||</span>
+<span class="o">||</span> <span class="o">|+-+-+|</span> <span class="o">|</span>          <span class="o">||+-+-+||</span>
+<span class="o">|+-+-----+</span> <span class="o">|</span>          <span class="o">|+-----+|</span>
+<span class="o">+-------------+-------+-------+</span>
+<span class="o">|+-----+-----+|+-----+|+-+-+</span>  <span class="o">|</span>
+<span class="o">||+-+-+|+-+-+|||+-+-+||</span>       <span class="o">|</span>
+<span class="o">|||</span><span class="mi">0</span><span class="o">|</span><span class="mi">0</span><span class="o">|||</span><span class="mi">0</span><span class="o">|</span><span class="mi">1</span><span class="o">|||||</span><span class="n">H</span><span class="o">|</span><span class="n">i</span><span class="o">|||</span>       <span class="o">|</span>
+<span class="o">||+-+-+|+-+-+|||+-+-+||</span>       <span class="o">|</span>
+<span class="o">|+-----+-----+|+-----+|</span>       <span class="o">|</span>
+<span class="o">+-------------+-------+-------+</span>
 
 
 
-set "sketch; set "decor; A
+<span class="nb">set</span> <span class="s">"sketch; set "</span><span class="n">decor</span><span class="p">;</span> <span class="n">A</span>
 
-+---------+------+-----+
-|+-+----+ |"hello|o---+|
+<span class="o">+---------+------+-----+</span>
+<span class="o">|+-+----+</span> <span class="o">|</span><span class="s">"hello|o---+|
 ||5|'PC'| |      ||2 4||
 |+-+----+ |      |+---+|
 +---------+------+-----+
@@ -823,17 +840,17 @@ set "sketch; set "decor; A
 +---------+------+-----+
 
 
-set "sketch; set "nodecor; A
+set "</span><span class="n">sketch</span><span class="p">;</span> <span class="nb">set</span> <span class="s">"nodecor; A
 
 +---------+-----+-----+
-|+-+--+ |"hello |o---+|
-||5|PC| |       ||2 4||
-|+-+--+ |       |+---+|
-+---------+-----+-----+
-|+---+---+|+--+ |     |
-||0 0|0 1|||Hi| |     |
-|+---+---+|+--+ |     |
-+---------+-----+-----+
+|+-+--+ |"</span><span class="n">hello</span> <span class="o">|</span><span class="n">o</span><span class="o">---+|</span>
+<span class="o">||</span><span class="mi">5</span><span class="o">|</span><span class="n">PC</span><span class="o">|</span> <span class="o">|</span>       <span class="o">||</span><span class="mi">2</span> <span class="mi">4</span><span class="o">||</span>
+<span class="o">|+-+--+</span> <span class="o">|</span>       <span class="o">|+---+|</span>
+<span class="o">+---------+-----+-----+</span>
+<span class="o">|+---+---+|+--+</span> <span class="o">|</span>     <span class="o">|</span>
+<span class="o">||</span><span class="mi">0</span> <span class="mi">0</span><span class="o">|</span><span class="mi">0</span> <span class="mi">1</span><span class="o">|||</span><span class="n">Hi</span><span class="o">|</span> <span class="o">|</span>     <span class="o">|</span>
+<span class="o">|+---+---+|+--+</span> <span class="o">|</span>     <span class="o">|</span>
+<span class="o">+---------+-----+-----+</span>
 </code></pre></div></div>
 
 <h1 id="chapter-3-predefined-data-operations">Chapter 3 Predefined Data Operations</h1>
@@ -872,10 +889,10 @@ applying the operation to the corresponding atoms of the argument. A
 unary pervasive operation <em>f</em> applied to a non-atomic array A gives the
 same result as applying f to each item of A. That is,</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>f A = EACH f A
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span> <span class="n">A</span> <span class="o">=</span> <span class="n">EACH</span> <span class="n">f</span> <span class="n">A</span>
  
-abs -3.5 27 -8
-3.5 27 8
+<span class="nb">abs</span> <span class="o">-</span><span class="mf">3.5</span> <span class="mi">27</span> <span class="o">-</span><span class="mi">8</span>
+<span class="mf">3.5</span> <span class="mi">27</span> <span class="mi">8</span>
 </code></pre></div></div>
 
 <p>An example of a <strong>binary pervasive</strong> operation is <em>minus</em>, also denoted
@@ -887,8 +904,8 @@ resulting array <em>C</em> has the same structure as <em>A</em> or <em>B</em>.
 <em>C</em> has atoms that are the result of applying <em>minus</em> to the pairs of
 atoms in corresponding positions of <em>A</em> and <em>B</em>.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3 5 7 - 2 8 3
-1 -3 4
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">3</span> <span class="mi">5</span> <span class="mi">7</span> <span class="o">-</span> <span class="mi">2</span> <span class="mi">8</span> <span class="mi">3</span>
+<span class="mi">1</span> <span class="o">-</span><span class="mi">3</span> <span class="mi">4</span>
 </code></pre></div></div>
 
 <p>A binary pervasive operation <em>f</em> satisfies the equation</p>
@@ -913,22 +930,22 @@ corresponding items of the argument.</p>
 <p>Thus, for example, if <em>T</em> is a table, <em>sum rows T</em> returns the column
 totals for <em>T</em>.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>T := 2 4 reshape count 8
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">T</span> <span class="p">:</span><span class="o">=</span> <span class="mi">2</span> <span class="mi">4</span> <span class="n">reshape</span> <span class="n">count</span> <span class="mi">8</span>
 
-1 2 3 4
-5 6 7 8
-
-
-rows T
-
-+-------+-------+
-|1 2 3 4|5 6 7 8|
-+-------+-------+
+<span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span>
+<span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span>
 
 
-sum rows T
+<span class="n">rows</span> <span class="n">T</span>
 
-6 8 10 12
+<span class="o">+-------+-------+</span>
+<span class="o">|</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="o">|</span><span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span><span class="o">|</span>
+<span class="o">+-------+-------+</span>
+
+
+<span class="nb">sum</span> <span class="n">rows</span> <span class="n">T</span>
+
+<span class="mi">6</span> <span class="mi">8</span> <span class="mi">10</span> <span class="mi">12</span>
 </code></pre></div></div>
 
 <p>A multi pervasive operation used on a pair behaves in precisely the same
@@ -2202,10 +2219,10 @@ Chapter 8.</p>
 loop of the Q’Nial interpreter or accepted as a group of lines by
 the operation <em>loaddefs</em>:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;action&gt; ::= &lt;definition-sequence&gt;
-          | &lt;expression-sequence&gt;
-          | &lt;external-declaration\&gt;
-          | &lt;remark&gt;
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="n">action</span><span class="o">&gt;</span> <span class="p">::</span><span class="o">=</span> <span class="o">&lt;</span><span class="n">definition</span><span class="o">-</span><span class="n">sequence</span><span class="o">&gt;</span>
+          <span class="o">|</span> <span class="o">&lt;</span><span class="n">expression</span><span class="o">-</span><span class="n">sequence</span><span class="o">&gt;</span>
+          <span class="o">|</span> <span class="o">&lt;</span><span class="n">external</span><span class="o">-</span><span class="n">declaration</span>\<span class="o">&gt;</span>
+          <span class="o">|</span> <span class="o">&lt;</span><span class="n">remark</span><span class="o">&gt;</span>
 </code></pre></div></div>
 
 <p>If an action is a <em>&lt;definition-sequence&gt;</em>, its definitions are installed
@@ -2223,11 +2240,11 @@ it is completely specified.</p>
 
 <h2 id="definition">Definition</h2>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;definition-sequence&gt; ::= &lt;definition&gt; {; &lt;definition&gt;}* [;]
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="n">definition</span><span class="o">-</span><span class="n">sequence</span><span class="o">&gt;</span> <span class="p">::</span><span class="o">=</span> <span class="o">&lt;</span><span class="n">definition</span><span class="o">&gt;</span> <span class="p">{;</span> <span class="o">&lt;</span><span class="n">definition</span><span class="o">&gt;</span><span class="p">}</span><span class="o">*</span> <span class="p">[;]</span>
    
-*\&lt;definition\&gt;* ::= *\&lt;identifier\&gt;* **IS**
-                 ( *\&lt;simple-expression\&gt;* | *\&lt;operation-expression\&gt;* | *\&lt;transformer-expression\&gt;* )
-                \| *\&lt;comment\&gt;*
+<span class="o">*</span>\<span class="o">&lt;</span><span class="n">definition</span>\<span class="o">&gt;*</span> <span class="p">::</span><span class="o">=</span> <span class="o">*</span>\<span class="o">&lt;</span><span class="n">identifier</span>\<span class="o">&gt;*</span> <span class="o">**</span><span class="n">IS</span><span class="o">**</span>
+                 <span class="p">(</span> <span class="o">*</span>\<span class="o">&lt;</span><span class="n">simple</span><span class="o">-</span><span class="n">expression</span>\<span class="o">&gt;*</span> <span class="o">|</span> <span class="o">*</span>\<span class="o">&lt;</span><span class="n">operation</span><span class="o">-</span><span class="n">expression</span>\<span class="o">&gt;*</span> <span class="o">|</span> <span class="o">*</span>\<span class="o">&lt;</span><span class="n">transformer</span><span class="o">-</span><span class="n">expression</span>\<span class="o">&gt;*</span> <span class="p">)</span>
+                \<span class="o">|</span> <span class="o">*</span>\<span class="o">&lt;</span><span class="n">comment</span>\<span class="o">&gt;*</span>
 </code></pre></div></div>
 
 <p>Every well formed program fragment that can appear on the right of
@@ -4218,9 +4235,9 @@ However, identifiers are stored only up to a maximum length of 80
 characters. The following segments from a log of a session
 illustrate the top level loop mechanism:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set "decor;
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">set</span> <span class="s">"decor;
 Token_list := scan 'A := 3*5.2'
-99 2 "A 1 ":= 16 "3 2 "* 18 "5.2
+99 2 "</span><span class="n">A</span> <span class="mi">1</span> <span class="s">":= 16 "</span><span class="mi">3</span> <span class="mi">2</span> <span class="s">"* 18 "</span><span class="mf">5.2</span>
 </code></pre></div></div>
 
 <p>The codes for tokens used by scan are:</p>
@@ -4275,29 +4292,29 @@ Token_list := scan 'A := 3*5.2'
 <p>To select the token pairs from the result of <em>scan</em>, the following
 expression is used:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Token_pairs := lo cutall rest Token_list
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Token_pairs</span> <span class="p">:</span><span class="o">=</span> <span class="n">lo</span> <span class="n">cutall</span> <span class="n">rest</span> <span class="n">Token_list</span>
+<span class="o">+----+-----+-----+----+-------+</span>
+<span class="o">|</span><span class="mi">2</span> <span class="s">"A|1 "</span><span class="p">:</span><span class="o">=|</span><span class="mi">16</span> <span class="s">"3|2 "</span><span class="o">*|</span><span class="mi">18</span> <span class="s">"5.2|
 +----+-----+-----+----+-------+
-|2 "A|1 ":=|16 "3|2 "*|18 "5.2|
-+----+-----+-----+----+-------+
-</code></pre></div></div>
+</span></code></pre></div></div>
 
 <p>To test which tokens are constants, the comparison is:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>EACH first Token_pairs &gt; 2
-oolol
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">EACH</span> <span class="n">first</span> <span class="n">Token_pairs</span> <span class="o">&gt;</span> <span class="mi">2</span>
+<span class="n">oolol</span>
 </code></pre></div></div>
 
 <p>The last token pair represents a real number:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Realtoken := last Token_pairs
-18 "5.2
-</code></pre></div></div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Realtoken</span> <span class="p">:</span><span class="o">=</span> <span class="n">last</span> <span class="n">Token_pairs</span>
+<span class="mi">18</span> <span class="s">"5.2
+</span></code></pre></div></div>
 
 <p>The value of a constant token pair can be obtained by executing the
 string of the token or by using parse as described below:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tonumber second Realtoken
-5.2
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tonumber</span> <span class="n">second</span> <span class="n">Realtoken</span>
+<span class="mf">5.2</span>
 </code></pre></div></div>
 
 <p>The second stage of executing the string of text is called the
@@ -4313,17 +4330,17 @@ represents. The remaining items of a node are themselves nodes of
 the corresponding components of the construct or represent constants
 or names:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Parse_tree := parse Token_list
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Parse_tree</span> <span class="p">:</span><span class="o">=</span> <span class="n">parse</span> <span class="n">Token_list</span>
 
-+---+------------------------------------------------------------+
-|100|+-+--------------------------------------------------------+|
-|   ||9|+--+-----------------+---------------------------------+||
-|   || ||13|+--+------------+|+--+----------+------+----------+|||
-|   || ||  ||22|2 7670 43248|||49|3 1 3 82 1|1 3 "3|1 5.2 "5.2||||
-|   || ||  |+--+------------+|+--+----------+------+----------+|||
-|   || |+--+-----------------+---------------------------------+||
-|   |+-+--------------------------------------------------------+|
-+---+------------------------------------------------------------+
+<span class="o">+---+------------------------------------------------------------+</span>
+<span class="o">|</span><span class="mi">100</span><span class="o">|+-+--------------------------------------------------------+|</span>
+<span class="o">|</span>   <span class="o">||</span><span class="mi">9</span><span class="o">|+--+-----------------+---------------------------------+||</span>
+<span class="o">|</span>   <span class="o">||</span> <span class="o">||</span><span class="mi">13</span><span class="o">|+--+------------+|+--+----------+------+----------+|||</span>
+<span class="o">|</span>   <span class="o">||</span> <span class="o">||</span>  <span class="o">||</span><span class="mi">22</span><span class="o">|</span><span class="mi">2</span> <span class="mi">7670</span> <span class="mi">43248</span><span class="o">|||</span><span class="mi">49</span><span class="o">|</span><span class="mi">3</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">82</span> <span class="mi">1</span><span class="o">|</span><span class="mi">1</span> <span class="mi">3</span> <span class="s">"3|1 5.2 "</span><span class="mf">5.2</span><span class="o">||||</span>
+<span class="o">|</span>   <span class="o">||</span> <span class="o">||</span>  <span class="o">|+--+------------+|+--+----------+------+----------+|||</span>
+<span class="o">|</span>   <span class="o">||</span> <span class="o">|+--+-----------------+---------------------------------+||</span>
+<span class="o">|</span>   <span class="o">|+-+--------------------------------------------------------+|</span>
+<span class="o">+---+------------------------------------------------------------+</span>
 </code></pre></div></div>
 
 <p>In the above example, the tags have the meanings described in the
@@ -4382,19 +4399,19 @@ constant token to its value. For example, to get the value
 corresponding to <em>Realtoken</em> we can form the corresponding parse
 tree by:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>parse (99 hitch Realtoken)
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">parse</span> <span class="p">(</span><span class="mi">99</span> <span class="n">hitch</span> <span class="n">Realtoken</span><span class="p">)</span>
 
-+---+--------------+
-|100|+-+----------+|
-|   ||9|1 5.2 "5.2||
+<span class="o">+---+--------------+</span>
+<span class="o">|</span><span class="mi">100</span><span class="o">|+-+----------+|</span>
+<span class="o">|</span>   <span class="o">||</span><span class="mi">9</span><span class="o">|</span><span class="mi">1</span> <span class="mf">5.2</span> <span class="s">"5.2||
 |   |+-+----------+|
 +---+--------------+
-</code></pre></div></div>
+</span></code></pre></div></div>
 
 <p>The real number can be selected by</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>R := second second parse (99 hitch Realtoken)
-5.2
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">R</span> <span class="p">:</span><span class="o">=</span> <span class="n">second</span> <span class="n">second</span> <span class="n">parse</span> <span class="p">(</span><span class="mi">99</span> <span class="n">hitch</span> <span class="n">Realtoken</span><span class="p">)</span>
+<span class="mf">5.2</span>
 </code></pre></div></div>
 
 <p>The third stage in the execution of the string of text is the
@@ -4402,17 +4419,17 @@ evaluation stage. The evaluation is done by recursively “walking”
 the parse tree and evaluating each construct according to the
 semantic rules of Q’Nial:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>eval Parse_tree
-15.6
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">eval</span> <span class="n">Parse_tree</span>
+<span class="mf">15.6</span>
 </code></pre></div></div>
 
 <p>We have illustrated that a string containing a Nial array expression
 can be evaluated by the composition of <em>eval**, parse</em> and <em>scan</em>,
 which is how the operation <em>execute</em> is defined:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>execute IS eval parse scan
-execute 'A := 3 \* 5.2'
-15.6
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">execute</span> <span class="n">IS</span> <span class="nb">eval</span> <span class="n">parse</span> <span class="n">scan</span>
+<span class="n">execute</span> <span class="s">'A := 3 \* 5.2'</span>
+<span class="mf">15.6</span>
 </code></pre></div></div>
 
 <p>It is not intended that users understand or manipulate the internals
@@ -4432,11 +4449,11 @@ token stream that has a few extra token symbols to indicate
 indentation and line breaks and <em>descan</em> converts a token stream
 into a list of strings. For example:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>New_token_list := deparse Parse_tree
-99 2 "A 1 ":= 16 "3 2 "\* 18 "5.2
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">New_token_list</span> <span class="p">:</span><span class="o">=</span> <span class="n">deparse</span> <span class="n">Parse_tree</span>
+<span class="mi">99</span> <span class="mi">2</span> <span class="s">"A 1 "</span><span class="p">:</span><span class="o">=</span> <span class="mi">16</span> <span class="s">"3 2 "</span>\<span class="o">*</span> <span class="mi">18</span> <span class="s">"5.2
 Link descan New_token_list
 'A := 3 \* 5.2 '
-</code></pre></div></div>
+</span></code></pre></div></div>
 
 <p>When <em>descan</em> and <em>deparse</em> are applied to the parse trees for array
 expressions with control constructs such as <em>if-expressions</em> and
@@ -4479,15 +4496,15 @@ identifiers appear with their use encoded as follows:</p>
 
 <p>The operation:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>canonical IS link descan deparse parse scan
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">canonical</span> <span class="n">IS</span> <span class="n">link</span> <span class="n">descan</span> <span class="n">deparse</span> <span class="n">parse</span> <span class="n">scan</span>
 </code></pre></div></div>
 
 <p>provides a canonical string representation for any valid Nial
 action, in the sense that for such a string <em>S</em>, the two following
 identities hold:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>canonical canonical S = canonical S
-execute canonical S = execute S
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">canonical</span> <span class="n">canonical</span> <span class="n">S</span> <span class="o">=</span> <span class="n">canonical</span> <span class="n">S</span>
+<span class="n">execute</span> <span class="n">canonical</span> <span class="n">S</span> <span class="o">=</span> <span class="n">execute</span> <span class="n">S</span>
 </code></pre></div></div>
 
 <p>The first identity states that the <em>canonical</em> operation has no
@@ -4531,14 +4548,14 @@ also accessed implicitly in the operation <em>see</em>.</p>
 <p>For console versions the top level loop of Q’Nial is informally
 described by:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>EndSignal := false ;
-Prompt := ' ' ;
-WHILE not EndSignal DO
-X := eval parse scan readscreen Prompt ;
-IF X \~= ??noexpr THEN
-writescreen picture X ;
-ENDIF
-ENDWHILE
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">EndSignal</span> <span class="p">:</span><span class="o">=</span> <span class="n">false</span> <span class="p">;</span>
+<span class="n">Prompt</span> <span class="p">:</span><span class="o">=</span> <span class="s">' '</span> <span class="p">;</span>
+<span class="n">WHILE</span> <span class="ow">not</span> <span class="n">EndSignal</span> <span class="n">DO</span>
+<span class="n">X</span> <span class="p">:</span><span class="o">=</span> <span class="nb">eval</span> <span class="n">parse</span> <span class="n">scan</span> <span class="n">readscreen</span> <span class="n">Prompt</span> <span class="p">;</span>
+<span class="n">IF</span> <span class="n">X</span> \<span class="o">~=</span> <span class="err">??</span><span class="n">noexpr</span> <span class="n">THEN</span>
+<span class="n">writescreen</span> <span class="n">picture</span> <span class="n">X</span> <span class="p">;</span>
+<span class="n">ENDIF</span>
+<span class="n">ENDWHILE</span>
 </code></pre></div></div>
 
 <p>where it is assumed that the expressions <em>Bye</em> and <em>Continue</em> will
@@ -4708,7 +4725,7 @@ and  horizontal justification indicator.</p>
 <p>The operation <em>see</em> writes the canonical form of a definition to the
     terminal screen. The character table is displayed as if:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ITERATE writescreen descan deparse getdef Defnm
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ITERATE</span> <span class="n">writescreen</span> <span class="n">descan</span> <span class="n">deparse</span> <span class="n">getdef</span> <span class="n">Defnm</span>
 </code></pre></div></div>
 
 <p>were executed with <em>sketch</em> and <em>nodecor</em> display modes. It does not
@@ -4767,12 +4784,12 @@ executed.</p>
 version of Q’Nial which provide flexibility for its use in
 applications. A Q’Nial session is invoked by the command:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Nial
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Nial</span>
 </code></pre></div></div>
 
 <p>It has the following syntax:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Nial [(+\-)size Wssize] [-defs Filename] [-lws WSFilename] [-i] [-h]
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Nial</span> <span class="p">[(</span><span class="o">+</span>\<span class="o">-</span><span class="p">)</span><span class="n">size</span> <span class="n">Wssize</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">defs</span> <span class="n">Filename</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">lws</span> <span class="n">WSFilename</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">i</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span>
 </code></pre></div></div>
 
 <p>The parameters are shown within brackets [ ] to indicate that they
@@ -4808,7 +4825,7 @@ is started with it rather than the clear workspace.</p>
      operation cannot complete with the given size, a jump to the top
      level occurs with the message:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: workspace full Returning to top level.
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">Warning</span><span class="p">:</span> <span class="n">workspace</span> <span class="n">full</span> <span class="n">Returning</span> <span class="n">to</span> <span class="n">top</span> <span class="n">level</span><span class="p">.</span>
 </code></pre></div></div>
 
 <dl>
@@ -4842,7 +4859,7 @@ is started with it rather than the clear workspace.</p>
     could be used to enter Nial with everything loaded:</li>
 </ol>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*nial -defs newdefs appl*
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">*</span><span class="n">nial</span> <span class="o">-</span><span class="n">defs</span> <span class="n">newdefs</span> <span class="n">appl</span><span class="o">*</span>
 </code></pre></div></div>
 
 <ol>
@@ -4864,10 +4881,10 @@ actions in the file are executed but the top level loop is not entered.</p>
 <p>If the -q option is not used, a banner message such as the following
 is displayed:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Q'Nial V7.0 Open Source Edition Intel x86 64bit Linux Feb 21 2016
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Q</span><span class="s">'Nial V7.0 Open Source Edition Intel x86 64bit Linux Feb 21 2016
 Copyright (c) NIAL Systems Limited
 clear workspace created
-</code></pre></div></div>
+</span></code></pre></div></div>
 
 <p>If none of the <em>-defs, Filename</em> or <em>Wsname</em> options is used, the
 <em>clearws.nws</em> workspace is loaded. If the <em>clearws.nws</em> file does
@@ -4877,8 +4894,8 @@ automatically by the initialization process and kept internal to
 Q’Nial. Once the initial workspace has been made, it can be saved
 using:**</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>save "clearws
-</code></pre></div></div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">save</span> <span class="s">"clearws
+</span></code></pre></div></div>
 
 <p>When the clear workspace is loaded, the default prompt of five blank
 characters is displayed and the cursor is placed at the sixth
@@ -4898,7 +4915,7 @@ using <em>Bye</em> and hence the current workspace is not saved.</p>
 the last value computed a name, eg. <em>Var</em>, the right bracket symbol
 ( <strong>]</strong> ) is followed by the variable name.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>]Var
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">]</span><span class="n">Var</span>
 </code></pre></div></div>
 
 <h2 id="session-related-expressions-and-operations">Session Related Expressions and Operations</h2>
@@ -5051,24 +5068,24 @@ by a fault, a display mes sage appears giving the call stack of
 definitions currently executing and the line of text that caused the
 fault. For example, the definition:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>foo is op A B { A / B + 1 }
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">foo</span> <span class="ow">is</span> <span class="n">op</span> <span class="n">A</span> <span class="n">B</span> <span class="p">{</span> <span class="n">A</span> <span class="o">/</span> <span class="n">B</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">}</span>
 </code></pre></div></div>
 
 <p>followed by the evaluation of the expression</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>foo 3 0
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">foo</span> <span class="mi">3</span> <span class="mi">0</span>
 </code></pre></div></div>
 
 <p>results in the output:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>------------------------------------------------------------
-Fault interruption loop: enter expressions or
-type: \&lt;Return\&gt; to jump to top level
-current call stack :
-foo
-?div triggered in : ... A / B
-------------------------------------------------------------
-&gt;&gt;&gt;
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">------------------------------------------------------------</span>
+<span class="n">Fault</span> <span class="n">interruption</span> <span class="n">loop</span><span class="p">:</span> <span class="n">enter</span> <span class="n">expressions</span> <span class="ow">or</span>
+<span class="nb">type</span><span class="p">:</span> \<span class="o">&lt;</span><span class="n">Return</span>\<span class="o">&gt;</span> <span class="n">to</span> <span class="n">jump</span> <span class="n">to</span> <span class="n">top</span> <span class="n">level</span>
+<span class="n">current</span> <span class="n">call</span> <span class="n">stack</span> <span class="p">:</span>
+<span class="n">foo</span>
+<span class="err">?</span><span class="n">div</span> <span class="n">triggered</span> <span class="ow">in</span> <span class="p">:</span> <span class="p">...</span> <span class="n">A</span> <span class="o">/</span> <span class="n">B</span>
+<span class="o">------------------------------------------------------------</span>
+<span class="o">&gt;&gt;&gt;</span>
 </code></pre></div></div>
 
 <p>where the string <em>?<strong>&gt;&gt;&gt;</strong>?</em> is a special prompt indicating that a
@@ -5077,13 +5094,13 @@ permits you to query the value of variables in the expression and its
 surrounding computation or to view the operation that has triggered the
 fault. The above session might continue as:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; see ?foo
-foo IS OPERATION A B {A / B + 1 }
-&gt;&gt;&gt; A
-3
-&gt;&gt;&gt; B
-0
-&gt;&gt;&gt;
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">see</span> <span class="err">?</span><span class="n">foo</span>
+<span class="n">foo</span> <span class="n">IS</span> <span class="n">OPERATION</span> <span class="n">A</span> <span class="n">B</span> <span class="p">{</span><span class="n">A</span> <span class="o">/</span> <span class="n">B</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">A</span>
+<span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">B</span>
+<span class="mi">0</span>
+<span class="o">&gt;&gt;&gt;</span>
 </code></pre></div></div>
 
 <p>A variable in a definition that called the current one can be referenced
@@ -5761,17 +5778,17 @@ any of the above methods, a short banner is printed that indicates that
 the debug evaluation loop has been entered and it is followed by the
 expression to be executed and a prompt with a default debugging command.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-------------------------------------------------------------
-Break debug loop: enter debug commands, expressions or
-type: resume to exit debug loop
-&lt;Return&gt; executes the indicated debug command
-current call stack :
-foo
--------------------------------------------------------------
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">-------------------------------------------------------------</span>
+<span class="n">Break</span> <span class="n">debug</span> <span class="n">loop</span><span class="p">:</span> <span class="n">enter</span> <span class="n">debug</span> <span class="n">commands</span><span class="p">,</span> <span class="n">expressions</span> <span class="ow">or</span>
+<span class="nb">type</span><span class="p">:</span> <span class="n">resume</span> <span class="n">to</span> <span class="nb">exit</span> <span class="n">debug</span> <span class="n">loop</span>
+<span class="o">&lt;</span><span class="n">Return</span><span class="o">&gt;</span> <span class="n">executes</span> <span class="n">the</span> <span class="n">indicated</span> <span class="n">debug</span> <span class="n">command</span>
+<span class="n">current</span> <span class="n">call</span> <span class="n">stack</span> <span class="p">:</span>
+<span class="n">foo</span>
+<span class="o">-------------------------------------------------------------</span>
 
-?.. C := A + ( + A + A )
+<span class="err">?</span><span class="p">..</span> <span class="n">C</span> <span class="p">:</span><span class="o">=</span> <span class="n">A</span> <span class="o">+</span> <span class="p">(</span> <span class="o">+</span> <span class="n">A</span> <span class="o">+</span> <span class="n">A</span> <span class="p">)</span>
 
---&gt;[stepv]
+<span class="o">--&gt;</span><span class="p">[</span><span class="n">stepv</span><span class="p">]</span>
 </code></pre></div></div>
 
 <p>Whenever you initially enter <em>debug mode</em>, the current callstack is
@@ -6068,6 +6085,10 @@ Dictionary</em>.</p>
 
   
   
+
+
+    <button id="totop">Return to Top ∧</button>
+  
 </div>
     </div>
 
@@ -6081,7 +6102,7 @@ Dictionary</em>.</p>
         <div class="page__footer-follow">
   <ul class="social-icons">
     
-      <li><strong>Follow:</strong></li>
+      <li style="display:none"><strong>Follow:</strong></li>
     
 
     
@@ -6100,8 +6121,6 @@ Dictionary</em>.</p>
       
     
 
-    
-      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
     
   </ul>
 </div>

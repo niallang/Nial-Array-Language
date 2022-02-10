@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Nial - Nial Array Language</title>
+<!-- begin _includes/seo.html --><title>Nial Array Language</title>
 <meta name="description" content="A powerful, interactive array language with support for flexible multiparadigm code.">
 
 
@@ -20,15 +20,15 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Nial Array Language">
-<meta property="og:title" content="Nial">
-<meta property="og:url" content="http://localhost:4000/">
+<meta property="og:title" content="Nial Array Language">
+<meta property="og:url" content="https://www.nial-array-language.org/">
 
 
   <meta property="og:description" content="A powerful, interactive array language with support for flexible multiparadigm code.">
 
 
 
-  <meta property="og:image" content="http://localhost:4000/assets/images/seas.jpg">
+  <meta property="og:image" content="https://www.nial-array-language.org/assets/images/seas.jpg">
 
 
 
@@ -43,7 +43,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/">
+<link rel="canonical" href="https://www.nial-array-language.org/">
 
 
 
@@ -54,7 +54,7 @@
     
       "@type": "Person",
       "name": "John Gibbons",
-      "url": "http://localhost:4000/"
+      "url": "https://www.nial-array-language.org/"
     
   }
 </script>
@@ -68,8 +68,6 @@
 <!-- end _includes/seo.html -->
 
 
-
-  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Nial Array Language Feed">
 
 
 <!-- https://t.co/dKP3o1e -->
@@ -88,13 +86,24 @@
 
     <!-- start custom head snippets -->
 
-<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<!-- Favicons from https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#ffffff">
+
+
+
 
 <!-- end custom head snippets -->
 
   </head>
 
   <body class="layout--splash">
+
     <nav class="skip-links">
   <ul>
     <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
@@ -124,6 +133,8 @@
               <a href="/">Home</a>
             </li><li class="masthead__menu-item">
               <a href="/download/">Download</a>
+            </li><li class="masthead__menu-item">
+              <a href="/examples/">Examples</a>
             </li><li class="masthead__menu-item">
               <a href="/ndocs/">Documentation</a>
             </li></ul>
@@ -156,8 +167,9 @@
     <div class="wrapper">
       <h1 id="page-title" class="page__title" itemprop="headline">
         
+          
           Nial
-
+          
         
       </h1>
       
@@ -173,7 +185,7 @@
         
           <a href="/download/" class="btn btn--light-outline btn--large">Download</a>
         
-          <a href="https://www.nial-array-language.org/ndocs/intro/index.html" class="btn btn--light-outline btn--large">Tutorial</a>
+          <a href="/ndocs/intro/" class="btn btn--light-outline btn--large">Tutorial</a>
         
       
     </div>
@@ -185,7 +197,7 @@
 
 <div id="main" role="main">
   <article class="splash" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Nial">
+    
     <meta itemprop="description" content="A powerful, interactive array language with support for flexible multiparadigm code.">
     
     
@@ -261,6 +273,61 @@
 
 </div>
 
+<p><a class="btn btn--example btn--large" data-ex="1" style="color: #111">Function Atlases</a><a class="btn btn--example btn--large" data-ex="2">Imperative support</a><a class="btn btn--example btn--large" data-ex="3">First-class errors</a><a class="btn btn--example btn--large"></a></p>
+
+<div class="language-nial example--code highlighter-rouge" data-ex="1"><div class="highlight"><pre class="highlight"><code>     <span class="cm">% A simple atlas applies a list of functions: ;</span>
+     <span class="p">[</span><span class="o">+</span><span class="p">,</span> <span class="kp">opposite</span><span class="p">]</span> <span class="mi">1</span>
+<span class="mi">1</span> <span class="mi">-1</span>
+     <span class="mi">2</span> <span class="p">[</span><span class="o">+</span><span class="p">,</span> <span class="kp">opposite</span><span class="p">]</span> <span class="mi">1</span>
+<span class="o">+-+-----+</span>
+<span class="o">|</span><span class="mi">3</span><span class="o">|</span><span class="mi">-2</span> <span class="mi">-1</span><span class="o">|</span>
+<span class="o">+-+-----+</span>
+     <span class="cm">% Defining an average function: ;</span>
+     <span class="nv">average</span> <span class="k">is</span> <span class="o">/</span><span class="p">[</span><span class="kp">sum</span><span class="p">,</span> <span class="kp">tally</span><span class="p">]</span>
+     <span class="nv">average</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span>
+<span class="mf">2.5</span>
+     <span class="cm">% Nested atlases! ;</span>
+     <span class="p">[</span><span class="kp">sum</span><span class="p">,</span> <span class="kp">tally</span><span class="p">,</span> <span class="p">[</span><span class="kp">product</span><span class="p">,</span> <span class="mi">7</span> <span class="kp">times</span><span class="p">]]</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span>
+<span class="o">+--+-+---------------+</span>
+<span class="o">|</span><span class="mi">10</span><span class="o">|</span><span class="mi">4</span><span class="o">|+--+----------+|</span>
+<span class="o">|</span>  <span class="o">|</span> <span class="o">||</span><span class="mi">24</span><span class="o">|</span><span class="mi">7</span> <span class="mi">14</span> <span class="mi">21</span> <span class="mi">28</span><span class="o">||</span>
+<span class="o">|</span>  <span class="o">|</span> <span class="o">|+--+----------+|</span>
+<span class="o">+--+-+---------------+</span>
+
+</code></pre></div></div>
+
+<div class="language-nial example--code highlighter-rouge" style="display:none" data-ex="2"><div class="highlight"><pre class="highlight"><code>     <span class="cm">% A simple for loop ;</span>
+     <span class="cm">% An '!' symbol starts a multiline definition in the REPL: ;</span>
+     <span class="o">!</span>
+<span class="o">....</span> <span class="k">FOR</span> <span class="nv">i</span> <span class="k">WITH</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="k">DO</span>
+<span class="o">....</span>     <span class="kp">write</span> <span class="p">[</span><span class="kp">pass</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span><span class="p">]</span> <span class="nv">i</span>
+<span class="o">....</span> <span class="k">ENDFOR</span>
+<span class="o">....</span> 
+<span class="mi">1</span> <span class="mi">2</span>
+<span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">3</span> <span class="mi">4</span>
+     <span class="cm">% The same, except with a map: ;</span>
+     <span class="nb">EACH</span> <span class="p">(</span><span class="kp">write</span> <span class="p">[</span><span class="kp">pass</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span><span class="p">])</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">1</span> <span class="mi">2</span>
+<span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">3</span> <span class="mi">4</span>
+</code></pre></div></div>
+
+<div class="language-nial example--code highlighter-rouge" style="display:none" data-ex="3"><div class="highlight"><pre class="highlight"><code>     <span class="cm">% A basic divide by zero error: ;</span>
+     <span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span>
+<span class="gr">?div</span>
+     <span class="cm">% Errors are also values called faults, giving you their location: ;</span>
+     <span class="mi">5</span> <span class="o">/</span> <span class="mi">5</span> <span class="mi">10</span> <span class="mi">0</span> <span class="mi">8</span>
+<span class="mf">1.</span> <span class="mf">0.5</span> <span class="gr">?div</span> <span class="mf">0.625</span>
+     <span class="cm">% You can also define custom faults using 'fault': ;</span>
+     <span class="kp">fault</span> <span class="s1">'this is an error'</span>
+<span class="gr">?this</span> <span class="k">is</span> <span class="nv">an</span> <span class="nv">error</span>
+</code></pre></div></div>
+
+<p><a href="examples/" class="btn btn--primary btn--large">See More ❯</a></p>
+
+<hr />
+
 <h1 id="about">About</h1>
 
 <p>Nial (Nested Interactive Array Language) is a general purpose programming language based on a formal model of Arrays developed by Trenchard More and Michael Jenkins.</p>
@@ -270,6 +337,7 @@
 <p>Nested arrays of multiple dimensions are the primary data type of Nial. Arrays together with an extensible core set of functions/operators to manipulate arrays and a programming language for the construction of more complex computations allow for the development of efficient programs that can take advantage of the characteristics of modern CPUs.</p>
 
 <p>If Nial looks like a language you’d like to program in, <a href="download/">Try it now!</a></p>
+<hr />
 
 <h1 id="community">Community</h1>
 
@@ -298,7 +366,7 @@
         <div class="page__footer-follow">
   <ul class="social-icons">
     
-      <li><strong>Follow:</strong></li>
+      <li style="display:none"><strong>Follow:</strong></li>
     
 
     
@@ -317,8 +385,6 @@
       
     
 
-    
-      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
     
   </ul>
 </div>
