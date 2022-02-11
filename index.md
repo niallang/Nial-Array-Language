@@ -86,8 +86,8 @@ sidebar:
      5 / 5 10 0 8
 1. 0.5 ?div 0.625
      % You can also define custom faults using 'fault': ;
-     fault 'this is an error'
-?this is an error
+     fault 'this_is_an_error'
+?this_is_an_error
 ```
 {: class="example--code" style="display:none" data-ex="3"}
 
@@ -114,3 +114,5 @@ The main place for Nial discussion is the APL Farm, which you can join at these 
 - [Matrix](https://app.element.io/#/room/%23aplfarm:matrix.org)
 
 Whether you are a newbie or have been using Nial for a while now, feel free to join!
+
+The [r/apljk](https://www.reddit.com/r/apljk/) also welcomes discussion relating to Nial.
