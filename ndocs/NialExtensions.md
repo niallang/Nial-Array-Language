@@ -91,11 +91,16 @@ above a key must be either a phrase, and integer or a character array.
      rehashes) used to find a suitable slot to add the entry. This is mainly
      used for peformance analysis.
 
-***_tget table \[key \{, default\}\]***
+***_tget table \[key , default\]***
 
 :    Retrieve a value from the table using the supplied key. If no entry
-     has this *key* and a *default-value* is supplied then it will be
+     has this *key*, then *default* will be 
      returned. Otherwise a Q'Nial fault will be thrown.
+
+***_tget table key ***
+
+:    Retrieve a value from the table using the supplied key. If no entry
+     has this *key*, a Q'Nial fault will be thrown.
 
 ***istable table***
 
