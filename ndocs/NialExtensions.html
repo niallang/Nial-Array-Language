@@ -311,11 +311,16 @@ rehashed. This routine also sets the number of probes (hashes and
 rehashes) used to find a suitable slot to add the entry. This is mainly
 used for peformance analysis.</p>
   </dd>
-  <dt><strong><em>_tget table [key {, default}]</em></strong></dt>
+  <dt><strong><em>_tget table [key , default]</em></strong></dt>
   <dd>
     <p>Retrieve a value from the table using the supplied key. If no entry
-has this <em>key</em> and a <em>default-value</em> is supplied then it will be
+has this <em>key</em>, then <em>default</em> will be 
 returned. Otherwise a Q’Nial fault will be thrown.</p>
+  </dd>
+  <dt><strong><em>_tget table key</em></strong></dt>
+  <dd>
+    <p>Retrieve a value from the table using the supplied key. If no entry
+has this <em>key</em>, a Q’Nial fault will be thrown.</p>
   </dd>
   <dt><strong><em>istable table</em></strong></dt>
   <dd>
