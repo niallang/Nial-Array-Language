@@ -97,7 +97,7 @@ above a key must be either a phrase, and integer or a character array.
      has this *key*, then *default* will be 
      returned. Otherwise a Q'Nial fault will be thrown.
 
-***_tget table key ***
+***\_tget table key***
 
 :    Retrieve a value from the table using the supplied key. If no entry
      has this *key*, a Q'Nial fault will be thrown.
