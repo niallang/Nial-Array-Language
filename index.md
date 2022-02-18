@@ -59,17 +59,17 @@ sidebar:
 
 ```nial
      % A simple for loop ;
-     % An '!' symbol starts a multiline definition in the REPL: ;
+     % An '!' symbol allows for multiline statements in the REPL: ;
      !
-.... FOR i WITH 1 2 3 DO
+.... for i with 1 2 3 do
 ....     write [pass, 1 +] i
-.... ENDFOR
+.... endfor
 .... 
 1 2
 2 3
 3 4
      % The same, except with a map: ;
-     EACH (write [pass, 1 +]) 1 2 3
+     each (write [pass, 1 +]) 1 2 3
 1 2
 2 3
 3 4
@@ -82,11 +82,19 @@ sidebar:
      % A basic divide by zero error: ;
      1 / 0
 ?div
-     % Errors are also values called faults, giving you their location: ;
+     % Errors are values called faults.
+       This allows for powerful error handling: ;
      5 / 5 10 0 8
 1. 0.5 ?div 0.625
+     each (op x (if isfault x then 0 else x endif)) (5 / 5 10 0 8)
+1. 0.5 0 0.625
+
      % You can also define custom faults using 'fault': ;
      fault 'this_is_an_error'
+?this_is_an_error
+
+     % Or by using a fault literal: ;
+     ?this_is_an_error
 ?this_is_an_error
 ```
 {: class="example--code" style="display:none" data-ex="3"}

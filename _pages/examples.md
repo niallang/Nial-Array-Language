@@ -51,23 +51,23 @@ More complex example scripts can be found at the [main development repository](h
 # Factorial
 ```nial
 % Functional Recursion: ;
-fact IS RECUR [ 0 =, 1 first, pass, product, -1 +] % from wikipedia;
+fact is recur [ 0 =, 1 first, pass, product, -1 +] % from wikipedia;
 
 % Product of a range: ;
-fact IS * count;
+fact is * count;
 
 % Plain recursion: ;
-fact IS OPERATION x {
+fact is op x {
   if x = 0 then 1 else x * fact (x - 1) endif
-  };
+};
 
 % While loop: ;
-fact IS OPERATION x {
+fact is op x {
   prod := 1;
-  WHILE x > 0 DO
+  while x > 0 DO
       prod := prod * x;
       x := x - 1;
-  ENDWHILE;
+  endwhile;
   prod
 };
 ```
