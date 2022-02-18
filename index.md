@@ -123,4 +123,6 @@ The main place for Nial discussion is the APL Farm, which you can join at these 
 
 Whether you are a newbie or have been using Nial for a while now, feel free to join!
 
-The [r/apljk](https://www.reddit.com/r/apljk/) also welcomes discussion relating to Nial.
+The [r/apljk](https://www.reddit.com/r/apljk/) subreddit also welcomes discussion relating to Nial.
+
+If you would like to contribute to Nial or the Nial ecosystem, you can check out the [niallang organization](https://github.com/niallang/) on github, which contains many active projects that are being worked on. Contributions are highly appreciated.
