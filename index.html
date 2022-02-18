@@ -297,17 +297,17 @@
 </code></pre></div></div>
 
 <div class="language-nial example--code highlighter-rouge" style="display:none" data-ex="2"><div class="highlight"><pre class="highlight"><code>     <span class="cm">% A simple for loop ;</span>
-     <span class="cm">% An '!' symbol starts a multiline definition in the REPL: ;</span>
+     <span class="cm">% An '!' symbol allows for multiline statements in the REPL: ;</span>
      <span class="o">!</span>
-<span class="o">....</span> <span class="k">FOR</span> <span class="nv">i</span> <span class="k">WITH</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="k">DO</span>
+<span class="o">....</span> <span class="k">for</span> <span class="nv">i</span> <span class="k">with</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="k">do</span>
 <span class="o">....</span>     <span class="kp">write</span> <span class="p">[</span><span class="kp">pass</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span><span class="p">]</span> <span class="nv">i</span>
-<span class="o">....</span> <span class="k">ENDFOR</span>
+<span class="o">....</span> <span class="k">endfor</span>
 <span class="o">....</span> 
 <span class="mi">1</span> <span class="mi">2</span>
 <span class="mi">2</span> <span class="mi">3</span>
 <span class="mi">3</span> <span class="mi">4</span>
      <span class="cm">% The same, except with a map: ;</span>
-     <span class="nb">EACH</span> <span class="p">(</span><span class="kp">write</span> <span class="p">[</span><span class="kp">pass</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span><span class="p">])</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+     <span class="nb">each</span> <span class="p">(</span><span class="kp">write</span> <span class="p">[</span><span class="kp">pass</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span><span class="p">])</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
 <span class="mi">1</span> <span class="mi">2</span>
 <span class="mi">2</span> <span class="mi">3</span>
 <span class="mi">3</span> <span class="mi">4</span>
@@ -316,11 +316,19 @@
 <div class="language-nial example--code highlighter-rouge" style="display:none" data-ex="3"><div class="highlight"><pre class="highlight"><code>     <span class="cm">% A basic divide by zero error: ;</span>
      <span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span>
 <span class="gr">?div</span>
-     <span class="cm">% Errors are also values called faults, giving you their location: ;</span>
+     <span class="cm">% Errors are values called faults.
+       This allows for powerful error handling: ;</span>
      <span class="mi">5</span> <span class="o">/</span> <span class="mi">5</span> <span class="mi">10</span> <span class="mi">0</span> <span class="mi">8</span>
 <span class="mf">1.</span> <span class="mf">0.5</span> <span class="gr">?div</span> <span class="mf">0.625</span>
+     <span class="nb">each</span> <span class="p">(</span><span class="k">op</span> <span class="nv">x</span> <span class="p">(</span><span class="k">if</span> <span class="kp">isfault</span> <span class="nv">x</span> <span class="k">then</span> <span class="mi">0</span> <span class="k">else</span> <span class="nv">x</span> <span class="k">endif</span><span class="p">))</span> <span class="p">(</span><span class="mi">5</span> <span class="o">/</span> <span class="mi">5</span> <span class="mi">10</span> <span class="mi">0</span> <span class="mi">8</span><span class="p">)</span>
+<span class="mf">1.</span> <span class="mf">0.5</span> <span class="mi">0</span> <span class="mf">0.625</span>
+
      <span class="cm">% You can also define custom faults using 'fault': ;</span>
      <span class="kp">fault</span> <span class="s1">'this_is_an_error'</span>
+<span class="gr">?this_is_an_error</span>
+
+     <span class="cm">% Or by using a fault literal: ;</span>
+     <span class="gr">?this_is_an_error</span>
 <span class="gr">?this_is_an_error</span>
 </code></pre></div></div>
 
@@ -350,7 +358,9 @@
 
 <p>Whether you are a newbie or have been using Nial for a while now, feel free to join!</p>
 
-<p>The <a href="https://www.reddit.com/r/apljk/">r/apljk</a> also welcomes discussion relating to Nial.</p>
+<p>The <a href="https://www.reddit.com/r/apljk/">r/apljk</a> subreddit also welcomes discussion relating to Nial.</p>
+
+<p>If you would like to contribute to Nial or the Nial ecosystem, you can check out the <a href="https://github.com/niallang/">niallang organization</a> on github, which contains many active projects that are being worked on. Contributions are highly appreciated.</p>
 
     </section>
   </article>

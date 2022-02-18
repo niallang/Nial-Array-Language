@@ -232,23 +232,23 @@
 
 <h1 id="factorial">Factorial</h1>
 <div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">% Functional Recursion: ;</span>
-<span class="nv">fact</span> <span class="k">IS</span> <span class="nb">RECUR</span> <span class="p">[</span> <span class="mi">0</span> <span class="o">=</span><span class="p">,</span> <span class="mi">1</span> <span class="kp">first</span><span class="p">,</span> <span class="kp">pass</span><span class="p">,</span> <span class="kp">product</span><span class="p">,</span> <span class="mi">-1</span> <span class="o">+</span><span class="p">]</span> <span class="cm">% from wikipedia;</span>
+<span class="nv">fact</span> <span class="k">is</span> <span class="nb">recur</span> <span class="p">[</span> <span class="mi">0</span> <span class="o">=</span><span class="p">,</span> <span class="mi">1</span> <span class="kp">first</span><span class="p">,</span> <span class="kp">pass</span><span class="p">,</span> <span class="kp">product</span><span class="p">,</span> <span class="mi">-1</span> <span class="o">+</span><span class="p">]</span> <span class="cm">% from wikipedia;</span>
 
 <span class="cm">% Product of a range: ;</span>
-<span class="nv">fact</span> <span class="k">IS</span> <span class="o">*</span> <span class="kp">count</span><span class="p">;</span>
+<span class="nv">fact</span> <span class="k">is</span> <span class="o">*</span> <span class="kp">count</span><span class="p">;</span>
 
 <span class="cm">% Plain recursion: ;</span>
-<span class="nv">fact</span> <span class="k">IS</span> <span class="kp">OPERATION</span> <span class="nv">x</span> <span class="p">{</span>
+<span class="nv">fact</span> <span class="k">is</span> <span class="k">op</span> <span class="nv">x</span> <span class="p">{</span>
   <span class="k">if</span> <span class="nv">x</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">then</span> <span class="mi">1</span> <span class="k">else</span> <span class="nv">x</span> <span class="o">*</span> <span class="nv">fact</span> <span class="p">(</span><span class="nv">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">endif</span>
-  <span class="p">};</span>
+<span class="p">};</span>
 
 <span class="cm">% While loop: ;</span>
-<span class="nv">fact</span> <span class="k">IS</span> <span class="kp">OPERATION</span> <span class="nv">x</span> <span class="p">{</span>
+<span class="nv">fact</span> <span class="k">is</span> <span class="k">op</span> <span class="nv">x</span> <span class="p">{</span>
   <span class="kp">prod</span> <span class="p">:=</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="k">WHILE</span> <span class="nv">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">DO</span>
+  <span class="k">while</span> <span class="nv">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">DO</span>
       <span class="kp">prod</span> <span class="p">:=</span> <span class="kp">prod</span> <span class="o">*</span> <span class="nv">x</span><span class="p">;</span>
       <span class="nv">x</span> <span class="p">:=</span> <span class="nv">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="k">ENDWHILE</span><span class="p">;</span>
+  <span class="k">endwhile</span><span class="p">;</span>
   <span class="kp">prod</span>
 <span class="p">};</span>
 </code></pre></div></div>
