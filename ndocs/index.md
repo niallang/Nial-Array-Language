@@ -24,9 +24,9 @@ An indexed collection of operations, transformers, concepts etc for Nial that co
 ## More on Nial
  
 - [Language Extensions](NialExtensions.md) Documentation on the additional extensions and features that can be added to Nial.
-- [Design of QNial v7](Design of QNial v7.pdf) A document on the design of Q'Nial 7.
+- [Design of QNial V7](Design of QNial V7.pdf) A document on the implementation and design of Q'Nial 7.
 - [Array Theory and the Design of Nial](Array Theory and the Design of Nial.pdf) A document on the general design of Nial and its array model.
-- [Old NSL Documents](nsl/index.md) Documents archived from an earlier snapshot of https://nsl.com
+- [Old NSL Documents](nsl/index.md) Documents archived from an earlier snapshot of https://nsl.com.
 
 ## Nial Libraries
 
