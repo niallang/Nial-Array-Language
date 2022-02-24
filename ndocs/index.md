@@ -10,15 +10,17 @@ classes: wide
 
 The following items provide a complete description of the Nial language and its builtin functions/operators. To view Nial docs inside the interactive shell `nial -i`, you can type `library "teach` for an interactive language reference.
 
-## Core Language Documents
+## Learning Nial
 
 - [Nial Introduction](intro/) is the Nial Tutorial, which provides examples and instructions to get started with programming in Nial.
-- [Language Definition](LanguageDefinition.md) is the formal definition of Nial. This is a concise document
+- [Language Definition](lang/) is the formal definition of Nial. This is a concise document
 that is expanded in the [Nial Dictionary](NialDict2.md).
 
-## [Nial Dictionary](NialDict2.md)
+## Full Documentation
 
-An indexed collection of operations, transformers, concepts etc for Nial that complements the formal language definition. This is also available as a [Standalone Web Page](NialDictionary.html).
+The Full documentation for Nial Code is available in the [Nial Dictionary](dict/), An indexed collection of operations, transformers, concepts etc for Nial that complements the formal language definition.
+
+This is also available as a [Standalone Web Page](NialDictionary.html), which you can save to a place of your choice.
 
 
 ## More on Nial

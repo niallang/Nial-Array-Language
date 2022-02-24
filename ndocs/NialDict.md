@@ -1,4036 +1,451 @@
 ---
-title: Nial Dictionary
+title: Dictionary
 layout: single
+permalink: ndocs/dict/
 toc: true
 sidebar:
-  - title: "A-Z Listing"
+  - title: "Concepts"
     text: |
-      - "[abs](#abs)"
-      
----
-
-{::options syntax_highlighter_opts="default_lang: nial" /}
-
-# Topics
-## Concepts
-
-### address
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [array](#array), [pick](#pick), [indexing](#indexing)
-
-An **address** is an integer or a list of integers describing the
-location of an item in an array. An address uses 0-origin counting, i.e.
-the first position in a list is at address 0. All the addresses of an
-array can be stored in an array of the same rectangular structure as the
-array itself. Such an array is called the **grid** of an array. Consider
-the following example:
-
-``` 
-             GRID OF THE ARRAY                 ARRAY
-+-----+-----+-----+-----+-----+-----+ +---+---+---+---+---+---+
-|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+| |499|434|122|770|733|890|
-||0|0|||0|1|||0|2|||0|3|||0|4|||0|5|| +---+---+---+---+---+---+
-|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+| |660|160| 32|808|240|584|
-+-----+-----+-----+-----+-----+-----+ +---+---+---+---+---+---+
-|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+| |473|235|164|496|808|966|
-||1|0|||1|1|||1|2|||1|3|||1|4|||1|5|| +---+---+---+---+---+---+
-|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+| |156|205| 34|576|236|454|
-+-----+-----+-----+-----+-----+-----+ +---+---+---+---+---+---+
-|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|
-||2|0|||2|1|||2|2|||2|3|||2|4|||2|5||
-|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|
-+-----+-----+-----+-----+-----+-----+
-|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|
-||3|0|||3|1|||3|2|||3|3|||3|4|||3|5||
-|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|
-+-----+-----+-----+-----+-----+-----+
-```
-
-The array on the right is a 4 by 6 table of numbers. It has 24 items
-arranged along two directions of length 4 and 6 respectively. The
-address of 496 is \[2,3\].
-
-The addresses of a `list` are integers: 0, 1, etc. For convenience, in
-situations where an address of a list is expected, a solitary integer is
-treated as an integer.
-
-The address of a `single` is the empty list `Null`.
-
-<hr/>
-
-### argument
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [operation](#operation)
-
-An **argument** is an array value supplied to an operation. All
-operations in Nial take a single array as the argument, but binary
-operations expect that argument to be a pair. When an operation is used
-in infix syntax, then the two array values on the left and right are
-combined into a pair to be supplied as the argument to the operation.
-
-The argument to an operation-form is treated specially. If the
-operation-form has only one formal parameter then the argument is
-assigned to the parameter. If it has two or more formal parameters, then
-the argument is checked to see if it has the same number of items as
-there are parameters. If so, the items are assigned to the parameters.
-If not, the result is the fault `?op_parameter`.
-
-<hr/>
-
-
-### array
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [item](#item), [address](#address), [dimensions](#dimensions)
-
-The data objects of Nial are nested rectangular arrays. Atomic data
-objects such as numbers and characters are included within this
-description by virtue of an atom being considered as a self-containing
-array object with no dimensions.
-
-**Atomic Arrays**
-
-There are six types of atoms in Nial. They are `boolean`, integer, real,
-character, phrase and `fault`. The first three are **numeric** types and
-are used for arithmetic operations. The last three are **literal** types
-and are used for text and symbol manipulation. All six types of atoms
-are used in comparisons.
-
-**Rectangularity Structure**
-
-An **array** is a collection of data objects having its **items** held
-at locations in a rectangular structure. The items are viewed as being
-at locations that are positioned relative to a set of directions at
-right angles to each other. The items may be arranged along zero, one,
-two or more directions. For example, the following array is a 4 by 6
-table of numbers. It has 24 items arranged along two directions of
-length 4 and 6 respectively.
-
-``` 
-                   +---+---+---+---+---+---+
-                   |499|434|122|770|733|890|
-                   +---+---+---+---+---+---+
-                   |660| 32|808| 24|  5|473|
-                   +---+---+---+---+---+---+
-                   |499|434|122|770|733|890|
-                   +---+---+---+---+---+---+
-                   |660| 32|808| 24|  5|473|
-                   +---+---+---+---+---+---+
-```
-
-The items of an array are themselves arrays. Thus, an array can have an
-arbitrarily deep nesting structure.
-
-
-<hr/>
-
-### by-variable
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [argument](#argument), [assign](#assign)
-
-One use of the operation `assign` is to mimic a **by-variable** form of
-parameter passing in place of Nial's by-value form. The result depends
-on what kind of name is provided, a phrase or a cast. If the name is
-provided as a phrase, the variable that is selected is determined by
-`assign` when it does the assignment by looking first in the local
-environment and then in the surrounding ones. If the name is provided as
-a cast, the variable selected is the one that exists at the point where
-the cast is formed. Thus, by-variable parameter passing is achieved by
-using the cast of the variable as an argument in the call. In the body
-of the operation the formal parameter is assigned using `assign` and
-evaluated using `value`.
-
-``` 
-     foo is op A Nm {­
-       B := A + value Nm;
-       Nm assign (B + sum count 5); }
-
-     X := 100;
-     foo 1000 "X;
-     X
-1115
-```
-
-### canonical
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [descan](#descan), [execute](#execute)
-
-There is a **canonical** way of displaying program text in Nial. This is
-done automatically by the routines `descan` and `deparse` used by `see`.
-The canonical form sets the case of all identifiers used in Nial program
-text according to their role in order to assist visual parsing of Nial
-text. The following table summarizes the rules:
-
-| Role          | Case rule                                    |
-| ------------- | -------------------------------------------- |
-| Variable      | first letter upper case, the rest lower case |
-| Expression    | first letter upper case, the rest lower case |
-| Operation     | all lower case                               |
-| Transformer   | all upper case                               |
-| Reserved Word | all upper case                               |
-
-**Definition**
-
-``` 
-     canonical IS link descan deparse parse scan
-```
-
-### clear workspace
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [standard definitions](#standard_definitions), [save](#save),
-    [load](#load), [symbols](#symbols)
-
-Q’Nial organizes the data and code objects available for use into a
-logical structure called a **workspace** . It consists of a symbol table
-to hold associations between names and the predefined and user defined
-objects, a heap to store data and parse trees, a stack used to hold
-values temporarily during execution, and an atom table for uniquely
-storing phrases and faults.
-
-When Q’Nial is invoked for interactive use it starts the session with a
-clear workspace unless a specific saved workspace is requested. The
-clear workspace is created by an initialization process.
-
-
-### conform
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [pack](#pack), [binary pervasive](#binary_pervasive), [multi
-    pervasive](#multi_pervasive)
-
-The operation pack is used in evaluating binary pervasive and multi
-pervasive operations. Its task is to interchange the top two levels of
-the argument to such operations if the items of the argument **conform**
-. For the binary case there are two items; they conform if the items
-have the same shape, or if one or both items have only one item. In the
-latter case, the item with only one item is replicated to the shape of
-the other item.
-
-For the multi pervasive case, all the items that do not have only one
-item must be of the same shape and all the items with one item are
-replicated to that shape.
-
-``` 
-     pack [2 3 4,10 11 12]
-+----+----+----+
-|2 10|3 11|4 12|
-+----+----+----+
-
-     pack [2 3,10 11 12]
-?conform
-
-     pack [3 4 5,3,10 11 12,[4]]
-+--------+--------+--------+
-|3 3 10 4|4 3 11 4|5 3 12 4|
-+--------+--------+--------+
-
-     pack [tell 4 5,count 4 5]
-+---------+---------+---------+---------+---------+
-|+---+---+|+---+---+|+---+---+|+---+---+|+---+---+|
-||0 0|1 1|||0 1|1 2|||0 2|1 3|||0 3|1 4|||0 4|1 5||
-|+---+---+|+---+---+|+---+---+|+---+---+|+---+---+|
-+---------+---------+---------+---------+---------+
-|+---+---+|+---+---+|+---+---+|+---+---+|+---+---+|
-||1 0|2 1|||1 1|2 2|||1 2|2 3|||1 3|2 4|||1 4|2 5||
-|+---+---+|+---+---+|+---+---+|+---+---+|+---+---+|
-+---------+---------+---------+---------+---------+
-|+---+---+|+---+---+|+---+---+|+---+---+|+---+---+|
-||2 0|3 1|||2 1|3 2|||2 2|3 3|||2 3|3 4|||2 4|3 5||
-|+---+---+|+---+---+|+---+---+|+---+---+|+---+---+|
-+---------+---------+---------+---------+---------+
-|+---+---+|+---+---+|+---+---+|+---+---+|+---+---+|
-||3 0|4 1|||3 1|4 2|||3 2|4 3|||3 3|4 4|||3 4|4 5||
-|+---+---+|+---+---+|+---+---+|+---+---+|+---+---+|
-+---------+---------+---------+---------+---------+
-```
-
-**Definition**
-
-``` 
-     conform IS OP A {­
-         equal EACH shape
-           (not (EACH tally A match 1) sublist A) }
-```
-
-
-### curried operation
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [apply](#apply), [operation composition](#operation_composition)
-
-A `curried-operation` is an operation in which the left item of a
-two-item argument is combined with a given operation to form an
-operation expression. Examples are: `1+` and `3 reshape`.
-
-A curried operation can be named or grouped in parentheses as an
-argument to a transformer.
-
-``` 
-     incr IS 1+
-
-     EACH (5 take) Lines
-```
-
-In general, the syntax of a curried operation is:
-
-``` 
-       curried-operation ::= simple-expression simple-operation
-```
-
-The result of applying a curried-operation is determined by applying the
-simple-operation to the pair formed from the simple-expression and the
-argument to the curried-operation. Thus,
-
-``` 
-     (1+) 5
-6
-```
-
-is interpreted as
-
-``` 
-     + (1 5)
-6
-```
-
-
-### debugging
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [breakin](#breakin), [watch](#watch)
-
-**Debugging Definitions**
-
-The Q’Nial system provides an optional debugging facility that aids
-interactive debugging of definitions. It is active by default, but can
-be turned off for running production applications. See the detailed
-documentation for the various versions on how to turn off debugging.
-
-The debugging system is based on the idea of placing breaks in the code
-and stepping through the program code in a number of different ways. Due
-to constraints in the way Q’Nial is implemented, debugging is always
-done in the context of an expression sequence. A break point occurs
-either before the execution of the expression sequence in a definition,
-or at an explicit break expression within an expression sequence. There
-is also a watch mechanism that executes a defined action whenever the
-value of a variable changes, and an ability monitor all use of user
-defined objects and of the predefined operations.
-
-**Defining a Break Point**
-
-There are two ways to cause a break in a Nial definition: by using the
-expression `Break` in an expression sequence, or by using the operation
-`breakin` to set a break on entry to the operation. The following table
-summarizes the break related
-primitives:
-
-| Expression       | Action                                                                                                                                                                                                                                                                                                                                               |
-| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Break            | Suspend evaluation of the expression and pass control to an evaluation loop in the environment at the point of the break. Variables accessible at that point can be displayed. This loop recognizes a number of commands described below.                                                                                                            |
-| breakin Nm \[M\] | Set or rest an internal break flag for the definition of `Nm` . If the boolean value `M` is omitted, the flag is toggled. If set, a break occurs before the execution of the expression sequence of the definition. The `Nm` must be the name of a defined expression or a defined operation using the operation form style of operation expression. |
-| Breaklist        | Display the list of names of definitions with break flag set.                                                                                                                                                                                                                                                                                        |
-
-### definition
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [expression](#expression), [operation](#operation),
-    [transformer](#transformer)
-
-A **definition** in Nial is a syntactic construct that names a program
-fragment. The syntax is one of the three forms:
-
-``` 
-     <name>  IS  <array expression>
-     <name>  IS  <operation expression>
-     <name>  IS  <transformer expression>
-```
-
-A definition is used to associate a name (identifier) with a program
-fragment that is an array expression, an operation expression or a
-transformer expression. If the definition appears within a block, the
-association is made in the local environment. Otherwise, the association
-is made in the global environment and assigns a role to the name as
-representing that kind of expression.
-
-If the program fragment is syntactically correct, the name is associated
-with the program fragment in the environment and no result is given. If
-a syntax error is detected in the analysis of the program fragment, an
-explanatory fault message is returned and the name association is not
-made.
-
-If the name being associated in a definition is already in use, the new
-definition must be for a construct of the same role and the earlier
-definition is replaced. The use of a defined name always refers to its
-most recent definition.
-
-
-### dimensions
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [valence](#valence), [axes](#axes)
-
-The number of axes of an array is referred to as its dimensionality. In
-array theory terminology the dimensionality is called the **valence** of
-the array. The following terms describe arrays by their valence:
-
-| Valence   | Description   |
-| --------- | ------------- |
-| 0         | single        |
-| 1         | list, vector  |
-| 2         | table, matrix |
-| 2 or more | multivalent   |
-
-
-### equations
-
-  - Class:  
-    [concept](#concept)
-
-The equations in the Nial Dictionary and in the on-line help provide an
-abbreviated way of stating properties of the term or object being
-described. They could be expanded into an explanation in English but
-that would lengthen the manual considerably.
-
-The equations use variables such as `A`,`B` and `C` that take on array
-values; and variables such as `f`, g and `h` that denote operations that
-map arrays to arrays. An equation holds for all arrays and for all
-computable operations without side effects, unless a specific
-qualification is made. Thus, the equation:
-
-``` 
-   (EACH f) (EACH g) A = EACH (f g) A
-```
-
-says that for all operations `f` and `g` and all arrays `A`, the use of
-the `EACH` transform of `f` on the result of the use of the `EACH`
-transform of `g` on `A` has the same value as the use of the `EACH`
-transform of the composition of `f` and `g` on `A`. In mathematical
-terms, the `EACH` transformer distributes over operation composition.
-
-The symbol `=` is used in its mathematical sense in equations and
-separates two Nial expressions. The symbol `=` has higher precedence
-than the two expressions it is separating. Where the Nial equivalent to
-`=` is needed to state the equation, the term `equal` is used.
-
-To test an equation using Q’Nial, in order to force the correct parsing
-of the equation as a Nial expression, it may be necessary to replace
-
-``` 
-               Expr1 = Expr2
-```
-
-with
-
-``` 
-               Expr1 = ( Expr2 )
-```
-
-The equality used in equations assumes that both sides of the equations
-compute without triggering a fault and produce equal arrays; or both
-produce the same fault value if fault triggering is off. In some cases,
-the equality is inexact due to roundoff errors.
-
-The symbol `=f=` is used to denote an equality where both sides produce
-the same non-fault value; but in some cases one or both of the sides may
-fault and the equality is no longer valid.
-
-Some of the equations are qualified by a constraint on the variables.
-The constraint is written in English or as a conditional expression in
-Nial that must hold for the equation to be true. In a statement of the
-form
-
-``` 
-               Expr ==> Eqn
-```
-
-Expr is the qualification written as a Nial boolean expression, the
-symbol ==\> is used for "implies", and Eqn is the equation that holds
-under the qualification.
-
-The symbol \<==\> denotes an if and only if implication. Thus a
-statement of the form
-
-``` 
-              Expr1 <==> Expr2
-```
-
-states that both expressions have the same truth value; either both are
-true or both are false.
-
-**Reading the Equations**
-
-The equations related to `abs`, the operation that finds the absolute
-value of a number, are:
-
-``` 
-   abs A = EACH abs A
-   shape abs A = shape A
-   abs abs A = abs A
-```
-
-The first two come from the property that `abs` is `unary pervasive`.
-The first one says that applying `abs` to an array `A` is the same as
-applying `abs` to the items of array `A`. It also implies that the shape
-of the result of `abs A` is the same as shape of `A` since `EACH`
-transforms always preserve shape. The second equation says that the
-shape of the result of `abs A` is the same as the shape of `A`. The
-third equation indicates that subsequent applications of `abs` after the
-first do not change the result.
-
-The equations related to `minus`, denoted by `-`, are:
-
-``` 
-   A - B = EACH - pack A B
-   shape (A - B) = shape pack A B
-   A - B = A + opposite B
-```
-
-The first equation says that pair of arrays `A` and `B` are packed at
-each level of nesting to bring corresponding items together. Then, the
-items are subtracted.
-
-The second equation states that the shape of the result of subtracting
-`A` from `B` is the shape formed by packing `A` and `B`. The third
-equation states that subtracting `A` from `B` is equivalent to adding
-the opposite of `B` to `A`.
-
-The equations related to `hitch` are as follows:
-
-``` 
-   A hitch B = A hitch list B
-   list (A hitch B) = A hitch B
-```
-
-The first says that `hitch` treats its right argument as though it were
-a list, and the second states that the result of `hitch` is a list.
-
-The following equations illustrate the use of qualifications:
-
-``` 
-   atomic A ==> single A = A
-   not empty A ==> mix rows A = A
-   diverse A <==> cull A = list A
-```
-
-The first equation says that if `A` is atomic, the single of `A` is
-equal to `A`. That is, the single of an atom is the atom. The second
-equation says that if `A` is not empty, forming the rows of `A` and
-applying `mix` to recombine them, results in the original array. The
-third equation says that if `A` is diverse, the cull of `A` is equal to
-the list of `A`; and that if `A` is not diverse, the cull of `A` is not
-equal to the list of `A`.
-
-There are many identities that hold for all arrays in Nial. Three
-general equations are the following:
-
-A unary pervasive operation f satisfies the equation:
-
-``` 
-   f A = EACH f A
-```
-
-A binary pervasive operation f satisfies the equation:
-
-``` 
-   A f B = A EACHBOTH f B
-```
-
-A multi pervasive operation f satisfies the equations:
-
-``` 
-   f A = EACHALL f A
-   f A = REDUCE f A
-```
-
-
-### expression
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [operation](#operation), [transformer](#transformer)
-
-The term **expression** is used in its most general sense to describe a
-program fragment that denotes one of the three primary objects of Nial:
-an `array`, an `operation`, or a `transformer`. However, in most
-contexts we use the term as an abbreviation of an `array expression`.
-
-An array expression denotes an array value. That is, it is a program
-fragment that when evaluated in the proper context will produce an
-array. The predefined expressions of Q’Nial either produce a constant
-value, or they carry out some system action and return the fault value
-`?noexpr`.
-
-The control constructs of Nial are array expressions made up of
-keywords, simple-expressions and expression-sequences.
-
-A named expression is either a predefined expression or an expression
-that has been given an explicit name using the `IS` definition
-mechanism.
-
-
-### extent
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [shape](#shape)
-
-The term **extent** is used to describe the length of an axis of an
-array in a particular dimension. Thus a 4 by 6 table is said to have
-extent 4 in the first dimension and extent 6 in the second dimension.
-
-
-### fault triggering
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [fault values](#fault_values), [settrigger](#settrigger),
-    [quiet\_fault](#quiet_fault)
-
-Nial assumes that every computation that terminates results in an array
-value. However, there are many cases where a computation does not have a
-sensible answer. If division by zero occurs, for example, there is no
-suitable number to return. Nial uses special atomic arrays called faults
-to indicate such results. For division by zero it is ?div.
-
-Q’Nial has two ways of handling a fault: either a trigger mechanism is
-executed that causes an interruption when a fault is created, or during
-execution of a defined operation, expression or transformer the fault is
-treated as a normal atomic array.
-
-When Q’Nial is invoked for interactive execution with the -i option, the
-fault triggering mechanism is turned on by default. When it is invoked
-for execution only the fault triggering capbility is turned off. During
-interactive execution, the state of the triggering mechanism can be
-turned on or off using the operation `settrigger`. The operation
-`quiet_fault` can be used to create a fault without causing fault
-triggering.
-
-If fault triggering is set and a fault is generated during execution of
-a defined operation, execution is interrupted. On an interruption caused
-by a fault, a display message appears giving the call stack of
-definitions currently executing and the line of text that caused the
-fault. For example, the definition:
-
-``` 
-     foo is op A B {­ A / B + 1 }
-```
-
-followed by the evaluation of the expression
-
-``` 
-     foo 3 0
-```
-
-results in the output:
-
-    -------------------------------------------------------------
-        Fault interruption loop:  enter expressions or
-          type: <Return>   to jump to top level
-        current call stack :
-    foo
-          ?div triggered in : ... A / B
-    -------------------------------------------------------------
-    >>>
-
-where the string '\>\>\>' is a special prompt indicating that a fault
-has occurred and execution has been interrupted. The prompt permits you
-to query the value of variables in the expression and its surrounding
-computation or to view the operation that has triggered the fault. The
-above session might continue as:
-
-    >>> see "foo
-    foo IS OPERATION A B {­
-        A / B + 1 }
-    >>> A
-    3
-    >>> B
-    0
-    >>>
-
-A variable in a definition that called the current one can be referenced
-by preceding the variables name by the definition name and a colon, e.g.
-`G:X` denotes variable `X` in definition `G`. You can execute any
-expressions you want at the prompt. A useful thing to do is to see the
-definition that has interrupted. When you are ready to resume, reply to
-the prompt with a Return and control returns to the interactive loop.
-
-
-### fault values
-
-  - Class:  
-    [concept](#concept)
-
-The Role of Faults
-
-A **fault** is a special kind of atomic value used by Q’Nial to signal
-special values or to indicate that an operation has been given an
-argument it cannot handle in a normal way. The special value faults are:
-
-| Fault   | Meaning                                |
-| ------- | -------------------------------------- |
-| ?noexpr | indicates that no answer is expected   |
-| ?eof    | end of file indication                 |
-| ?I      | Zenith which is greater than all atoms |
-| ?O      | Nadir which is less than all atoms     |
-
-
-
-### functions in nial
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [operation](#operation), [transformer](#transformer)
-
-A function is a mathematical name for an object that maps an argument in
-a given domain to a result in a given range. In Nial, an **operation**
-is an object in the set of functions from the domain of Nial arrays to
-the range of Nial arrays. Thus, an operation always applies to an array
-and returns an array.
-
-A **transformer** in Nial is also a function. It domain is Nial
-operations and its range is also Nial operations. Since its argument is
-itself a function, a transformer is said to be a `second order`
-function. A transformer always applies to an operation and results in an
-operation.
-
-Definitions in which the associated object is a simple-expression are
-used to name program fragments that return an array value but which do
-not need parameters. The resulting named-expression behaves like a
-function having no parameters.
-
-Nial is considered to be a functional language, but it is not purely
-functional in that it has assignments, loops and other non-functional
-concepts.
-
-
-### global environment
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [local environment](#local_environment)
-
-The **global environment** is the set of associations between names and
-objects formed in the workspace that are either predefined in Nial or
-have been created by actions that have taken place during a session.
-
-
-### indexing
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [address](#address), [pick](#pick), [choose](#choose),
-    [reach](#reach)
-
-The term **indexing** is used to describe notations that can be used to
-`select from` or `insert into` a variable.
-
-There are four indexing methods in Nial: `at`, `at all`, `at path` and
-`slice` represented by `@`, `#`, `@@` and `|` respectively. The
-different indexing methods return different subsets of the array. The
-following is a summary of the indexing methods:
-
-| Method | Name    | Description                    |
-| ------ | ------- | ------------------------------ |
-| @      | at      | indexes one item               |
-| \#     | at all  | indexes several items          |
-| @@     | at path | indexes a part at depth        |
-| |      | slice   | indexes cross-section of items |
-
-``` 
-     Cities := "London "Washington "Ottawa "Moscow "Paris ;
-     Cities@0
-London
-     Cities#[2,3]
-Ottawa Moscow
-
-     Alpha := 5 5 reshape 'ABCDEFGHIJKLMNOPQRSTUVWXY'
-ABCDE
-FGHIJ
-KLMNO
-PQRST
-UVWXY
-
-     Alpha@[0,2]
-C
-
-     Alpha|[1,]
-FGHIJ
-
-     Alpha|[,1]
-BGLQV
-
-     Alpha|[,[1,3]]
-BD
-GI
-LN
-QS
-VX
-```
-
-The following example shows the slightly different structure which
-occurs when a comma is either present or missing before the last item.
-The library operation `findpaths` is used to indicate the path to the
-integer 10 in each case.
-
-``` 
-     set "diagram ; Nest1 := [1, 2, [3, 4, 5, [6, 7], 8, 9], 10]
-+-+-+-----------------+--+
-|1|2|+-+-+-+-----+-+-+|10|
-| | ||3|4|5|+-+-+|8|9||  |
-| | || | | ||6|7|| | ||  |
-| | || | | |+-+-+| | ||  |
-| | |+-+-+-+-----+-+-+|  |
-+-+-+-----------------+--+
-
-     set "diagram ; Nest2 := [1, 2, [3, 4, 5, [6, 7], 8, 9] 10]
-+-+-+----------------------+
-|1|2|+-----------------+--+|
-| | ||+-+-+-+-----+-+-+|10||
-| | |||3|4|5|+-+-+|8|9||  ||
-| | ||| | | ||6|7|| | ||  ||
-| | ||| | | |+-+-+| | ||  ||
-| | ||+-+-+-+-----+-+-+|  ||
-| | |+-----------------+--+|
-+-+-+----------------------+
-
-     findpaths 10 Nest1
-+---+
-|+-+|
-||3||
-|+-+|
-+---+
-
-     findpaths 10 Nest2
-+-----+
-|+-+-+|
-||2|1||
-|+-+-+|
-+-----+
-
-     (Nest2@@[2,0,3,0])
-6
-
-     (Nest2@@[2,0,4])
-8
-```
-
-**Address Validity**
-
-The index used in selecting a part of an array must be an expression
-that evaluates to a valid address. An invalid index returns a fault as
-follows:
-
-| Indexing Method | Fault      |
-| --------------- | ---------- |
-| A@I             | ?address   |
-| A\#I            | ?addresses |
-| A@@P            | ?path      |
-| A|I             | ?slice     |
-
-The operation `pick` works the same as the `at` method of indexing. If
-the index is invalid, `pick` returns the fault `?address`. Similarly,
-`choose` works the same as `at all` indexing.
-
-``` 
-     3 pick Cities
-Moscow
-
-     2 3 choose Cities
-Ottawa Moscow
-
-     10 pick Cities
-?address
-
-     4 5 6 choose Cities
-Paris ?address ?address
-```
-
-### interrupt
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [fault triggering](#fault_triggering),
-    [setinterrupts](#setinterrupts)
-
-An **interrupt** is an event that causes the operating system to suspend
-its operation and address a requirement of higher priority. Typically,
-interrupts occur to handle input/output. However, an interrupt also
-occurs when a fault is detected.
-
-In the default mode of operation of Q’Nial, most fault values are not
-created. Rather, an interrupt is triggered. A description of the fault
-triggering mechanism is given under `fault triggering`.
-
-The user can interrupt execution by pressing `<Ctrl-c> <Return>` at the
-keyboard in console versions, or clicking on the `STOP` button in the
-GUI version. This capability can be turned off using `setinterrrupts`.
-
-
-### invocation of QNial
-
-  - Class:  
-    [concept](#concept)
-
-QNial is invoked using the following syntax:
-
-``` 
-    SYNTAX: nial  [(+|-)size Wssize] [-defs Filename] [-i] [-h]
-    
-    -size Wssize     Begin with a workspace size of Wssize words.
-    M or K can be used to indicate millions or thousands respectively.
-    The workspace expands if space is available.
-    
-    +size Wssize  Fix the workspace size at Wssize words with no expansion.
-    
-    -defs Filenm  After loading the initial workspace the file Filenm.ndf
-    is loaded using loaddefs without displaying it.
-    
-    -lws Wsname   A previously saved workspace file is loaded on startup.
-    
-    -i    Execute in interactive mode with a top level loop.
-    
-    -h    Display command line syntax.
-    
-    Examples:
-    
-    nial -i
-    
-    nial -defs app.ndf
-    
-    nial +size 50M -defs newfns
-    
-```
-
-
-### item
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [array](#array), [address](#address)
-
-An array `A` is said to be an **item** of array `B` if `B` holds `A` at
-one or more locations. The term is a relative one; we cannot speak of
-item except in reference to the array that holds it. The items of an
-array A are the objects at the locations at the top level.
-
-The number of items in an array is called the tally of the array.
-Because an array is rectangular, the tally is the product of the shape.
-
-The following names are give to common array structures:
-
-| \# of items | \# of axes | Name         |
-| ----------- | ---------- | ------------ |
-| 0           | 1          | empty list   |
-| 1           | 0          | single       |
-| 1           | 1          | solitary     |
-| 1           | 2          | 1 by 1 table |
-| 2           | 1          | pair         |
-| 3           | 1          | triple       |
-| 4           | 1          | quadruple    |
-
-The arrays of Nial are a recursive data type. That is, the items of an
-array are also arrays. Since an array has arrays as items, it may
-contain data at lower levels than the top one. A **path** is a list of
-addresses that describes a data object at some depth within the array.
-
-An array is said to be **simple** if all its items are atomic.
-
-A **part** of an array is a data object that is contained at some level
-within the array. The atomic parts of an array are called the **leaves**
-of the array. The simple parts are called **twigs** . The term **level**
-is used informally to describe the relative position of a part within
-the nesting structure of an array. An item is at the first or top level,
-an item of an item is at the second level, etc.
-
-An **empty** array is one that has no items.
-
-
-### level
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [item](#item)
-
-The term **level** is used informally to describe the relative position
-of a part within the nesting structure of an array. An item is at the
-first or top level, an item of an item is at the second level, etc.
-
-An atom is viewed in two ways. As an indivisible data object it is
-viewed as having no levels and cannot be broken into subarrays. As an
-array data structure it is viewed as a single holding itself and
-therefore has an infinity of levels. This view is necessary for atomic
-arrays to fit the theory of nested array mathematics.
-
-The number of levels to reach an atom along each path need not be the
-same. For example, in the following array, the phrase "hello is at the
-first level, the integer 23 is at the second level and the character \`b
-is at the third level.
-
-``` 
-     [ 23 'abc', "hello , tell 2 2 ]
-+------------+-----+-------------+
-|+--+-------+|hello|+-----+-----+|
-||23|+-+-+-+||     ||+-+-+|+-+-+||
-||  ||a|b|c|||     |||0|0|||0|1|||
-||  |+-+-+-+||     ||+-+-+|+-+-+||
-|+--+-------+|     |+-----+-----+|
-|            |     ||+-+-+|+-+-+||
-|            |     |||1|0|||1|1|||
-|            |     ||+-+-+|+-+-+||
-|            |     |+-----+-----+|
-+------------+-----+-------------+
-```
-
-Some of the operations of Nial that operate on simple arrays are
-extended to arbitrarily nested arrays by being applied to the atoms at
-the deepest level. These are called `pervasive` operations.
-
-
-### local environment
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [global environment](#global_environment), [scope of a
-    variable](#scope_of_a_variable)
-
-A **local environment** is a collection of associations that are known
-within a limited section of program text. These limited sections are
-formed by blocks, operation-forms and transformer-forms as discussed in
-the relevant sections below. A name that has a local association in one
-of these forms is said to have local scope.
-
-Program fragments in which local variables are being assigned can be
-nested, so that one local scope surrounds another. A local association
-is not visible outside the construct in which it is defined; and a name
-with local scope can hide associations that the name has in surrounding
-scopes.
-
-At any point in a program fragment, there is a current environment
-consisting of all names whose associations are visible. It includes the
-names having local scope in the program fragment being executed, names
-that are visible in the surrounding scopes and names that have global
-scope.
-
-In program text, the scope of all names is determined by the static
-structure of the program text. The one exception is text that has the
-operation execute applied to it under program control.
-
-In a local environment, a variable identifier can be chosen the same as
-a predefined or user-defined global definition name. Such a choice makes
-the global use of the name unavailable in the local context.
-
-In any context, an identifier can name only one of: a variable, an
-array- expression, an operation-expression, or a transformer-expression.
-During one session, the role of a name, i.e. the class of syntactic
-object it names, cannot be changed.
-
-If a block is used as a primary-expression, the local environment
-created by a block is determined by the block itself. If it is the body
-of an operation-form, the local environment includes the formal
-parameter names of the operation-form as variables.
-
-A block delimits a local environment. It allows new uses of names which
-do not interfere with uses of those names outside the block. For
-example, within a block, a predefined operation name can be redefined
-and used for a different purpose. Only the reserved words of Q’Nial
-cannot be reused in this fashion. Definitions that appear within the
-block have local scope. That is, the definitions can be referenced only
-in the body of the block. Variables assigned within the block may or may
-not have local scope, depending on the appearance of a local and/or a
-nonlocal declaration. If there is no declaration, all assigned variables
-have local scope. Declaring some variables as local does not change the
-effect on undeclared variables that are used on the left of assignment.
-They are automatically localized.
-
-If a nonlocal declaration is used, an assigned name that is on the
-nonlocal list is sought in surrounding scopes. If the name is not found,
-a variable is created in the global environment.
-
-During the parse of the assign-expression appearing in a block, each
-name on the variable list is sought in the local environment. If the
-name exists in the local environment, the assignment affects the local
-association. If a name does not exist in the local environment and no
-reference has been made to a nonlocal variable with the same name, a
-local variable is created in the block. An assign-expression parsed in
-the global environment creates a global variable if a variable with that
-name does not already exist.
-
-An operation-form defines a local environment. The formal parameter
-names are names of local variables. If the body of the operation form is
-a block, the local environment of the block is extended to include the
-formal parameters. When the operation is applied, the formal parameter
-names are assigned from the value of the actual argument. If there is
-only one formal parameter, the actual argument is assigned to it as a
-whole; otherwise, the items of the actual argument are assigned to the
-formal parameters in corresponding order. If there is a length mismatch
-between the list of formal parameter names and the values of the actual
-argument, the fault `?op_parameter` is returned.
-
-The value of the application of the operation is the value of the body
-of the operation-form, which is evaluated with the local variables in
-the parameter list assigned as described above. In determining the
-association for a name that appears in the body of an operation form,
-Q’Nial looks for the name in the local environment. If the name is not
-found locally, the name is sought in surrounding environments until it
-is found or until the global environment is searched. If it is not
-found, a fault `?unknown identifier:` is given when the operation-form
-is analyzed (parsed).
-
-Operation-forms are most frequently used in definitions where they are
-given an associated name. However, an operation-form can appear directly
-in an expression provided it is enclosed in parentheses. In this usage,
-it can be an argument to a transformer name or can be applied to an
-array argument.
-
-The operation `execute` can be used within the execution of a block to
-make an assignment to variables or to invoke the definition mechanism.
-If `execute` is used to make a new definition or to create a new
-variable, the resulting variable or definition is placed in the global
-environment. However, if the block has local variables or local
-definitions, execute can be used to change a local version dynamically.
-A similar situation occurs with dynamic alteration of variables using
-`assign`.
-
-
-### nested definition
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [block](#block), [definition](#definition)
-
-A **nested definition** is one that appears in a definition sequence
-within a block. Its name is a local definition name. If the name is also
-used outside the block, the external meaning is not known in the block.
-
-Nested definitions can be used to encapsulate support definitions within
-a larger definition that is to be made available to other users. This
-avoids cluttering up the name space with names that might interfere with
-the user's other work. It is often easier to develop the large
-definition without encapsulation and package it in encapsulated form
-once the design is completed.
-
-
-### numeric type hierarchy
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [sum](#sum), [or](#or)
-
-The three numeric types: boolean, integer and real, are organized in a
-hierarchy in the order mentioned. For arithmetic and comparative binary
-operations, if the types of arguments are both numeric but differ in
-type, they are coerced to the higher of the two types. For example, if
-you add an integer to a real number, say 3 + 4.5, the integer is coerced
-to 3.0 and a real number addition is done. Boolean atoms are always
-coerced to integers if they are used with arithmetic operations.
-
-There are six types of atoms in Nial. They are boolean, integer, real,
-character, phrase and fault. The first three are numeric types and are
-used for arithmetic operations. The last three are literal types and are
-used for symbol manipulation. All six types of atoms are used in
-comparisons.
-
-A boolean atom is the result of a comparison of array values; or the
-result of a test relating to a characteristic of an array or the content
-of an array. There are two boolean atoms: true and false, denoted by l
-and o respectively. When booleans are treated as numbers, true
-corresponds to one and false to zero.
-
-An integer atom is a positive or negative whole number representing a
-quantity of units. A dash symbol (-) immediately preceding the integer
-denotes a negative integer. No space is permitted between the dash and
-the number, otherwise the dash is interpreted as the arithmetical
-operation of subtraction. Conversely, a space is required when
-subtraction is intended. An integer is represented by an internal form
-that limits its range of values in the Q’Nial implementation of Nial.
-
-A real atom is a number which can represent any position on the real
-line. It may be written with a fractional part and/or with a decimal
-exponent. It is represented internally by a floating point number.
-
-
-### operation
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [expression](#expression), [transformer](#transformer)
-
-An **operation** is a functional object that is given an argument array
-and returns a result array. The process of executing an operation by
-giving it an argument value is called an `operation call` or an
-`operation application`.
-
-An operation can be constructed by defining one or more parameters and
-giving an algorithm to compute the result in terms of the parameters. An
-operation is usually given a name when it is defined. There are also
-program fragments that construct unnamed operations by composing
-operations, forming a list of operations or modifying an operation by
-use of a transformer.
-
-A named operation is either a predefined operation or an operation that
-has been given an explicit name using the `IS` definition mechanism.
-
-
-### operation composition
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [curried operation](#curried_operation)
-
-A sequence of simple-operation denotations forms an operation-sequence
-in the syntax of Nial. Its meaning is the same as the composition of the
-operations in the sequence which is explained by its effect when
-applied.
-
-The result of applying an operation-sequence to an argument is
-determined by applying the simple-operations in the sequence in
-right-to-left order. The simple-operation on the right is applied to the
-argument giving an intermediate result. Then the simple-operation to the
-immediate left is applied to the result of the first application.
-Subsequent simple-operations are applied to the results in turn.
-
-An example of this concept is the expression
-
-``` 
-     (first rest) 8 7 2 5 3
-7
-```
-
-The expression sequence `first rest` is evaluated by applying `rest` to
-the argument resulting in 7 2 5 3 and then `first` is applied giving 7.
-
-The relationship can be described by the equations:
-
-``` 
-   (f g) A = f (g A)
-   (f g h) A = f (g (h A))
-   etc.
-```
-
-which is mathematically known as the rule of **function composition** .
-
-
-
-### overflow
-
-  - Class:  
-    [concept](#concept)
-
-The term **integer overflow** is used to describe the situation when an
-integer that is too big for the internal representation of integers is
-generated. Q’Nial uses 32 bit integers and checks for overflow during
-computations. If an arithmetic computation produces an overflow, a fault
-value is produced.
-
-An overflow can also develop during computation with real numbers. The
-computer hardware detects such a problem and an interrupt occurs which
-causes Q’Nial to jump to top level.
-
-
-### pervasive
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [unary pervasive](#unary_pervasive), [binary
-    pervasive](#binary_pervasive), [multi pervasive](#multi_pervasive)
-
-Some of the operations of Nial that operate on simple arrays are
-extended to arbitrarily nested arrays by being applied to the atoms at
-the deepest level. These are called **pervasive** operations.
-
-There are three classes of pervasive operations: `unary pervasive`,
-binary pervasive and `multi pervasive`. The first class applies the
-operations to the atoms of the array. The second class are binary
-operations that apply to pairs of atoms from corresponding positions in
-the pair of arguments. The third class applies the operation to the
-simple arrays formed from atoms in corresponding positions in the items
-of the argument, reducing the simple array to a single atom.
-
-
-### prelattice of atoms
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [lte](#lte), [up](#up), [max](#max)
-
-The ordering sequence of the characters for sorting purposes is fixed
-for each Q’Nial version.
-
-The binary and multi pervasive comparative operations of Nial organize
-the atoms of Nial in a **prelattice** or sorting sequence. The operation
-`lte` (or `<=`) does a less than or equal comparison between atoms. The
-numeric atoms are comparable, with a coercion being done if the
-arguments are of different numeric type. The `nadir`, represented by the
-fault `?O`, is less than or equal to all atoms. The `zenith`, ?I , is
-greater than or equal to all atoms. Except for these two special cases,
-literal atoms are incomparable with atoms of different type. However,
-they can be compared within the same type using a character collating
-sequence that is version specific.
-
-Phrases are compared lexicographically, such that `"apple` is after
-`"ape` but before `"apt`. Strings, being character lists, produce a list
-of results when compared.
-
-Comparisons are of two forms: binary pervasive predicates which return
-boolean values and multi pervasive predicates that obtain the largest or
-smallest item in a list. If two atoms are incomparable, the predicates
-return `false`, whereas `max` returns the `zenith` and `min` returns the
-`nadir`.
-
-These rules were chosen so that the following laws hold for all arrays
-`A` and `B`:
-
-``` 
-   max A <= B = and (A EACHLEFT <= B)
-   A <= min B = and (A EACHRIGHT <= B)
-```
-
-See the entry for `up` for a discussion of the lexicographic ordering in
-Q’Nial.
-
-
-### profiling
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [setprofile](#setprofile), [profile](#profile)
-
-**Q’Nial Profiling Facility**
-
-Q’Nial has a profiling capability that is used to gather relative
-execution times for operations, transformers and defined expressions
-written in Nial. The profiling capability has the following
-features:
-
-| Command      | Purpose                                                                       |
-| ------------ | ----------------------------------------------------------------------------- |
-| setprofile A | turns on or off the internal routines that collect the statistics             |
-| profile Fnm  | that displays the profile data to the screen or writes it to a file           |
-| Clearprofile | clears the current profile information and reinitializes the profiling system |
-| Profiletable | provides the profile information as a table                                   |
-| Profiletree  | provides the detailed profile information in terms of the call tree           |
-
-The operation `setprofile` is called with argument `l` to turn on the
-collection of data for a profiling session. It is called with argument
-`o` to suspend gathering statistics for a session. Both calls to
-`setprofile` should be in the same scope, and cannot be nested. Only one
-profiling session can be underway at a time.
-
-The operation `profile` is called with a text argument (string or
-phrase) that is used as the file name for the profile information. If an
-empty string is the argument, the output is sent directly to the screen.
-It computes the statistics on the profiling session underway, prepares
-the output, and writes it to the file.
-
-The expression `Clearprofile` clears the two internal data structures
-that are built as execution is profiled so that a new profiling session
-can be started.
-
-The expression `Profiletree` provides the summary data that is displayed
-in the output produced by `profile`, but stores it in a Nial array.
-
-The expression `Profiletree` provides a dynamic call tree of the
-execution with related times. This provides a more detailed breakdown of
-the profile data. The following session illustrates the use of the
-profiling capability:
-
-``` 
-        setwidth 60;
-
-     test is op n {­
-       z := random n n;
-       max abs (z - inv inv z) }
-
-     tryit is  op N {­ test N }
-
-     again is op M N {­ sum EACH tryit (M reshape N) }
-
-     fact is op n {­
-       IF n<=1 THEN 1 ELSE n * fact (n - 1) ENDIF }
-
-# first profiling session
-
-     setprofile l
-o
-
-     test 20
-3.86843e-15
-
-     tryit 50
-2.83107e-14
-
-     again 10 75
-6.72483e-13
-
-     setprofile o
-l
-
-     profile ''
-
-Total execution time of profile session:         4.780000
-Total execution time in top level calls:          4.420000
-
-op name[.tr arg]                 calls[rec]    time time/call  % time
-test..........................   12           4.42   0.3683    100.0<
-
-tryit.........................   11           4.31   0.3918     97.5<
- test.........................   11           4.31   0.3918   100.00
-
-again.........................    1           4.04   4.0400     91.4<
- tryit........................   10           4.04   0.4040   100.00
-
-
-
-        profiletree
-+--------+-+----+-------------------------------------------
-|TOPLEVEL|0|4.78|+--------------+---------------------------
-|        | |    ||+----+-+----++|+-----+-+----+-------------
-|        | |    |||test|1|0.11||||tryit|1|0.27|+------------
-|        | |    ||+----+-+----++||     | |    ||+----+-+----
-|        | |    ||              ||     | |    |||test|1|0.27
-|        | |    ||              ||     | |    ||+----+-+----
-|        | |    ||              ||     | |    |+------------
-|        | |    ||              |+-----+-+----+-------------
-|        | |    ||              |
-|        | |    ||              |
-|        | |    ||              |
-|        | |    ||              |
-|        | |    |+--------------+---------------------------
-+--------+-+----+-------------------------------------------
-
---------------------------------------------------------+
-----+--------------------------------------------------+|
----+|+-----+-+----+-----------------------------------+||
---+|||again|1|4.04|+---------------------------------+|||
-++||||     | |    ||+-----+--+----+-----------------+||||
-||||||     | |    |||tryit|10|4.04|+---------------+|||||
-++||||     | |    |||     |  |    ||+----+--+----++||||||
---+|||     | |    |||     |  |    |||test|10|4.04||||||||
----+||     | |    |||     |  |    ||+----+--+----++||||||
-    ||     | |    |||     |  |    |+---------------+|||||
-    ||     | |    ||+-----+--+----+-----------------+||||
-    ||     | |    |+---------------------------------+|||
-    |+-----+-+----+-----------------------------------+||
-----+--------------------------------------------------+|
---------------------------------------------------------+
-
-# second profiling session
-
-     clearprofile
-
-     setprofile l
-o
-
-     test 30
-1.72085e-14
-
-     fact 4
-24
-
-     setprofile o
-l
-
-     profile ''
-
-Total execution time of profile session:         0.330000
-Total execution time in top level calls:          0.050000
-
-op name[.tr arg]                 calls[rec]    time time/call  % time
-test..........................    1           0.01   0.0100     20.0<
-
-fact..........................    1[    3]    0.04   0.0400     80.0<
-
-
-
-     profiletree
-+--------+-+----+-------------------------------------------
-|TOPLEVEL|0|0.33|+--------------+---------------------------
-|        | |    ||+----+-+----++|+----+-+----+--------------
-|        | |    |||test|1|0.01||||fact|1|0.04|+-------------
-|        | |    ||+----+-+----++||    | |    ||+----+-+--+--
-|        | |    ||              ||    | |    |||fact|1|0.|+-
-|        | |    ||              ||    | |    |||    | |  ||+
-|        | |    ||              ||    | |    |||    | |  |||
-|        | |    ||              ||    | |    |||    | |  |||
-|        | |    ||              ||    | |    |||    | |  |||
-|        | |    ||              ||    | |    |||    | |  |||
-|        | |    ||              ||    | |    |||    | |  |||
-|        | |    ||              ||    | |    |||    | |  ||+
-|        | |    ||              ||    | |    |||    | |  |+-
-|        | |    ||              ||    | |    ||+----+-+--+--
-|        | |    ||              ||    | |    |+-------------
-|        | |    ||              |+----+-+----+--------------
-|        | |    |+--------------+---------------------------
-+--------+-+----+-------------------------------------------
-
-------------------------------+
------------------------------+|
-----------------------------+||
----------------------------+|||
---------------------------+||||
--------------------------+|||||
-----+-+--+--------------+||||||
-fact|1|0.|+------------+|||||||
-    | |  ||+----+-+--++||||||||
-    | |  |||fact|1|0.||||||||||
-    | |  ||+----+-+--++||||||||
-    | |  |+------------+|||||||
-----+-+--+--------------+||||||
--------------------------+|||||
---------------------------+||||
----------------------------+|||
-----------------------------+||
------------------------------+|
-------------------------------+
-
- % end of session
-```
-
-The profile statistics show the division of time between the various
-definitions. For each definition called during the profiling session
-there is a summary of the number of calls and time used. For each
-definition there is also a breakdown on the time spent in other
-definitions that were directly called from that definition.
-
-Entries in the profile statistics that have a "\<" to the right of the
-last value are top level calls. All other entries have been called by
-these top level calls.
-
-The time spent in direct recursive calls is counted in the original
-call. The number of such calls is placed in brackets after the number of
-top level calls.
-
-The statistics do not account for local definitions within global ones;
-their execution time is simply added to the time for the global
-definition.
-
-A feature of the profiler not shown in the above example is that when
-timing a transformer definition, the time spent executing the argument
-operation(s) is computed in order to understand how much of the cost of
-the transformer is due to applying the argument operation(s).
-
-The accuracy of the timing information is limited by the precision of
-the information available through system calls to the host system. For
-very small definitions the statistics may show no execution time.
-Usually their effect can be estimated by considering the execution time
-of the calling definition.
-
-The `Profiletable` result provides the summarized profile statistics as
-a quintuple consisting of the name of the definition, the number of
-calls, the number of recursive calls, the time, and a list of records
-for each definition it directly calls. Each of the latter records has
-the same information provided for the routine itself, but does not
-report on the definitions it itself calls.
-
-The `Profiletree` result starts with a node indicating the toplevel and
-the total execution time. It has a list of subnodes for each definition
-called from the top level. Each of these has the number of calls, the
-execution time and nodes for each definition it calls. A recursive call
-is reported directly in a subnode and hence a deeply recursive routine
-will produce a deeply nested array of profile information.
-
-
-### program fragment
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [expression](#expression)
-
-Nial is a programming language specifically designed for use in an
-interactive environment. The formal description of the language
-describes the valid language constructs that can be entered in one
-interaction; and explains the meaning of one such entry in terms of the
-environment created by earlier interactions in the same session. The
-term **program fragment** is used to describe a meaningful piece of
-program text.
-
-The rules for writing well formed program fragments in Nial are called
-the `syntax rules` of Nial. A program fragment that is well formed is
-said to be syntactically correct. The syntax rules are analogous to the
-rules of grammar that determine the correctness of English.
-
-
-### role
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [global environment](#global_environment)
-
-The term **role** is used to describe the class of object associated
-with an identifier in Nial. The possible roles are: reserved word,
-variable, expression, operation or transformer. An identifier that
-corresponds to a reserved word can play no other role in a workspace. An
-identifier that corresponds to a predefined object in Nial cannot be
-changed in the global environment, but can take on a different object
-association in a local environment. In the global environment, once the
-role of an identifier is established, it must keep the same role, but
-may have its association changed to another object of the same role.
-
-An external-declaration assigns a role to a name in the global
-environment so that the name can be used in other definitions before it
-is completely specified. This mechanism is useful for creating mutually
-recursive definitions. An external declaration is made only in the
-global environment.
-
-If the name is already defined with the same role, the declaration has
-no effect. If the name has another role, a fault is reported.
-
-If the expression on the right of `IS` in a definition uses the name
-being defined, the definition is assumed to be recursive. The name is
-assigned a role compatible with its use on the right if it does not
-already have a role.
-
-If a definition appears within a block, the association between the name
-of the identifier and its meaning is made in the local environment.
-Otherwise, the association is made in the global environment and the
-definition assigns a role to the name as representing that kind of
-expression.
-
-If the name being associated in a definition is already in use, the new
-definition must be for a construct of the same role and the earlier
-definition is replaced. The use of a defined name always refers to its
-most recent definition.
-
-
-### scope of a variable
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [local environment](#local_environment), [role](#role)
-
-The use of an assign-expression indicates that a name (identifier) is to
-be treated as a variable in the context surrounding the
-assign-expression. This context is called the **scope** of the variable.
-The context may be global, in which case the variable may be visible at
-all levels; or it may be local to some region of program text. A local
-scope is created for the parameters of operation forms and for variables
-created within a block.
-
-Because operation forms or blocks may appear within other operation
-forms or blocks, it is possible to have one scope for a name nested
-within another. A name is said to be visible at a point in a program
-text if it has a local meaning at that point or has a meaning in some
-surrounding scope or is a global name. When a name is used in a local
-scope, it is the local association in the innermost scope that is used,
-instead of an association with the same name in a surrounding scope.
-
-A block is a scope-creating mechanism that permits an
-expression-sequence to be created so that it has local definitions and
-variables which are visible only inside the block. A block may appear as
-a primary-expression or as the body of an operation-form.
-
-Definitions that appear within the block have local scope. That is, the
-definitions can be referenced only in the body of the block. Variables
-assigned within the block may or may not have local scope, depending on
-the appearance of a local and/or a nonlocal declaration. If there is no
-declaration, all assigned variables have local scope. Declaring some
-variables as local does not change the effect on undeclared variables
-that are used on the left of assignment. They are automatically
-localized.
-
-If a nonlocal declaration is used, an assigned name that is on the
-nonlocal list is sought in surrounding scopes. If the name is not found,
-a variable is created in the global environment.
-
-
-### standard definitions
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [clear workspace](#clear_workspace)
-
-Q’Nial has a large set of predefined expressions, operations and
-transformers. Most of these are implemented directly in the interpreter.
-However, there are a number of them which are defined in Nial codes as
-standard definitions in the file `defs.ndf`. The definitions are brought
-into the initial workspace automatically as part of the initialization
-process.
-
-All definitions included in this stage cannot be modified or erased and
-the operation `see` does not display their text.
-
-
-### top level loop
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [loaddefs](#loaddefs)
-
-Nial program fragments are entered during interactive input with a
-process called the **top level loop** ; or brought into the system under
-the control of a systems operation, `loaddefs`. This systems operation
-has the effect of loading a sequence of program fragments from a file as
-though the fragments had been entered interactively in the order they
-appear in the file.
-
-The global environment is the collection of associations between names
-and meanings that are known at the top level loop. Such names have
-global scope in that they can be referenced by any program text. All
-other names have a local scope that associates a meaning with the name
-only during execution of a specific portion of a program text.
-
-In direct input at the top level loop, a remark ends at the end of the
-line unless a backslash symbol ( \\ ) is used to extend the line. In a
-definition file, a remark ends at the first blank line. A remark cannot
-appear within a definition or expression-sequence.
-
-The expressions in an expression-sequence are evaluated in left-to-right
-order. If the sequence does not terminate with a semicolon, the array
-returned is the result of the last expression. If the sequence does end
-with a semicolon, the array returned is the fault `?noexpr`. At the top
-level loop, if the array returned is the fault `?noexpr`, it is not
-displayed.
-
-In window mode for a console version of Q’Nial when a window is used
-interactively from the top level loop, the terminal acts as though it
-has a screen the size of the window. In particular, as the cursor
-attempts to move below the bottom line of the window, the text is
-scrolled one line at a time. The speed of scrolling can be changed using
-the operation `setscroll`.
-
-### transformer
-
-  - Class:  
-    [concept](#concept)
-  - See Also:  
-    [expression](#expression), [operation](#operation),
-    [definition](#definition)
-
-A **transformer** is a functional object that is used to construct a new
-operation from a given operation argument, usually producing a modified
-version of the given operation. Most transformers used in Nial are
-provided in the core language. However, there is a mechanism that
-constructs a named transformer in terms of one or more operation
-parameters. A user-defined transformer describes the modified operation
-as a parameterized algorithm for manipulating data.
-
-A transformer usually specifies a general algorithm which can have an
-operation as a parameter. For example, the `EACH` family of transformers
-generalizes a number of looping mechanisms for applying an operation to
-items of arrays.
-
-A user-defined transformer could provide the skeleton for processing the
-records of a file and allow an arbitrary operation to be applied to each
-record. Such a transformer is often called a filter.
-
-The process of evaluating an operation call of an operation modified by
-a transformer requires two steps. The modified operation is formed; and
-then the modified operation is given the array argument which it uses to
-produce the result.
-
-``` 
-     TWICE is TRANSFORMER f (f f)
-
-     TWICE rest 4 5 6 7 8
-6 7 8
-```
-
-
-## Syntax
-
-
-### action
-
-  - Class:  
-    [syntax](#syntax)
-  - See Also:  
-    [definition](#definition), [expression
-    sequence](#expression_sequence), [external
-    declaration](#external_declaration), [comment](#comment)
-
-An **action** is the construct that is entered in the interactive loop
-of the Q’Nial interpreter or accepted as an input unit within the
-operation loaddefs:
-
-``` 
-     action ::= definition-sequence
-        | expression-sequence
-        | external-declaration
-        | remark
-
-     definition-sequence ::= definition
-        {­ ; definition } [ ; ]
-
-     remark ::= # < any text >
-```
-
-If an action is a definition-sequence, its definitions are installed in
-the global environment.
-
-If an action is an expression-sequence, it is executed and a value is
-returned. The value returned by an expression-sequence is displayed on
-the screen unless it is the fault ?noexpr.
-
-An external-declaration assigns a role to a name in the global
-environment so that the name can be used in other definitions before it
-is completely specified.
-
-A remark is an input to the Q’Nial interpreter that is not processed. It
-begins with a line that has the symbol \# as the first non-blank
-character in the line. In direct input at the top level loop, a remark
-ends at the end of the line unless a backslash symbol ( \\ ) is used to
-extend the line. In a definition file, a remark ends at the first blank
-line. A remark cannot appear within a definition or expression-sequence.
-
-
-### assign expression
-
-  - Class:  
-    [syntax](#syntax)
-  - See Also:  
-    [variable](#variable), [expression](#expression),
-    [indexing](#indexing), [assign](#assign)
-
-<!-- end list -->
-
-``` 
-     assign-expression ::=
-        {­ variable }+ := expression
-        | indexed-variable := expression
-```
-
-An **assign-expression** assigns an array value to one or more variables
-at the time of evaluation of the assign expression. The semantics of an
-assign expression is interpreted in two stages: when the expression is
-analyzed (parsed) and when it is executed.
-
-During the parse of the assign-expression appearing in a block, each
-name on the variable list is sought in the local environment. If the
-name exists in the local environment, the assignment affects the local
-association. If a name does not exist in the local environment and no
-reference has been made to a nonlocal variable with the same name, a
-local variable is created in the block. An assign-expression parsed in
-the global environment creates a global variable if a variable with that
-name does not already exist.
-
-When an assign expression is executed, the expression on the right of
-the assignment symbol ( := ) is evaluated. If the variable list on the
-left has only one name, the value of the expression is assigned to that
-variable. That is, the value is associated with that name.
-
-If the variable list has several names, the items of the value are
-assigned to the variables in the order in which they appear. If the
-number of items does not match the number of variables, the fault
-?assignment is returned as the value of the assign-expression.
-Otherwise, the value of the assign-expression is the value of the
-expression on the right.
-
-When an indexed-variable is used on the left in an assign-expression,
-the parts of the array associated with the variable at the locations
-specified by the index are replaced by the values of the expression on
-the right.
-
-If the index expression for an indexed-variable assignment specifies a
-number of locations (at-all or slice indexing), there are two cases: if
-the value on the right is a single, the item of the single is placed in
-each location; otherwise, the value on the right must have the same
-number of items as the index expression indicates and the corresponding
-locations are updated with the items of the array value.
-
-
-### atlas
-
-  - Class:  
-    [syntax](#syntax)
-  - See Also:  
-    [operation](#operation)
-
-<!-- end list -->
-
-``` 
-     atlas ::= [ operation-expression {­ , operation-expression } ]
-```
-
-An **atlas** is an operation made up of a list of component operations.
-The result of applying an atlas is a list of the same length as the
-atlas. Each operation in the atlas is applied in turn to the argument
-resulting in an array value that becomes the item of the result list in
-the corresponding position. An atlas is used by the transformers `FORK,
-INNER` and `TEAM`.
-
-
-### block
-
-  - Class:  
-    [syntax](#syntax)
-  - See Also:  
-    [local environment](#local_environment), [scope of a
-    variable](#scope_of_a_variable), [nested
-    definition](#nested_definition)
-
-<!-- end list -->
-
-``` 
-     block ::=
-        {­ [ LOCAL {­ identifier-sequence }+ ; ]
-     [ NONLOCAL {­ identifier-sequence }+ ; ]
-     [ definition-sequence ; ]
-       expression-sequence }
-```
-
-A **block** is a scope-creating mechanism that permits an
-expression-sequence to be created so that it has local definitions and
-variables which are visible only inside the block. A block may appear as
-a primary-expression or as the body of an operation-form.
-
-A local environment is a collection of associations that are known
-within a limited section of program text. These limited sections are
-formed by blocks, operation-forms and transformer-forms. A name that has
-a local association in one of these forms is said to have local scope.
-
-If the definition appears within a block, the association is made in the
-local environment. Otherwise, the association is made in the global
-environment and assigns a role to the name as representing that kind of
-expression.
-
-If a block is used as a primary-expression, the local environment
-created by a block is determined by the block itself. If it is the body
-of an operation-form, the local environment includes the formal
-parameter names of the operation-form as variables.
-
-**Local and Nonlocal Declaration**
-
-The identifiers included in the local and nonlocal declarations are
-declared to be variables. Both forms of declarations are optional, but
-if both are given, local declarations must be made first. If the block
-is the body of a globally defined operation-form or expression, a
-nonlocal declaration effectively declares its variables as global ones.
-
-A block delimits a local environment. It allows new uses of names which
-do not interfere with uses of those names outside the block. For
-example, within a block, a predefined operation name can be redefined
-and used for a different purpose. Only the reserved words of Q’Nial
-cannot be reused in this fashion.
-
-Definitions that appear within the block have local scope. That is, the
-definitions can be referenced only in the body of the block. Variables
-assigned within the block may or may not have local scope, depending on
-the appearance of a local and/or a nonlocal declaration. If there is no
-declaration, all assigned variables have local scope. Declaring some
-variables as local does not change the effect on undeclared variables
-that are used on the left of assignment. They are automatically
-localized.
-
-If a nonlocal declaration is used, an assigned name that is on the
-nonlocal list is sought in surrounding scopes. If the name is not found,
-a variable is created in the global environment.
-
-
-### bracket-comma notation
-
-  - Class:  
-    [syntax](#syntax)
-  - See Also:  
-    [strand notation](#strand_notation)
-
-A list may be constructed directly by using **bracket-comma** notation.
-In this notation, the items of a list are separated by commas and the
-list is bounded by square brackets. If an item is omitted before or
-after a comma, then the fault value `?noexpr` is used for the value of
-the missing item. The notation denotes the `Null` if their are no items,
-and a solitary if there is only one item.
-
-``` 
-     [2,3 4,5]
-+-+---+-+
-|2|3 4|5|
-+-+---+-+
-
-     [,4 5]
-+-------+---+
-|?noexpr|4 5|
-+-------+---+
-
-     [] = Null
-l
-
-     ['hello world']
-+-----------+
-|hello world|
-+-----------+
-
-     [3,[4,5,6],7]
-+-+-----+-+
-|3|4 5 6|7|
-+-+-----+-+
-```
-
-
-### cast
-
-  - Class:  
-    [syntax](#syntax)
-
-A `cast` is an array expression that denotes an internal representation
-of a valid fragment of Q’Nial program text:
-
-``` 
-     cast ::= ! identifier
-        | ! ( expression-sequence)
-        | ! ( operation-expression )
-        | ! ( transformer-expression )
-```
-
-The use of the exclamation symbol `!` before an identifier causes Q’Nial
-to select the internal representation for the identifier rather than the
-value of the array associated with the identifier. Its use before a
-parenthesized program fragment selects the internal representation of
-the program fragment.
-
-The major use of casts is in conjunction with the operations assign and
-apply. These operations mimic the Q’Nial constructs for assignment to a
-variable and application of an operation to an array. Casts permit
-passing an argument to an operation by variable name rather than by
-value. They also permit evaluation of a program fragment that has been
-stored in its internal form using the operation eval rather than
-requiring the use of the operation execute on the corresponding program
-text stored as a string.
-
-``` 
-     Salary := 90000.
-     A gets 'Salary > 100000.' ;
-     Rule1 := execute A
-o
-     Rule1 := eval !A
-o
-```
-
-The details of the internal representation is not specified as part of
-the Nial language.
-
-The cast notation `!Name` is used to denote the parse tree that
-represents the name. At the top level loop, parentheses must be included
-around the use of the cast notation, e.g. `(!Name)`, to avoid ambiguity
-with the use of `!` to indicate a host command.
-
-The cast, because it is analyzed in the context in which it appears,
-refers to a variable or definition in a static way.
-
-Q’Nial contains operations that mimic the underlying meaning of
-variables, expressions and operations in Q’Nial. The operations use
-strings, phrases or casts to represent the name of the object under
-consideration (except that see and getdef do not take
-casts).
-
-| Operation        | Action                                                                                                                                          |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| value A          | Return the value of a variable named by string, phrase or cast `A` .                                                                            |
-| A assign B       | Assign the array `B` to the variable named by string, phrase or cast `A` ; return `B` .                                                         |
-| A apply B        | Apply the operation named by string, phrase or cast `A` to array `B` ; return the result of the operation.                                      |
-| getdef A         | Return the parse tree associated with the definition named by string or phrase `A` .                                                            |
-| see A            | Display the definition named by the string or phrase `A` .                                                                                      |
-| update P A B     | Put array `B` at address `A` in the variable named by the phrase, string or cast `P` ; return the new value of `P` .                            |
-| updateall P A B  | Put items of `B` at addresses `A` in the variable named by the phrase, string or cast `P` ; return the new value of the variable named by `P` . |
-| deepupdate P A B | Put array `B` at path `A` in variable named by the string, phrase or cast `P` ; return new value of the variable named by `P` .                 |
-
-
-
-### comment
-
-  - Class:  
-    [syntax](#syntax)
-  - See Also:  
-    [action](#action)
-
-<!-- end list -->
-
-``` 
-     comment ::=
-        % <any text excluding a semicolon> ;
-
-     remark ::= # < any text >
-```
-
-A **comment** is a brief section of text included in a program fragment
-to assist readability. Comments may be placed anywhere in a block before
-or after declarations, definitions or expressions. Their purpose is to
-provide an explanation of the program fragment for the programmer who
-may be required to modify the program at a later date. The value of a
-comment as an expression is the `?noexpr` fault. Comments are retained
-when a definition is translated into internal form and they appear in
-its creation in the canonical form used by the operations see and
-defedit.
-
-A **remark** is an input to the Q’Nial interpreter that is not
-processed. It begins with a line that has the symbol \# as the first
-non-blank character in the line. In direct input at the top level loop,
-a remark ends at the end of the line unless a backslash symbol ( \\ ) is
-used to extend the line. In a definition file, a remark ends at the
-first blank line. A remark cannot appear within a definition or
-expression-sequence.
-
-
-### expression sequence
-
-  - Class:  
-    [syntax](#syntax)
-  - See Also:  
-    [expression](#expression)
-
-An **expression-sequence** is the main construct used for program text
-that produces a value. It consists of one or more expressions separated
-by semi-colons and possible followed by a semi-colon.
-
-``` 
-     expression-sequence ::= expression
-        {­ ; expression } [ ; ]
-```
-
-The expressions in an expression-sequence are evaluated in left-to-right
-order. If the sequence does not terminate with a semicolon, the array
-returned is the result of the last expression. If the sequence does end
-with a semicolon, the array returned is the fault `?noexpr`. At the top
-level loop, if the array returned is the fault `?noexpr`, it is not
-displayed.
-
-
-### external declaration
-
-  - Class:  
-    [syntax](#syntax)
-  - See Also:  
-    [action](#action), [role](#role)
-
-<!-- end list -->
-
-``` 
-     external-declaration ::= identifier IS
-        EXTERNAL ( EXPRESSION
-                         | OPERATION
-                         | TRANSFORMER
-                         | VARIABLE )
-```
-
-An external declaration assigns a role to a name, allowing it to be used
-in a definition before its own definition is given. This mechanism is
-useful for creating mutually recursive definitions. An external
-declaration is made only in the global environment.
-
-If the name is already defined with the same role, the declaration has
-no effect. If the name has another role, a fault is reported. If the
-name is not currently defined, a default object is associated with it.
-
-
-### infix notation
-
-  - Class:  
-    [syntax](#syntax)
-  - See Also:  
-    [prefix notation](#prefix_notation)
-
-In Nial an operation-expression may be placed between two
-array-expressions.This is called an **infix** use of the
-operation-expression.
-
-``` 
-     7 + 5
-12
-
-     2 3 reshape 1 2 3 4 5 6
-1 2 3
-4 5 6
-```
-
-In using the infix notation, one must understand that if a sequence of
-operations are placed between two array arguments, all but the first
-operation are applied to the second argument.
-
-``` 
-     2 + reverse tell 3
-4 3 2
-
-     2 (+ reverse tell) 3
-3 6
-
-     2 (+ reverse) tell 3
-2 3 4
-```
-
-
-### juxtaposition
-
-  - Class:  
-    [syntax](#syntax)
-
-The syntax rules for simple-expressions show three uses of the
-side-by-side or juxtapositional notation of Nial: strand formation,
-prefix operation application and infix operation application. There are
-no syntactic restrictions as to whether or not a particular operation
-may be applied in infix or prefix form. A fault is returned at run time
-if an operation is used inappropriately.
-
-**Summary of Juxtapositional Syntax**
-
-The following table illustrates the uses of juxtaposition in Nial, where
-`A` and `B` are array-expressions, `f` and `g` are
-operation-expressions, and `T` is a transformer:
-
-| Form  | Name          | Object    |
-| ----- | ------------- | --------- |
-| A B   | strand        | array     |
-| A f   | currying      | operation |
-| f A   | prefix use    | array     |
-| f g   | composition   | operation |
-| T f   | transform     | operation |
-| A f B | infix use     | array     |
-| T f A | transform use | array     |
-
-
-### operation form
-
-  - Class:  
-    [syntax](#syntax)
-  - See Also:  
-    [operation](#operation), [definition](#definition)
-
-An **operation-form** is the syntactic structure used to describe an
-operation in terms of a parameterized expression-sequence. The
-identifiers following the keyword operation are called the **formal
-parameters** . The body of an operation-form is normally a block but it
-may be an expression-sequence without automatic localization.
-
-``` 
-     operation-form ::=
-        OPERATION {­ identifiers }+ block
-        | OPERATION {­ identifiers }+
-          ( expression-sequence )
-```
-
-An operation-form defines a local environment. The formal parameter
-names are names of local variables. If the body of the operation form is
-a block, the local environment of the block is extended to include the
-formal parameters. When the operation is applied, the formal parameter
-names are assigned from the value of the actual argument. If there is
-only one formal parameter, the actual argument is assigned to it as a
-whole; otherwise, the items of the actual argument are assigned to the
-formal parameters in corresponding order. If there is a length mismatch
-between the list of formal parameter names and the values of the actual
-argument, the fault `?op_parameter` is returned.
-
-The value of the application of the operation is the value of the body
-of the operation-form, which is evaluated with the local variables in
-the parameter list assigned as described above. In determining the
-association for a name that appears in the body of an operation form,
-Q’Nial looks for the name in the local environment. If the name is not
-found locally, the name is sought in surrounding environments until it
-is found or until the global environment is searched. If it is not
-found, a fault `?unknown identifier:` is given when the operation-form
-is analyzed (parsed).
-
-Operation-forms are most frequently used in definitions where they are
-given an associated name. However, an operation-form can appear directly
-in an expression provided it is enclosed in parentheses. In this usage,
-it can be an argument to a transformer name or can be applied to an
-array argument.
-
-
-### prefix notation
-
-  - Class:  
-    [syntax](#syntax)
-  - See Also:  
-    [infix notation](#infix_notation)
-
-An operation-expression can precede an array-expression. This is called
-a **prefix** use of the operation expression.
-
-``` 
-        + 7 5
-12
-
-     reshape [2 3,1 2 3 4 5 6]
-1 2 3
-4 5 6
-```
-
-### reserved words
-
-  - Class:  
-    [syntax](#syntax)
-
-A **reserved word** or **keyword** is one that has a special usage in a
-Nial construct and must be used only for that purpose. A `block`
-delimits a local environment. It allows new uses of names which do not
-interfere with uses of those names outside the block. For example,
-within a block, a predefined operation name can be redefined and used
-for a different purpose. Only the reserved words of Q’Nial cannot be
-reused in this fashion.
-
-An identifier, which is spelled the same, ignoring case, as any of the
-reserved words given below cannot be used to name a variable or a
-definition. In a local environment, an identifier can be chosen that is
-the same as a predefined or user-defined global definition name. Such a
-choice makes the global use of the name unavailable in the local
-context.
-
-A reserved word is displayed in upper case in canonical form.
-
-| Reserved Word | Construct                               |
-| ------------- | --------------------------------------- |
-| BEGIN         | Synonym for {­ in block                 |
-| CASE          | case-expression                         |
-| DO            | for-expression, while-expression        |
-| ELSE          | if-expression, case-expression          |
-| ELSEIF        | if-expression                           |
-| END           | case-expression, synonym for } in block |
-| ENDCASE       | case\_expression                        |
-| ENDFOR        | for-expression                          |
-| ENDIF         | if-expression                           |
-| ENDREPEAT     | repeat-expression                       |
-| ENDWHILE      | while-expression                        |
-| EXIT          | exit-expression                         |
-| EXPRESSION    | declaration                             |
-| EXTERNAL      | declaration                             |
-| FOR           | for-expression                          |
-| FROM          | case-expression                         |
-| GETS          | assign-expression                       |
-| IF            | if-expression                           |
-| IS            | definition                              |
-| LOCAL         | declaration                             |
-| NONLOCAL      | declaration                             |
-| OP            | synonym for operation                   |
-| OPERATION     | operation-form, declaration             |
-| REPEAT        | repeat-expression                       |
-| THEN          | if-expression                           |
-| TR            | synonym for transformer                 |
-| TRANSFORMER   | transformer-form, declaration           |
-| UNTIL         | repeat-expression                       |
-| VARIABLE      | declaration                             |
-| WHILE         | while-expression                        |
-| WITH          | for-expression                          |
-
-
-### strand notation
-
-  - Class:  
-    [syntax](#syntax)
-  - See Also:  
-    [bracket-comma notation](#bracket_comma_notation)
-
-A primary-sequence of length two or greater is called a **strand** . The
-value of a strand is a list of values. Each item of the list has the
-value of the primary-expression in the corresponding position in the
-primary-sequence.
-
-The elements of the primary-sequence can be constants, parenthesized
-expressions or lists in bracket-comma notation.
-
-``` 
-     8 9 10
-8 9 10
-
-     8 (3 4 5) 18
-+-+-----+--+
-|8|3 4 5|18|
-+-+-----+--+
-
-     8 'abc' "apple
-+-+---+-----+
-|8|abc|apple|
-+-+---+-----+
-
-     6 [7,8,9] 10
-+-+-----+--+
-|6|7 8 9|10|
-+-+-----+--+
-```
-
-
-### synonym
-
-  - Class:  
-    [syntax](#syntax)
-
-A **synonym** is an alternate symbol or name that represents a Nial
-term. For example, the symbol
-
-The list of all synonyms in Nial follows:
-
-| div          | operation  | divide       |
-| ------------ | ---------- | ------------ |
-| Falsehood, o | expression | False        |
-| inv          | operation  | inverse      |
-| ip           | operation  | innerproduct |
-| istruthvalue | operation  | isboolean    |
-| opp          | operation  | opposite     |
-| prod         | operation  | product      |
-| recip        | operation  | reciprocal   |
-| Truth, l     | expression | True         |
-| vacate       | operation  | Null first   |
-| void         | operation  | Null first   |
-| \+           | operation  | sum          |
-| \-           | operation  | minus        |
-| \*           | operation  | product      |
-| /            | operation  | divide       |
-
-The following synonyms are available for keywords or delimiters used in
-the syntax rules:
-
-|             |       |
-| ----------- | ----- |
-| \[          | \<\<  |
-| \]          | \>\>  |
-| :=          | GETS  |
-| {­          | BEGIN |
-| }           | END   |
-| OPERATION   | OP    |
-| TRANSFORMER | TR    |
-
-
-
-### transformer form
-
-  - Class:  
-    [syntax](#syntax)
-  - See Also:  
-    [transformer](#transformer), [definition](#definition)
-
-A **transformer-form** is the syntactic structure used to describe a
-transformer in terms of an operation expression involving formal
-operation parameters. The names that follow the keyword transformer in
-the transformer-form are called formal operation parameters. The body of
-a transformer-form is the operation-expression which uses these names.
-The first rule requires that the operation-expression be an
-operation-form; the second allows any operation- expression to be used.
-
-``` 
-     transformer-form ::= TRANSFORMER
-        {­ identifier }+ operation-form
-        | TRANSFORMER {­ identifier }+
-          ( operation-expression )
-```
-
-The effect of applying a transformer-form to an operation-expression is
-the effect of an operation formed in the body of the transformer, such
-that wherever one of the formal operation parameters occurs, it is
-replaced with the corresponding argument operation-expression.
-
-On the other hand, if the formal operation parameters consist of only
-one name, the operation formed is associated with the argument
-operation-expression. If the operation formed has two or more names, the
-operation-expression must denote an atlas of the same length; and the
-formal operation parameters are associated with the operations of the
-atlas in their sequence.
-
-The associations are made with the argument operation-expression in the
-environment where the transformer is applied. If there is a mismatch
-between the number of formal operation parameters and the argument, the
-result of applying the transform is the fault `?tr_parameter`.
-
-
-### variable
-
-  - Class:  
-    [syntax](#syntax)
-  - See Also:  
-    [assign expression](#assign_expression), [local
-    environment](#local_environment), [vars](#vars), [role](#role),
-    [indexing](#indexing), [scope of a variable](#scope_of_a_variable)
-
-A **variable** is a name associated with an array value. Its syntactic
-form is that of an identifier.
-
-``` 
-     variable ::= identifier
-
-     indexed-variable ::=
-          variable @ primary-expression
-        | variable @@ primary-expression
-        | variable # primary-expression
-        | variable | primary-expression
-```
-
-A variable is given an association with an array value by its use on the
-left side of an assign-expression, its appearance in a local or nonlocal
-declaration, its designation as a variable in an external-declaration or
-its use as the first argument of the operation assign.
-
-When a variable is used as a primary-expression, its meaning is the
-array value associated with the identifier. If the variable exists but
-has not been assigned, it will have as its default value the fault
-`?no_value`. If an identifier is mentioned as a primary-expression but
-has not yet been given an association, a parse error will occur with the
-fault `?undefined identifier:`.
-
-**Role of a Variable**
-
-A variable gives a name to the result of a computation. If the same
-result is needed later in the program, the named variable can be used,
-thereby avoiding the necessity of repeating the computation. A variable
-can be assigned different array values throughout the computation.
-
-Although an identifier can be of any length up to 80 characters, a
-compromise is usually made between choosing explicit variable names and
-choosing brief names to avoid unnecessary typing. An identifier used as
-a variable cannot be a Q’Nial reserved word. In a local environment, a
-variable identifier can be chosen the same as a predefined or
-user-defined global definition name. Such a choice makes the global use
-of the name unavailable in the local context.
-
-In any context, an identifier can name only one of: a variable, an
-array- expression, an operation-expression, or a transformer-expression.
-During one session, the role of a name, i.e. the class of syntactic
-object it names, cannot be changed.
-
-**Indexed Variable**
-
-An **indexed variable** is a variable for which a part of the associated
-array value is referenced. An **index** is the value of the
-primary-expression within an indexed-variable which specifies the
-location or locations of the part or parts of the array that are
-selected.
-
-
-
-## Control Structures
-
-### case-expr
-
-  - Class:  
-    [control structure](#control_structure)
-  - Usage:  
-    `CASE expression FROM C1: ES1 END ... Cn: ESn END ELSE ESx ENDCASE`
-  - See Also:  
-    [if-expr](#if_expr), [fork](#fork)
-
-The expression following case is evaluated. If the result matches one of
-the constants, C1 ... Cn, the corresponding expression sequence is
-executed. If the result does not match any constant, the expression
-sequence following else is executed.
-
-**Example:**
-
-``` 
-     Month := 3 ;
-     CASE Month FROM
-        1:   Mname := 'January'; END
-        2:   Mname := 'February'; END
-        3:   Mname := 'March'; END
-     ELSE   Mname := 'Year End';
-     ENDCASE ;
-     Mname
-March
-```
-
-
-### for-loop
-
-  - Class:  
-    [control structure](#control_structure)
-  - Usage:  
-    `FOR Var WITH Exp DO ExpSeq ENDFOR`
-  - See Also:  
-    [repeat-loop](#repeat_loop), [while-loop](#while_loop),
-    [iterate](#iterate), [each](#each)
-
-The `FOR-loop` control structure is used to execute the expression
-sequence `ExpSeq` repeatedly while variable `Var` takes on the values
-specified as items in the simple expression `Exp`.
-
-``` 
-     FOR X WITH 1. 2. 3. DO
-        write (X) (X*X) (X power X) ;
-     ENDFOR
-1. 1. 1.
-2. 4. 4.
-3. 9. 27.
-```
-
-In the example, X takes on the values 1., 2. and 3. in successive loops
-and the values of X, X squared and X to the power X are displayed.
-
-
-### if-expr
-
-  - Class:  
-    [control structure](#control_structure)
-  - Usage:  
-    `IF C1 THEN Es1 ELSEIF C2 THEN Es2 ... ELSEIF Cn THEN Esn ELSE Esx
-    ENDIF`
-  - See Also:  
-    [case-expr](#case_expr), [fork](#fork)
-
-The `IF-expr` construct is a notation for executing one of a number of
-possible expression sequences `Es1`, Es2 , ... `Esn`. The sequence
-selected depends on the result of the conditional expressions `C1`, C2 ,
-... `Cn`. In the general case, whichever condition is first found to
-return `true` specifies the expression sequence to be performed. If all
-the conditional expressions return `false`, expression sequence `Esx` is
-selected. The `ELSEIF` and `ELSE` clauses are optional.
-
-In the following example, the result is one of phrase `Adult`, Minor or
-`Juvenile`, depending on the value of `Age`.
-
-``` 
-     Age := 17;
-     IF Age > 18 THEN
-        "Adult
-     ELSEIF Age < 16 THEN
-        "Minor
-     ELSE
-        "Juvenile
-     ENDIF
-Juvenile
-```
-
-
-### repeat-loop
-
-  - Class:  
-    [control structure](#control_structure)
-  - Usage:  
-    `REPEAT expression_sequence UNTIL conditional_expression ENDREPEAT`
-  - See Also:  
-    [while-loop](#while_loop), [for-loop](#for_loop)
-
-The `REPEAT-loop` notation is used when executing an expression sequence
-repeatedly until a conditional expression returns `true`.
-
-``` 
-     F := open Filenm "r;
-     Lines := '';
-     Done := o;
-     REPEAT
-       Line := readfile F;
-       IF isfault Line THEN
-         Done := l;
-       ELSE
-         Lines := Lines append Line;
-       ENDIF;
-     UNTIL Done ENDREPEAT;
-```
-
-### while-loop
-
-  - Class:  
-    [control structure](#control_structure)
-  - Usage:  
-    `WHILE conditional expression DO expression sequence ENDWHILE`
-  - See Also:  
-    [repeat-loop](#repeat_loop), [for-loop](#for_loop)
-
-The `WHILE-loop` notation is used for executing an expression sequence
-repeatedly as long as a conditional expression returns `true`.
-
-``` 
-     F := open Filenm "r;
-     Lines := '';
-     Line := readfile F;
-     WHILE not isfault Line DO
-       Lines := Lines append Line;
-       Line := readfile F;
-     ENDWHILE;
-```
-
-
-## Operation Properties
-
-### binary
-
-  - Class:  
-    [operation property](#operation_property)
-  - Usage:  
-    `A f B` `f A B`
-  - See Also:  
-    [binary pervasive](#binary_pervasive)
-
-An operation is said to `binary` if it must have exactly two items in
-its argument. Many of the built-in operations of Nial are binary. They
-can be used in both an infix and prefix manner. If a binary operation
-`f` is used in infix syntax then the arguments on each side of `f` are
-treated as the two items of its argument.
-
-``` 
-     3 reshape 5
-```
-
-In prefix usage, `f` can precede a single array with two items, or an
-explicit pair formed with strand notation or bracket-comma notation.
-
-``` 
-     X := 3 5;
-     reshape X
-5 5 5
-
-     reshape 3 5
-5 5 5
-
-     reshape [3,5]
-5 5 5
-```
-
-
-
-### binary pervasive
-
-  - Class:  
-    [operation property](#operation_property)
-  - Usage:  
-    `A f B` `f A B`
-  - See Also:  
-    [binary](#binary), [unary pervasive](#unary_pervasive), [multi
-    pervasive](#multi_pervasive), [pervasive](#pervasive),
-    [eachboth](#eachboth), [pack](#pack)
-
-Each operation `f` in this class maps a pair of atoms to an atom.
-
-A binary pervasive operation maps two arrays having identical structure
-to one with the same structure, mapping each pair of corresponding atoms
-by the function's behaviour on pairs of atoms.
-
-All of the binary operations of arithmetic and logic are binary
-pervasive.
-
-If a binary pervasive operation is applied to a pair of arrays that do
-not have the same shape, the effect is to build a conformable pair by
-replicating an atom or solitary item of the pair to the shape of the
-other item. If both items are of unequal shape and if both items are
-made up of more than one item, the fault `?conform` is returned. The
-replication of an argument with one item provides binary pervasive
-operations with a scalar extension capability. For example,
-
-``` 
-     3 4 5 6 - 5 = (3 4 5 6 - 5 5 5 5)
-l
-```
-
-If a binary pervasive operation is applied to an array that is not a
-pair, a fault is returned.
-
-The following table lists the binary pervasive operations.
-
-| Operation | Function                                             |
-| --------- | ---------------------------------------------------- |
-| divide    | division of numbers                                  |
-| gt        | greater than comparison                              |
-| gte       | greater than or equal comparison                     |
-| lt        | less than comparison                                 |
-| lte       | less than or equal comparison                        |
-| match     | equality of atoms without type coercion              |
-| mate      | equality of atoms with type coercion                 |
-| minus     | subtraction of numbers                               |
-| mod       | remainder on division of integers                    |
-| plus      | addition of numbers                                  |
-| quotient  | quotient on division of integers                     |
-| times     | multiplication of numbers divide division of numbers |
-
-**Equations**
-
-``` 
-   A f B = A EACHBOTH f B
-   A f B = EACH f (A pack B)
-   shape (A f B) = shape pack A B
-```
-
-
-### multi pervasive
-
-  - Class:  
-    [operation property](#operation_property)
-  - Usage:  
-    `f A` `f A B ... C`
-  - See Also:  
-    [unary pervasive](#unary_pervasive), [binary
-    pervasive](#binary_pervasive), [pervasive](#pervasive),
-    [reductive](#reductive), [eachall](#eachall), [reduce](#reduce),
-    [pack](#pack)
-
-Each operation `f` in this class reduces a simple array (an array of
-atoms) to an atom.
-
-A multi pervasive operation maps an array having items of identical
-structure to one with the same structure, applying the operation to the
-simple arrays formed from all the atoms in corresponding positions in
-the atoms.
-
-There are six operations in this class. They are the **reductive**
-operations of arithmetic and logic.
-
-If a multi pervasive operation is applied to an array that does not have
-items of the same shape, the effect is to build a conformable pair by
-replicating an atom or solitary item of the array to the common shape of
-the other items. If two or more of the items have tally different from
-one and are of unequal shape, the fault `?conform` is returned. On a
-pair, a multi pervasive operation behaves the same way as a binary
-pervasive operation does.
-
-``` 
-     sum [3 4 5 6 , 5 , 7 8 9 10] = 15 17 19 21
-l
-```
-
-The following table describes the multi pervasive operations.
-
-| Operation | Function                                  |
-| --------- | ----------------------------------------- |
-| and       | logical "and" of a boolean array          |
-| max       | highest item in the array                 |
-| min       | lowest item in the array                  |
-| or        | logical "or" of a boolean array           |
-| product   | arithmetic product of an array of numbers |
-| sum       | arithmetic sum of an array of numbers     |
-
-**Equations**
-
-``` 
-   f A = EACHALL f A
-   f A = EACH f pack A
-   shape f A = shape pack A
-   f A = REDUCE f A
-```
-
-
-### predicate
-
-  - Class:  
-    [operation property](#operation_property)
-
-A **predicate** is an operation that tests a condition and returns true
-if the condition holds and false otherwise. A predicate is not
-pervasive.
-
-The predefined predicate operations include:
-
-| Operation | Test                          |
-| --------- | ----------------------------- |
-| allin     | set-like inclusion            |
-| atomic    | an array is an atom           |
-| diverse   | all items differ              |
-| empty     | an array has no items         |
-| equal     | all items are equal           |
-| isboolean | arg is a boolean atom         |
-| ischar    | arg is a character atom       |
-| isfault   | arg is a fault symbol         |
-| isinteger | arg is a integer number       |
-| isphrase  | arg is a symbol               |
-| isreal    | arg is a real number          |
-| isstring  | arg is a list of characters   |
-| like      | two arrays contain same items |
-| simple    | all items are atoms           |
-| unequal   | items are not all equal       |
-| up        | lexical ordering              |
-
-
-### reductive
-
-  - Class:  
-    [operation property](#operation_property)
-  - See Also:  
-    [multi pervasive](#multi_pervasive), [reduce](#reduce)
-
-A **reductive** operation is one that extends a functional capability
-normally defined on a pair to a list, reducing the result by pairwise
-application of the function.
-
-The predefined reductive operations include:
-
-| Operation | Function                                            |
-| --------- | --------------------------------------------------- |
-| and       | logical "and" of a boolean array                    |
-| link      | the list of all the items of the items in the array |
-| max       | highest item in the array                           |
-| min       | lowest item in the array                            |
-| or        | logical "or" of a boolean array                     |
-| product   | arithmetic product of an array of numbers           |
-| sum       | arithmetic sum of an array of numbers               |
-
-All of the above operations except `link` are also multi pervasive.
-
-The transformer `REDUCE` can be used to produce a reductive operation
-from a binary one.
-
-
-### unary pervasive
-
-  - Class:  
-    [operation property](#operation_property)
-  - Usage:  
-    `f A`
-  - See Also:  
-    [binary pervasive](#binary_pervasive), [multi
-    pervasive](#multi_pervasive), [pervasive](#pervasive), [each](#each)
-
-A **unary pervasive** operation maps an array to another array with
-identical structure, mapping each atom by the function's behaviour on
-atoms. All of the scientific operations and the unary operations of
-arithmetic and logic are unary pervasive.
-
-The scientific operations are implemented using the library routines
-provided with the C compiler used to construct Q’Nial. The accuracy of
-the result is determined by the precision of the floating point number
-system of the computer and the accuracy of the library routine
-approximation.
-
-The following table describes the unary pervasive operations:
-
-| Operation  | Function                                |
-| ---------- | --------------------------------------- |
-| abs        | absolute value                          |
-| arccos     | inverse cosine function                 |
-| arcsin     | inverse sine function                   |
-| arctan     | inverse tangent function                |
-| ceiling    | lowest integer above a real number      |
-| char       | integer to character conversion         |
-| charrep    | character to integer conversion         |
-| cos        | cosine function                         |
-| cosh       | hyperbolic cosine function              |
-| exp        | exponential function                    |
-| floor      | next higher integer above a real number |
-| ln         | natural logarithm                       |
-| log        | logarithm base 10                       |
-| not        | opposite of a boolean value             |
-| opposite   | opposite of a number                    |
-| reciprocal | reciprocal of a number                  |
-| sin        | sine function                           |
-| sinh       | hyperbolic sine function                |
-| sqrt       | square root of a number                 |
-| tan        | tangent function                        |
-| tanh       | hyperbolic tangent function             |
-| type       | representative atom of same type        |
-
-**Equations**
-
-``` 
-   f A = EACH f A
-   shape f A = shape A
-```
-
-
-## Logging Feature
-
-### log file
-
-  - Class:  
-    [feature](#feature)
-  - See Also:  
-    [setlogname](#setlogname)
-
-Q’Nial provides a facility to record the actions in a session in a text
-file. The default name for the log file is `auto.nlg`. Logging is
-initiated by:
-
-``` 
-     set "log
-nolog
-```
-
-Logging is ended by:
-
-``` 
-     set "nolog
-log
-```
-
-The log file name can be changed using:
-
-``` 
-     setlogname "newname
-auto.nlg
-```
-
-A log file is opened and closed on each usage by the internal logging
-routine. As a result, the log file is always available if the session is
-terminated unexpectedly. If a file with the name of the log file exists
-when `set "log` is executed, the logging information is appended at the
-end.
-
-
-## Constant Expressions
-
-### false
-
-  - Class:  
-    [constant expression](#constant_expression)
-  - Usage:  
-    `False`
-  - See Also:  
-    [true](#true), [isboolean](#isboolean)
-
-The constant expression `False` denotes the boolean atom for `false`,
-which Nial also denotes by `o`. It is the result of comparing two arrays
-that are not identical for equality.
-
-``` 
-     False (not False)
-ol
-```
-
-**Equations**
-
-```
-   tally False = 1
-   shape False = Null
-   single False = False
-   not False = True
-```
-
-
-### null
-
-  - Class:  
-    [constant expression](#constant_expression)
-  - Usage:  
-    `Null`
-  - See Also:  
-    [empty](#empty), [atomic](#atomic)
-
-The expression `Null` denotes the empty list. It is the array returned
-as the shape of a single and is equal to the empty string. The empty
-list notation ` [ ]` also denotes the empty list `Null`.
-
-``` 
-     Null = shape 5
-l
-     Null = []
-l
-     Null = ''
-l
-```
-
-Since there is an empty array for each shape containing a zero, unless
-you are certain `A` is a list, the test: `A = Null` should not be used
-in place of `empty A`.
-
-``` 
-     set "sketch; Null
-
-     set "diagram; Null
-+
-|
-+
-```
-
-`Null` is not displayed when sketch display mode is set. In diagram mode
-it is displayed as the left border of a list diagram.
-
-A selection operation such as `pick` or `first` applied to `Null`
-results in the fault `?address`.
-
-**Definition**
-
-``` 
-     Null IS shape 0
-```
-
-**Equations**
-
-``` 
-   shape single A = Null
-   shape Null = 0
-   atomic A ==> Null = shape A
-```
-
-
-### pi
-
-  - Class:  
-    [constant expression](#constant_expression)
-  - Usage:  
-    `Pi`
-  - See Also:  
-    [random](#random), [ln](#ln)
-
-The expression `Pi` returns the real number which is the ratio of the
-circumference of a circle to its diameter. `Pi` is useful in scientific
-computing.
-
-``` 
-     setformat '%15.12f' ; Pi
- 3.141592653590
-```
-
-**Equation**
-
-``` 
-   Pi = arccos -1 (within roundoff error)
-```
-
-
-### true
-
-  - Class:  
-    [constant expression](#constant_expression)
-  - Usage:  
-    `True`
-  - See Also:  
-    [false](#false), [isboolean](#isboolean)
-
-The constant expression `True` denotes the boolean atom for `true`,
-which Nial also denotes by `l`. It is the result of comparing two
-identical arrays for equality.
-
-**Definition**
-
-``` 
-     True IS (0 equal 0)
-```
-
-**Equations**
-
-``` 
-   tally True = 1
-   shape True = Null
-   single True = True
-   not True = False
-   max True = True
-   abs True = 1
-```
-
-
-
-## File Expressions
-
-### filestatus
-
-  - Class:  
-    [file expression](#file_expression)
-  - Usage:  
-    `Filestatus`
-  - See Also:  
-    [status](#status), [open](#open), [close](#close),
-    [filetally](#filetally)
-
-The expression `Filestatus` gives information on the files currently
-open in a Q’Nial session. It returns a list of triples, one for each
-open file, giving the file number as an integer, the filename as a
-phrase and the mode as a character.
-
-The modes are `r`, w, a, d, pr, pw and `c`, standing for `read`, write,
-append, direct, pipe\_read, pipe\_write and `communications`
-respectively.
-
-The files for standard input, standard output and standard error are
-opened with modes of r, w and w respectively using file numbers 0, 1 and
-2.
-
-``` 
-     Fnum := open "F "a;
-     Filestatus
-+---------+----------+----------+-----+
-|0 stdin r|1 stdout w|2 stderr w|3 F a|
-+---------+----------+----------+-----+
-```
-
-
-## Profiling Expressions
-
-### clearprofile
-
-  - Class:  
-    [profiling expression](#profiling_expression)
-  - Usage:  
-    `Clearprofile`
-  - See Also:  
-    [profile](#profile), [setprofile](#setprofile),
-    [profiletable](#profiletable), [profiletree](#profiletree),
-    [profiling](#profiling)
-
-The expression `Clearprofile` is used to clear the internal data
-structures that are used in the gathering of profiling statistics. It
-should be called when one profiling session has been completed and
-`profile` has been called, before starting another one.
-
-A detailed explanation of the profiling mechanism is given in the help
-entry on profiling.
-
-**Example**
-
-``` 
-     Clearprofile
-```
-
-
-### profiletable
-
-  - Class:  
-    [profiling expression](#profiling_expression)
-  - Usage:  
-    `Profiletable`
-  - See Also:  
-    [profile](#profile), [setprofile](#setprofile),
-    [clearprofile](#clearprofile), [profiling](#profiling)
-
-The expression `Profiletable` is used to summarize the internal data
-structures that are used in the gathering of profiling statistics to
-produce the same information that is displayed by the operation
-`profile`. It produces a list of entries, one for each definition that
-has been encountered during execution with profiling on. Each entry
-includes the name, the number of direct calls, the number of recursive
-calls, the execution time, and a list of subentries for the definitions
-directly called by the definition. The subentries summarize the
-information for the called definitions in the same format except that no
-further breakdown is given on definitions they call.
-
-A detailed example of the output of `Profiletable` is given in the help
-entry on profiling.
-
-``` 
-     Profiletable
-+-----------------+-------------------------------------+---
-|+----+--+-+----++|+-----+--+-+----+-------------------+|+--
-||test|12|0|4.12||||tryit|11|0|4.12|+-----------------+|||ag
-|+----+--+-+----++||     |  | |    ||+----+--+-+----++||||
-|                 ||     |  | |    |||test|11|0|4.12||||||
-|                 ||     |  | |    ||+----+--+-+----++||||
-|                 ||     |  | |    |+-----------------+|||
-|                 |+-----+--+-+----+-------------------+|+--
-+-----------------+-------------------------------------+---
-
-----------------------------------+
----+-+-+----+--------------------+|
-ain|1|0|3.96|+------------------+||
-   | | |    ||+-----+--+-+----++|||
-   | | |    |||tryit|10|0|3.96|||||
-   | | |    ||+-----+--+-+----++|||
-   | | |    |+------------------+||
----+-+-+----+--------------------+|
-----------------------------------+
-```
-
-
-
-### profiletree
-
-  - Class:  
-    [profiling expression](#profiling_expression)
-  - Usage:  
-    `Profiletree`
-  - See Also:  
-    [profile](#profile), [setprofile](#setprofile),
-    [clearprofile](#clearprofile), [profiletable](#profiletable),
-    [profiling](#profiling)
-
-The expression `Profiletree` is used to display the detailed information
-from the internal data structures that are used in the gathering of
-profiling statistics. It produces a nested list of entries showing the
-calling dynamic calling sequence from top level, with the amount of time
-and number of calls at each level. Each entry includes the name, the
-number of direct calls, the execution time, and a list of subentries for
-the definitions directly called by the definition. The subentries
-provide the same information for the called definitions in the same
-format including entries on all the definitions that they call in turn.
-
-A detailed example of the output of `Profiletable` is given in the help
-entry on profiling.
-
-Example of use:
-
-``` 
-     Profiletree
-+--------+-+----+-------------------------------------------
-|TOPLEVEL|0|4.18|+------------+-----------------------------
-|        | |    ||+----+-+--++|+-----+-+----+---------------
-|        | |    |||test|1|0.||||tryit|1|0.16|+--------------
-|        | |    ||+----+-+--++||     | |    ||+----+-+----++
-|        | |    ||            ||     | |    |||test|1|0.16||
-|        | |    ||            ||     | |    ||+----+-+----++
-|        | |    ||            ||     | |    |+--------------
-|        | |    ||            |+-----+-+----+---------------
-|        | |    ||            |
-|        | |    ||            |
-|        | |    ||            |
-|        | |    ||            |
-|        | |    |+------------+-----------------------------
-+--------+-+----+-------------------------------------------
-
-------------------------------------------------------+
---+--------------------------------------------------+|
--+|+-----+-+----+-----------------------------------+||
-+|||again|1|3.96|+---------------------------------+|||
-||||     | |    ||+-----+--+----+-----------------+||||
-||||     | |    |||tryit|10|3.96|+---------------+|||||
-||||     | |    |||     |  |    ||+----+--+----++||||||
-+|||     | |    |||     |  |    |||test|10|3.96||||||||
--+||     | |    |||     |  |    ||+----+--+----++||||||
-  ||     | |    |||     |  |    |+---------------+|||||
-  ||     | |    ||+-----+--+----+-----------------+||||
-  ||     | |    |+---------------------------------+|||
-  |+-----+-+----+--------------------
----------------+||
---+--------------------------------------------------+|
-------------------------------------------------------+
-```
-
-
-## System Expressions
-
-### break
-
-  - Class:  
-    [system expression](#system_expression)
-  - Usage:  
-    `Break`
-  - See Also:  
-    [breakin](#breakin), [debugging](#debugging),
-    [callstack](#callstack), [step](#step), [next](#next),
-    [resume](#resume)
-
-The execution of `Break` causes the interpreter to interrupt normal
-execution in an expression sequence and to display the current
-callstack. It then prompts for input with the prompt `-->` followed by
-the default command in brackets. The visible environment is that of the
-expression in which the break occurs. Thus, it is possible to examine
-the values of local variables in break mode.
-
-At a break you can type any expression to inspect the value of a
-variable or to see a portion of its value. The operation `see` can also
-be used to view any of the definitions in the environment.
-
-The debugging capability allows one to step forward in expression
-sequences using commands `step`, stepin, next or `toend` to control
-whether you step into or over other definitions or to the end of a loop
-or a definition. The command `resume` ends the break and normal
-execution is restarted.
-
-``` 
-     foo is op A {­ Break; A }
-     foo 3
--------------------------------------------------------------
-    Break debug loop: enter debug commands, expressions or
-      type: resume    to exit debug loop
-      <Return> executes the indicated debug command
-    current call stack :
-foo
--------------------------------------------------------------
-?.. A
--->[stepv]
-```
-
-In the example, the operation `foo` has a `Break` which is executed when
-`foo` is applied to 3. If `Return` is pressed at the prompt the
-expression `A` is evaluated and 3 is displayed followed by another
-prompt.
-
-
-### breaklist
-
-  - Class:  
-    [system expression](#system_expression)
-  - Usage:  
-    `Breaklist`
-  - See Also:  
-    [break](#break), [breakin](#breakin), [debugging](#debugging)
-
-The execution of `Breaklist` prints out a list of the definition names
-for which the breakin flag has been set.
-
-Its main use is to assist in clearing the breaks as debugging proceeds.
-
-``` 
-     Breaklist
-labeltable
-```
-
-To clear all breaks use:
-
-``` 
-     EACH breakin Breaklist
-```
-
-
-### bye
-
-  - Class:  
-    [system expression](#system_expression)
-  - Usage:  
-    `Bye`
-  - See Also:  
-    [save](#save)
-
-The expression `Bye` is used to terminate a session of Q’Nial and to
-return to the host environment. The current workspace is not saved.
-
-
-### callstack
-
-  - Class:  
-    [system expression](#system_expression)
-  - Usage:  
-    `Callstack`
-  - See Also:  
-    [break](#break), [debugging](#debugging)
-
-The expression `Callstack` displays the sequence of active definition
-calls at the point it is invoked. It is usually used in conjunction with
-`Break`. `Callstack` can be used to see the execution path by which the
-computation reached the current state while computation is suspended
-during a break.
-
-
-### exprs
-
-  - Class:  
-    [system expression](#system_expression)
-  - Usage:  
-    `Exprs`
-  - See Also:  
-    [symbols](#symbols)
-
-The expression `Exprs` returns a list of phrases giving the names of all
-user defined expressions in the workspace.
-
-**Definition**
-
-``` 
-     Exprs IS {­
-        Names Roles := pack symbols 0;
-        "expr match Roles sublist Names }
-```
-
-
-### no\_expr
-
-  - Class:  
-    [system expression](#system_expression)
-  - Usage:  
-    `No_expr`
-  - See Also:  
-    [no\_value](#no_value), [no\_op](#no_op), [no\_tr](#no_tr)
-
-The expression No\_expr returns the fault `?missing_expr`. It is the
-default value for an expression name declared to be `external` or that
-has been erased.
-
-
-### ops
-
-  - Class:  
-    [system expression](#system_expression)
-  - Usage:  
-    `Ops`
-  - See Also:  
-    [symbols](#symbols), [exprs](#exprs), [trs](#trs), [vars](#vars)
-
-The expression `Ops` returns a list of phrases giving the names of all
-user defined operations in the workspace.
-
-**Definition**
-
-``` 
-     Ops IS {­
-        Names Roles := pack symbols 0;
-        "op match Roles sublist Names }
-```
-
-
-### status
-
-  - Class:  
-    [system expression](#system_expression)
-  - Usage:  
-    `Status`
-  - See Also:  
-    [filestatus](#filestatus)
-
-The expression `status` provides seven integers indicating the use of
-memory by Q’Nial. In order of display, the items are as follows:
-
-| Index | Quantity                                  |
-| ----- | ----------------------------------------- |
-| 0     | Number of free words in the workspace     |
-| 1     | Number of words in the largest free block |
-| 2     | Number of free blocks                     |
-| 3     | Total number of words in workspace        |
-| 4     | Stack size in words                       |
-| 5     | Atom table size in words                  |
-| 6     | Internal buffer size                      |
-
-The first entry is an indication of how full the workspace is when
-compared with the fourth entry. A word can contain an integer, a
-reference to an array item, or 4 characters. The second entry gives an
-upper limit to the number of integers that can be in a largest size
-array. The third item is a measure of the fragmentation of memory. The
-number of free words divided by the number of free blocks gives the
-average block size. The fourth item gives the current size of the
-workspace. It can grow provided the system has space available. The
-remaining entries give the sizes of internal areas that can grow as
-necessary.
-
-The starting workspace size can be specified as a parameter to the
-`nial` command that starts a session in console versions or in a dialog
-box in a GUI version. The workspace and the other areas can grow in size
-provided there is sufficient space and workspace growth is allowed (the
-default).
-
-``` 
-     status
-64198 63828 5 100000 4000 6000 1000
-```
-
-
-### time
-
-  - Class:  
-    [system expression](#system_expression)
-  - Usage:  
-    `Time`
-  - See Also:  
-    [timestamp](#timestamp)
-
-The expression `Time` returns a real number giving the time in seconds
-spent in executing Q’Nial since the beginning of the session. On systems
-permitting multi-processing, the time represents central processor time
-in seconds.
-
-The expression `Time` is useful for estimating the relative costs of
-Q’Nial operations in terms of processor time.
-
-
-### timestamp
-
-  - Class:  
-    [system expression](#system_expression)
-  - Usage:  
-    `Timestamp`
-  - See Also:  
-    [time](#time)
-
-The expression `Timestamp` gives the current date and time in the
-standard format for the host system. The details of this expression are
-implementation dependent.
-
-The result is reported as a string giving the date and time. `Timestamp`
-is useful for dating reports and messages.
-
-``` 
-     Timestamp
-Mon Jan 27 14:07:37 1997
-```
-
-
-### trs
-
-  - Class:  
-    [system expression](#system_expression)
-  - Usage:  
-    `Trs`
-  - See Also:  
-    [symbols](#symbols), [exprs](#exprs), [ops](#ops), [vars](#vars)
-
-The expression `Trs` returns a list of phrases giving the names of all
-user defined transformers in the workspace.
-
-**Definition**
-
-``` 
-     Trs IS {­
-        Names Roles := pack symbols 0;
-        "tr match Roles sublist Names }
-```
-
-
-### vars
-
-  - Class:  
-    [system expression](#system_expression)
-  - Usage:  
-    `Vars`
-  - See Also:  
-    [symbols](#symbols), [exprs](#exprs), [ops](#ops), [trs](#trs)
-
-The expression `Vars` returns a list of phrases giving the names of all
-user variables in the workspace.
-
-**Definition**
-
-``` 
-     Vars IS {­
-        Names Roles := pack symbols 0;
-        "var match Roles sublist Names }
-```
-
-
-### watchlist
-
-  - Class:  
-    [system expression](#system_expression)
-  - Usage:  
-    `Watchlist`
-  - See Also:  
-    [watch](#watch), [debugging](#debugging)
-
-The execution of `Watchlist` prints out a list of the variable watches
-that are in effect.
-
-Its main use is to assist in clearing the watches as debugging proceeds.
-
-``` 
-     Watchlist
-+-----------------------------+----------------------------------------+
-|+--+------------------------+|+------+-------------------------------+|
-||!X|write 'X changed to: ' X|||!FOO:B|write 'B in foo changed to: ' B||
-|+--+------------------------+|+------+-------------------------------+|
-+-----------------------------+----------------------------------------+
-
-     watch !x ''
-+------------------+------------------------+
-|+---+------------+|write 'X changed to: ' X|
-||100|2 7926 42354||                        |
-|+---+------------+|                        |
-+------------------+------------------------+
-
-     watchlist
-+----------------------------------------+
-|+------+-------------------------------+|
-||!FOO:B|write 'B in foo changed to: ' B||
-|+------+-------------------------------+|
-+----------------------------------------+
-```
-
-To clear all watches use:
-
-``` 
-     EACH first Watchlist EACHLEFT watch ''
-```
-
-
-## User defined expression
-
-### latent
-
-  - Class:  
-    [user defined expression](#user_defined_expression)
-  - Usage:  
-    `Latent`
-  - See Also:  
-    [load](#load), [save](#save)
-
-The expression `Latent` is used to name an expression to be executed
-without user intervention when the workspace is loaded. `Latent` is used
-in closed applications so that an application can be started when the
-workspace is loaded. `Latent` can establish any default or initial
-conditions desired.
-
-``` 
-     Latent IS {­
-        settrigger o;
-        set "log;
-        StartApp;
-        Bye; }
-```
-
-In the example, `Latent` is defined to turn of triggering of faults, to
-turn on session logging, to start the application and then to terminate
-the session.
-
-
-      
-## Arithmetic operations
-
- - [abs](#abs)
- - [ceiling](#ceiling)
- - [divide](#divide)
- - [floor](#floor)
- - [minus](#minus)
- - [mod](#mod)
- - [opposite](#opposite)
- - [plus](#plus)
- - [power](#power)
- - [product](#product)
- - [quotient](#quotient)
- - [reciprocal](#reciprocal)
- - [sum](#sum)
- - [times](#times)
-
-## Array generation operations
-
- - [count](#count)
- - [grid](#grid)
- - [random](#random)
- - [seed](#seed)
- - [tell](#tell)
-
-## Comparison operations
-
- - [gt](#gt)
- - [gte](#gte)
- - [lt](#lt)
- - [lte](#lte)
- - [match](#match)
- - [mate](#mate)
- - [max](#max)
- - [min](#min)
- - [up](#up)
-
-## Construction operations
-
- - [append](#append)
- - [cart](#cart)
- - [catenate](#catenate)
- - [hitch](#hitch)
- - [laminate](#laminate)
- - [link](#link)
- - [pair](#pair)
- - [single](#single)
- - [solitary](#solitary)
-
-## Control flow operation
-
- - [throw](#throw)
-
-## Conversion operations
-
- - [char](#char)
- - [charrep](#charrep)
- - [fault](#fault)
- - [fromraw](#fromraw)
- - [gage](#gage)
- - [phrase](#phrase)
- - [quiet\_fault](#quiet_fault)
- - [string](#string)
- - [tolower](#tolower)
- - [tonumber](#tonumber)
- - [toraw](#toraw)
- - [toupper](#toupper)
-
-## Data rearrangement operations
-
- - [flip](#flip)
- - [fuse](#fuse)
- - [pack](#pack)
- - [reverse](#reverse)
- - [rotate](#rotate)
- - [transpose](#transpose)
-
-## Evaluation operations
-
- - [apply](#apply)
- - [assign](#assign)
- - [deepupdate](#deepupdate)
- - [deparse](#deparse)
- - [descan](#descan)
- - [eval](#eval)
- - [execute](#execute)
- - [getdef](#getdef)
- - [getname](#getname)
- - [getsyms](#getsyms)
- - [parse](#parse)
- - [scan](#scan)
- - [update](#update)
- - [updateall](#updateall)
- - [value](#value)
-
-## File operations
-
- - [appendfile](#appendfile)
- - [close](#close)
- - [getfile](#getfile)
- - [open](#open)
- - [putfile](#putfile)
- - [readfile](#readfile)
- - [writefile](#writefile)
-
-## Insertion operations
-
- - [deepplace](#deepplace)
- - [place](#place)
- - [placeall](#placeall)
-
-## Interactive i/o operations
-
- - [read](#read)
- - [readscreen](#readscreen)
- - [write](#write)
- - [writechars](#writechars)
- - [writescreen](#writescreen)
-
-## Linear algebra operations
-
- - [innerproduct](#innerproduct)
- - [inverse](#inverse)
- - [solve](#solve)
-
-## Logic operations
-
+      - [address](#address)
+      - [argument](#argument)
+      - [array](#array)
+      - [by-variable](#by-variable)
+      - [canonical](#canonical)
+      - [clear workspace](#clear-workspace)
+      - [conform](#conform)
+      - [curried operation](#curried-operation)
+      - [debugging](#debugging)
+      - [definition](#definition)
+      - [dimensions](#dimensions)
+      - [equations](#equations)
+      - [expression](#expression)
+      - [extent](#extent)
+      - [fault triggering](#fault-triggering)
+      - [fault values](#fault-values)
+      - [functions in nial](#functions-in-nial)
+      - [global environment](#global-environment)
+      - [indexing](#indexing)
+      - [interrupt](#interrupt)
+      - [invocation of QNial](#invocation-of-qnial)
+      - [item](#item)
+      - [level](#level)
+      - [local environment](#local-environment)
+      - [nested definition](#nested-definition)
+      - [numeric type hierarchy](#numeric-type-hierarchy)
+      - [operation](#operation)
+      - [operation composition](#operation-composition)
+      - [overflow](#overflow)
+      - [pervasive](#pervasive)
+      - [prelattice of atoms](#prelattice-of-atoms)
+      - [profiling](#profiling)
+      - [program fragment](#program-fragment)
+      - [role](#role)
+      - [scope of a variable](#scope-of-a-variable)
+      - [standard definitions](#standard-definitions)
+      - [top level loop](#top-level-loop)
+      - [transformer](#transformer)
+  - title: Syntax
+    text: |
+      - [action](#action)
+      - [assign expression](#assign-expression)
+      - [atlas](#atlas)
+      - [block](#block)
+      - [bracket-comma notation](#bracket-comma-notation)
+      - [cast](#cast)
+      - [comment](#comment)
+      - [expression sequence](#expression-sequence)
+      - [external declaration](#external-declaration)
+      - [infix notation](#infix-notation)
+      - [juxtaposition](#juxtaposition)
+      - [operation form](#operation-form)
+      - [prefix notation](#prefix-notation)
+      - [reserved words](#reserved-words)
+      - [strand notation](#strand-notation)
+      - [synonym](#synonym)
+      - [transformer form](#transformer-form)
+      - [variable](#variable)
+  - title: Control Structures
+    text: |
+      - [case-expr](#case-expr)
+      - [for-loop](#for-loop)
+      - [if-expr](#if-expr)
+      - [repeat\-loop](#repeat-loop)
+      - [while\-loop](#while-loop)
+  - title: Operation Properties
+    text: |
+      - [binary](#binary)
+      - [binary pervasive](#binary-pervasive)
+      - [multi pervasive](#multi-pervasive)
+      - [predicate](#predicate)
+      - [reductive](#reductive)
+      - [unary pervasive](#unary-pervasive)
+  - title: Constant Expressions
+    text: |
+      - [false](#false)
+      - [null](#null)
+      - [pi](#pi)
+      - [true](#true)
+  - title: File Expressions
+    text: |
+      - [filestatus](#filestatus)
+  - title: Profiling Expressions
+    text: |
+      - [clearprofile](#clearprofile)
+      - [profiletable](#profiletable)
+      - [profiletree](#profiletree)
+  - title: System Expressions
+    text: |
+      - [break](#break)
+      - [breaklist](#breaklist)
+      - [bye](#bye)
+      - [callstack](#callstack)
+      - [exprs](#exprs)
+      - [no\_expr](#no_expr)
+      - [ops](#ops)
+      - [status](#status)
+      - [time](#time)
+      - [timestamp](#timestamp)
+      - [trs](#trs)
+      - [vars](#vars)
+      - [watchlist](#watchlist)
+  - title: User defined expression
+    text: |
+      - [latent](#latent)
+  - title: Arithmetic operations
+    text: |
+      - [abs](#abs)
+      - [ceiling](#ceiling)
+      - [divide](#divide)
+      - [floor](#floor)
+      - [minus](#minus)
+      - [mod](#mod)
+      - [opposite](#opposite)
+      - [plus](#plus)
+      - [power](#power)
+      - [product](#product)
+      - [quotient](#quotient)
+      - [reciprocal](#reciprocal)
+      - [sum](#sum)
+      - [times](#times)
+  - title: Array generation operations
+    text: |
+      - [count](#count)
+      - [grid](#grid)
+      - [random](#random)
+      - [seed](#seed)
+      - [tell](#tell)
+
+  - title: Comparison operations
+    text: |
+      - [gt](#gt)
+      - [gte](#gte)
+      - [lt](#lt)
+      - [lte](#lte)
+      - [match](#match)
+      - [mate](#mate)
+      - [max](#max)
+      - [min](#min)
+      - [up](#up)
+  - title: Construction operations
+    text: |
+      - [append](#append)
+      - [cart](#cart)
+      - [catenate](#catenate)
+      - [hitch](#hitch)
+      - [laminate](#laminate)
+      - [link](#link)
+      - [pair](#pair)
+      - [single](#single)
+      - [solitary](#solitary)
+  - title: Control flow operation
+    text: |
+      - [throw](#throw)
+  - title: Conversion operations
+    text: |
+      - [char](#char)
+      - [charrep](#charrep)
+      - [fault](#fault)
+      - [fromraw](#fromraw)
+      - [gage](#gage)
+      - [phrase](#phrase)
+      - [quiet fault](#quiet-fault)
+      - [string](#string)
+      - [tolower](#tolower)
+      - [tonumber](#tonumber)
+      - [toraw](#toraw)
+      - [toupper](#toupper)
+  - title: Data rearrangement operations
+    text: |
+      - [flip](#flip)
+      - [fuse](#fuse)
+      - [pack](#pack)
+      - [reverse](#reverse)
+      - [rotate](#rotate)
+      - [transpose](#transpose)
+  - title: Evaluation operations
+    text: |
+      - [apply](#apply)
+      - [assign](#assign)
+      - [deepupdate](#deepupdate)
+      - [deparse](#deparse)
+      - [descan](#descan)
+      - [eval](#eval)
+      - [execute](#execute)
+      - [getdef](#getdef)
+      - [getname](#getname)
+      - [getsyms](#getsyms)
+      - [parse](#parse)
+      - [scan](#scan)
+      - [update](#update)
+      - [updateall](#updateall)
+      - [value](#value)
+  - title: File operations
+    text: |
+      - [appendfile](#appendfile)
+      - [close](#close)
+      - [getfile](#getfile)
+      - [open](#open)
+      - [putfile](#putfile)
+      - [readfile](#readfile)
+      - [writefile](#writefile)
+  - title: Insertion operations
+    text: |
+      - [deepplace](#deepplace)
+      - [place](#place)
+      - [placeall](#placeall)
+  - title: Interactive i/o operations
+    text: |
+      - [read](#read)
+      - [readscreen](#readscreen)
+      - [write](#write)
+      - [writechars](#writechars)
+      - [writescreen](#writescreen)
+  - title: Linear algebra operations
+    text: |
+      - [innerproduct](#innerproduct)
+      - [inverse](#inverse)
+      - [solve](#solve)
+  - title: Logic operations
+    text: |
       - [and](#and)
       - [diverse](#diverse)
       - [equal](#equal)
       - [not](#not)
       - [or](#or)
       - [unequal](#unequal)
+  - title: Measurement operations
+    text: |
+      - [allbools](#allbools)
+      - [allchars](#allchars)
+      - [allints](#allints)
+      - [allnumeric](#allnumeric)
+      - [allreals](#allreals)
+      - [axes](#axes)
+      - [depth](#depth)
+      - [isboolean](#isboolean)
+      - [ischar](#ischar)
+      - [isfault](#isfault)
+      - [isinteger](#isinteger)
+      - [isphrase](#isphrase)
+      - [isreal](#isreal)
+      - [isstring](#isstring)
+      - [numeric](#numeric)
+      - [shape](#shape)
+      - [tally](#tally)
+      - [type](#type)
+      - [valence](#valence)
+  - title: Nesting restructuring operations
+    text: |
+      - [blend](#blend)
+      - [cols](#cols)
+      - [content](#content)
+      - [lower](#lower)
+      - [mix](#mix)
+      - [raise](#raise)
+      - [rows](#rows)
+      - [split](#split)
+  - title: Nial direct access file operations
+    text: |
+      - [eraserecord](#eraserecord)
+      - [filetally](#filetally)
+      - [readarray](#readarray)
+      - [readrecord](#readrecord)
+      - [writearray](#writearray)
+      - [writerecord](#writerecord)
+  - title: Picture operations
+    text: |
+      - [diagram](#diagram)
+      - [display](#display)
+      - [paste](#paste)
+      - [picture](#picture)
+      - [positions](#positions)
+      - [setformat](#setformat)
+      - [sketch](#sketch)
+  - title: Profiling operations
+    text: |
+      - [profile](#profile)
+      - [setprofile](#setprofile)
+  - title: Reshaping operations
+    text: |
+      - [list](#list)
+      - [mold](#mold)
+      - [pass](#pass)
+      - [post](#post)
+      - [reshape](#reshape)
+      - [vacate](#vacate)
+      - [void](#void)
+  - title: Scientific operations
+    text: |
+      - [arccos](#arccos)
+      - [arcsin](#arcsin)
+      - [arctan](#arctan)
+      - [cos](#cos)
+      - [cosh](#cosh)
+      - [exp](#exp)
+      - [ln](#ln)
+      - [log](#log)
+      - [sin](#sin)
+      - [sinh](#sinh)
+      - [sqrt](#sqrt)
+      - [tan](#tan)
+      - [tanh](#tanh)
+  - title: Search operations
+    text: |
+      - [find](#find)
+      - [findall](#findall)
+      - [in](#in)
+      - [notin](#notin)
+      - [seek](#seek)
+  - title: Selection operations
+    text: |
+      - [choose](#choose)
+      - [cull](#cull)
+      - [cut](#cut)
+      - [cutall](#cutall)
+      - [drop](#drop)
+      - [dropright](#dropright)
+      - [except](#except)
+      - [first](#first)
+      - [front](#front)
+      - [last](#last)
+      - [pick](#pick)
+      - [reach](#reach)
+      - [rest](#rest)
+      - [second](#second)
+      - [sublist](#sublist)
+      - [take](#take)
+      - [takeright](#takeright)
+      - [third](#third)
+  - title: Set-like operations
+    text: |
+      - [allin](#allin)
+      - [like](#like)
+  - title: Structure testing operations
+    text: |
+      - [atomic](#atomic)
+      - [empty](#empty)
+      - [simple](#simple)
+  - title: Sorting operations
+    text: |
+      - [gradeup](#gradeup)
+      - [sortup](#sortup)
+  - title: System operations
+    text: |
+      - [breakin](#breakin)
+      - [edit](#edit)
+      - [erase](#erase)
+      - [host](#host)
+      - [library](#library)
+      - [load](#load)
+      - [loaddefs](#loaddefs)
+      - [no\_op](#no-op)
+      - [save](#save)
+      - [see](#see)
+      - [seeprimcalls](#seeprimcalls)
+      - [seeusercalls](#seeusercalls)
+      - [set](#set)
+      - [setdeftrace](#setdeftrace)
+      - [setinterrupts](#setinterrupts)
+      - [setlogname](#setlogname)
+      - [setprompt](#setprompt)
+      - [settrigger](#settrigger)
+      - [setwidth](#setwidth)
+      - [symbols](#symbols)
+      - [watch](#watch)
+  - title: Host direct access file operations
+    text: |
+      - [filelength](#filelength)
+      - [readfield](#readfield)
+      - [writefield](#writefield)
+  - title: Applicative transformers
+    text: |
+      - [bykey](#bykey)
+      - [converse](#converse)
+      - [fold](#fold)
+      - [inner](#inner)
+      - [outer](#outer)
+      - [team](#team)
+  - title: Apply-by-partition transformers
+    text: |
+      - [bycols](#bycols)
+      - [byrows](#byrows)
+      - [partition](#partition)
+      - [rank](#rank)
+      - [reducecols](#reducecols)
+      - [reducerows](#reducerows)
+  - title: Control flow transformer
+    text: |
+      - [catch](#catch)
+  - title: Control structure transformers
+    text: |
+      - [fork](#fork)
+      - [iterate](#iterate)
+  - title: Distributive transformers
+    text: |
+      - [each](#each)
+      - [eachall](#eachall)
+      - [eachboth](#eachboth)
+      - [eachleft](#eachleft)
+      - [eachright](#eachright)
+      - [leaf](#leaf)
+      - [twig](#twig)
+  - title: Recursion transformers
+    text: |
+      - [across](#across)
+      - [down](#down)
+      - [recur](#recur)
+  - title: Reduction transformers
+    text: |
+      - [accumulate](#accumulate)
+      - [reduce](#reduce)
+  - title: Selection transformer
+    text: |
+      - [filter](#filter)
+  - title: Sorting transformers
+    text: |
+      - [grade](#grade)
+      - [sort](#sort)
+  - title: System transformer
+    text: |
+      - [no\_tr](#no-tr)
+  - title: System variables
+    text: |
+      - [libpath](#libpath)
+  - title: System constants
+    text: |
+      - [no\_value](#no-value)
+  - title: Debugging commands
+    text: |
+      - [next](#next)
+      - [resume](#resume)
+      - [step](#step)
+      - [stepin](#stepin)
+      - [toend](#toend)
 
-## Measurement operations
+---
 
- - [allbools](#allbools)
- - [allchars](#allchars)
- - [allints](#allints)
- - [allnumeric](#allnumeric)
- - [allreals](#allreals)
- - [axes](#axes)
- - [depth](#depth)
- - [isboolean](#isboolean)
- - [ischar](#ischar)
- - [isfault](#isfault)
- - [isinteger](#isinteger)
- - [isphrase](#isphrase)
- - [isreal](#isreal)
- - [isstring](#isstring)
- - [numeric](#numeric)
- - [shape](#shape)
- - [tally](#tally)
- - [type](#type)
- - [valence](#valence)
+{::options syntax_highlighter_opts="default_lang: nial" /}
 
-## Nesting restructuring operations
-
- - [blend](#blend)
- - [cols](#cols)
- - [content](#content)
- - [lower](#lower)
- - [mix](#mix)
- - [raise](#raise)
- - [rows](#rows)
- - [split](#split)
-
-## Nial direct access file operations
-
- - [eraserecord](#eraserecord)
- - [filetally](#filetally)
- - [readarray](#readarray)
- - [readrecord](#readrecord)
- - [writearray](#writearray)
- - [writerecord](#writerecord)
-
-## Picture operations
-
- - [diagram](#diagram)
- - [display](#display)
- - [paste](#paste)
- - [picture](#picture)
- - [positions](#positions)
- - [setformat](#setformat)
- - [sketch](#sketch)
-
-## Profiling operations
-
- - [profile](#profile)
- - [setprofile](#setprofile)
-
-## Reshaping operations
-
- - [list](#list)
- - [mold](#mold)
- - [pass](#pass)
- - [post](#post)
- - [reshape](#reshape)
- - [vacate](#vacate)
- - [void](#void)
-
-## Scientific operations
-
- - [arccos](#arccos)
- - [arcsin](#arcsin)
- - [arctan](#arctan)
- - [cos](#cos)
- - [cosh](#cosh)
- - [exp](#exp)
- - [ln](#ln)
- - [log](#log)
- - [sin](#sin)
- - [sinh](#sinh)
- - [sqrt](#sqrt)
- - [tan](#tan)
- - [tanh](#tanh)
-
-## Search operations
-  - [find](#find)
- - [findall](#findall)
- - [in](#in)
- - [notin](#notin)
- - [seek](#seek)
-
-## Selection operations
-
- - [choose](#choose)
- - [cull](#cull)
- - [cut](#cut)
- - [cutall](#cutall)
- - [drop](#drop)
- - [dropright](#dropright)
- - [except](#except)
- - [first](#first)
- - [front](#front)
- - [last](#last)
- - [pick](#pick)
- - [reach](#reach)
- - [rest](#rest)
- - [second](#second)
- - [sublist](#sublist)
- - [take](#take)
- - [takeright](#takeright)
- - [third](#third)
-
-## Set-like operations
-
- - [allin](#allin)
- - [like](#like)
-
-## Structure testing operations
-
- - [atomic](#atomic)
- - [empty](#empty)
- - [simple](#simple)
-
-## Sorting operations
-
- - [gradeup](#gradeup)
- - [sortup](#sortup)
-
-## System operations
-
- - [breakin](#breakin)
- - [edit](#edit)
- - [erase](#erase)
- - [host](#host)
- - [library](#library)
- - [load](#load)
- - [loaddefs](#loaddefs)
- - [no\_op](#no_op)
- - [save](#save)
- - [see](#see)
- - [seeprimcalls](#seeprimcalls)
- - [seeusercalls](#seeusercalls)
- - [set](#set)
- - [setdeftrace](#setdeftrace)
- - [setinterrupts](#setinterrupts)
- - [setlogname](#setlogname)
- - [setprompt](#setprompt)
- - [settrigger](#settrigger)
- - [setwidth](#setwidth)
- - [symbols](#symbols)
- - [watch](#watch)
-
-## Host direct access file operations
-
- - [filelength](#filelength)
- - [readfield](#readfield)
- - [writefield](#writefield)
-
-## Applicative transformers
-
- - [bykey](#bykey)
- - [converse](#converse)
- - [fold](#fold)
- - [inner](#inner)
- - [outer](#outer)
- - [team](#team)
-
-## Apply-by-partition transformers
-
- - [bycols](#bycols)
- - [byrows](#byrows)
- - [partition](#partition)
- - [rank](#rank)
- - [reducecols](#reducecols)
- - [reducerows](#reducerows)
-
-## Control flow transformer
-
- - [catch](#catch)
-
-## Control structure transformers
-
- - [fork](#fork)
- - [iterate](#iterate)
-
-## Distributive transformers
-
- - [each](#each)
- - [eachall](#eachall)
- - [eachboth](#eachboth)
- - [eachleft](#eachleft)
- - [eachright](#eachright)
- - [leaf](#leaf)
- - [twig](#twig)
-
-## Recursion transformers
-
- - [across](#across)
- - [down](#down)
- - [recur](#recur)
-
-## Reduction transformers
-
- - [accumulate](#accumulate)
- - [reduce](#reduce)
-
-## Selection transformer
-
- - [filter](#filter)
-
-## Sorting transformers
-
- - [grade](#grade)
- - [sort](#sort)
-
-## System transformer
-
- - [no\_tr](#no_tr)
-
-## System variables
-
- - [libpath](#libpath)
-
-## System constants
-
- - [no\_value](#no_value)
-
-## Debugging commands
-
- - [next](#next)
- - [resume](#resume)
- - [step](#step)
- - [stepin](#stepin)
- - [toend](#toend)
 
 
 # A-Z Listing
@@ -4220,6 +635,96 @@ and right values as the recursion unwinds.
 ```
 
 
+
+## action
+
+  - Class:  
+    [syntax](#syntax)
+  - See Also:  
+    [definition](#definition), [expression
+    sequence](#expression_sequence), [external
+    declaration](#external_declaration), [comment](#comment)
+
+An **action** is the construct that is entered in the interactive loop
+of the Q’Nial interpreter or accepted as an input unit within the
+operation loaddefs:
+
+``` 
+     action ::= definition-sequence
+        | expression-sequence
+        | external-declaration
+        | remark
+
+     definition-sequence ::= definition
+        {­ ; definition } [ ; ]
+
+     remark ::= # < any text >
+```
+
+If an action is a definition-sequence, its definitions are installed in
+the global environment.
+
+If an action is an expression-sequence, it is executed and a value is
+returned. The value returned by an expression-sequence is displayed on
+the screen unless it is the fault ?noexpr.
+
+An external-declaration assigns a role to a name in the global
+environment so that the name can be used in other definitions before it
+is completely specified.
+
+A remark is an input to the Q’Nial interpreter that is not processed. It
+begins with a line that has the symbol \# as the first non-blank
+character in the line. In direct input at the top level loop, a remark
+ends at the end of the line unless a backslash symbol ( \\ ) is used to
+extend the line. In a definition file, a remark ends at the first blank
+line. A remark cannot appear within a definition or expression-sequence.
+
+
+
+## address
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [array](#array), [pick](#pick), [indexing](#indexing)
+
+An **address** is an integer or a list of integers describing the
+location of an item in an array. An address uses 0-origin counting, i.e.
+the first position in a list is at address 0. All the addresses of an
+array can be stored in an array of the same rectangular structure as the
+array itself. Such an array is called the **grid** of an array. Consider
+the following example:
+
+``` 
+             GRID OF THE ARRAY                 ARRAY
++-----+-----+-----+-----+-----+-----+ +---+---+---+---+---+---+
+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+| |499|434|122|770|733|890|
+||0|0|||0|1|||0|2|||0|3|||0|4|||0|5|| +---+---+---+---+---+---+
+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+| |660|160| 32|808|240|584|
++-----+-----+-----+-----+-----+-----+ +---+---+---+---+---+---+
+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+| |473|235|164|496|808|966|
+||1|0|||1|1|||1|2|||1|3|||1|4|||1|5|| +---+---+---+---+---+---+
+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+| |156|205| 34|576|236|454|
++-----+-----+-----+-----+-----+-----+ +---+---+---+---+---+---+
+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|
+||2|0|||2|1|||2|2|||2|3|||2|4|||2|5||
+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|
++-----+-----+-----+-----+-----+-----+
+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|
+||3|0|||3|1|||3|2|||3|3|||3|4|||3|5||
+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|+-+-+|
++-----+-----+-----+-----+-----+-----+
+```
+
+The array on the right is a 4 by 6 table of numbers. It has 24 items
+arranged along two directions of length 4 and 6 respectively. The
+address of 496 is \[2,3\].
+
+The addresses of a `list` are integers: 0, 1, etc. For convenience, in
+situations where an address of a list is expected, a solitary integer is
+treated as an integer.
+
+The address of a `single` is the empty list `Null`.
 
 
 
@@ -4726,6 +1231,73 @@ produces the following results when applied to atoms of the six types:
 
 
 
+## argument
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [operation](#operation)
+
+An **argument** is an array value supplied to an operation. All
+operations in Nial take a single array as the argument, but binary
+operations expect that argument to be a pair. When an operation is used
+in infix syntax, then the two array values on the left and right are
+combined into a pair to be supplied as the argument to the operation.
+
+The argument to an operation-form is treated specially. If the
+operation-form has only one formal parameter then the argument is
+assigned to the parameter. If it has two or more formal parameters, then
+the argument is checked to see if it has the same number of items as
+there are parameters. If so, the items are assigned to the parameters.
+If not, the result is the fault `?op_parameter`.
+
+
+
+## array
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [item](#item), [address](#address), [dimensions](#dimensions)
+
+The data objects of Nial are nested rectangular arrays. Atomic data
+objects such as numbers and characters are included within this
+description by virtue of an atom being considered as a self-containing
+array object with no dimensions.
+
+**Atomic Arrays**
+
+There are six types of atoms in Nial. They are `boolean`, integer, real,
+character, phrase and `fault`. The first three are **numeric** types and
+are used for arithmetic operations. The last three are **literal** types
+and are used for text and symbol manipulation. All six types of atoms
+are used in comparisons.
+
+**Rectangularity Structure**
+
+An **array** is a collection of data objects having its **items** held
+at locations in a rectangular structure. The items are viewed as being
+at locations that are positioned relative to a set of directions at
+right angles to each other. The items may be arranged along zero, one,
+two or more directions. For example, the following array is a 4 by 6
+table of numbers. It has 24 items arranged along two directions of
+length 4 and 6 respectively.
+
+``` 
+                   +---+---+---+---+---+---+
+                   |499|434|122|770|733|890|
+                   +---+---+---+---+---+---+
+                   |660| 32|808| 24|  5|473|
+                   +---+---+---+---+---+---+
+                   |499|434|122|770|733|890|
+                   +---+---+---+---+---+---+
+                   |660| 32|808| 24|  5|473|
+                   +---+---+---+---+---+---+
+```
+
+The items of an array are themselves arrays. Thus, an array can have an
+arbitrarily deep nesting structure.
+
 
 
 ## assign
@@ -4770,6 +1342,82 @@ environment and passed into an operation as a parameter (This technique
 is called **by-variable** parameter passing).
 
 
+
+## assign expression
+
+  - Class:  
+    [syntax](#syntax)
+  - See Also:  
+    [variable](#variable), [expression](#expression),
+    [indexing](#indexing), [assign](#assign)
+
+<!-- end list -->
+
+``` 
+     assign-expression ::=
+        {­ variable }+ := expression
+        | indexed-variable := expression
+```
+
+An **assign-expression** assigns an array value to one or more variables
+at the time of evaluation of the assign expression. The semantics of an
+assign expression is interpreted in two stages: when the expression is
+analyzed (parsed) and when it is executed.
+
+During the parse of the assign-expression appearing in a block, each
+name on the variable list is sought in the local environment. If the
+name exists in the local environment, the assignment affects the local
+association. If a name does not exist in the local environment and no
+reference has been made to a nonlocal variable with the same name, a
+local variable is created in the block. An assign-expression parsed in
+the global environment creates a global variable if a variable with that
+name does not already exist.
+
+When an assign expression is executed, the expression on the right of
+the assignment symbol ( := ) is evaluated. If the variable list on the
+left has only one name, the value of the expression is assigned to that
+variable. That is, the value is associated with that name.
+
+If the variable list has several names, the items of the value are
+assigned to the variables in the order in which they appear. If the
+number of items does not match the number of variables, the fault
+?assignment is returned as the value of the assign-expression.
+Otherwise, the value of the assign-expression is the value of the
+expression on the right.
+
+When an indexed-variable is used on the left in an assign-expression,
+the parts of the array associated with the variable at the locations
+specified by the index are replaced by the values of the expression on
+the right.
+
+If the index expression for an indexed-variable assignment specifies a
+number of locations (at-all or slice indexing), there are two cases: if
+the value on the right is a single, the item of the single is placed in
+each location; otherwise, the value on the right must have the same
+number of items as the index expression indicates and the corresponding
+locations are updated with the items of the array value.
+
+
+
+## atlas
+
+  - Class:  
+    [syntax](#syntax)
+  - See Also:  
+    [operation](#operation)
+
+<!-- end list -->
+
+``` 
+     atlas ::= [ operation-expression {­ , operation-expression } ]
+```
+
+An **atlas** is an operation made up of a list of component operations.
+The result of applying an atlas is a list of the same length as the
+atlas. Each operation in the atlas is applied in turn to the argument
+resulting in an array value that becomes the item of the result list in
+the corresponding position. An atlas is used by the transformers `FORK,
+INNER` and `TEAM`.
 
 
 
@@ -4849,6 +1497,104 @@ counting from zero.
 
 
 
+## binary
+
+  - Class:  
+    [operation property](#operation_property)
+  - Usage:  
+    `A f B` `f A B`
+  - See Also:  
+    [binary pervasive](#binary_pervasive)
+
+An operation is said to `binary` if it must have exactly two items in
+its argument. Many of the built-in operations of Nial are binary. They
+can be used in both an infix and prefix manner. If a binary operation
+`f` is used in infix syntax then the arguments on each side of `f` are
+treated as the two items of its argument.
+
+``` 
+     3 reshape 5
+```
+
+In prefix usage, `f` can precede a single array with two items, or an
+explicit pair formed with strand notation or bracket-comma notation.
+
+``` 
+     X := 3 5;
+     reshape X
+5 5 5
+
+     reshape 3 5
+5 5 5
+
+     reshape [3,5]
+5 5 5
+```
+
+
+
+## binary pervasive
+
+  - Class:  
+    [operation property](#operation_property)
+  - Usage:  
+    `A f B` `f A B`
+  - See Also:  
+    [binary](#binary), [unary pervasive](#unary_pervasive), [multi
+    pervasive](#multi_pervasive), [pervasive](#pervasive),
+    [eachboth](#eachboth), [pack](#pack)
+
+Each operation `f` in this class maps a pair of atoms to an atom.
+
+A binary pervasive operation maps two arrays having identical structure
+to one with the same structure, mapping each pair of corresponding atoms
+by the function's behaviour on pairs of atoms.
+
+All of the binary operations of arithmetic and logic are binary
+pervasive.
+
+If a binary pervasive operation is applied to a pair of arrays that do
+not have the same shape, the effect is to build a conformable pair by
+replicating an atom or solitary item of the pair to the shape of the
+other item. If both items are of unequal shape and if both items are
+made up of more than one item, the fault `?conform` is returned. The
+replication of an argument with one item provides binary pervasive
+operations with a scalar extension capability. For example,
+
+``` 
+     3 4 5 6 - 5 = (3 4 5 6 - 5 5 5 5)
+l
+```
+
+If a binary pervasive operation is applied to an array that is not a
+pair, a fault is returned.
+
+The following table lists the binary pervasive operations.
+
+| Operation | Function                                             |
+| --------- | ---------------------------------------------------- |
+| divide    | division of numbers                                  |
+| gt        | greater than comparison                              |
+| gte       | greater than or equal comparison                     |
+| lt        | less than comparison                                 |
+| lte       | less than or equal comparison                        |
+| match     | equality of atoms without type coercion              |
+| mate      | equality of atoms with type coercion                 |
+| minus     | subtraction of numbers                               |
+| mod       | remainder on division of integers                    |
+| plus      | addition of numbers                                  |
+| quotient  | quotient on division of integers                     |
+| times     | multiplication of numbers divide division of numbers |
+
+**Equations**
+
+``` 
+   A f B = A EACHBOTH f B
+   A f B = EACH f (A pack B)
+   shape (A f B) = shape pack A B
+```
+
+
 
 ## blend
 
@@ -4903,6 +1649,161 @@ is the second argument to `split`.
 
 
 
+## block
+
+  - Class:  
+    [syntax](#syntax)
+  - See Also:  
+    [local environment](#local_environment), [scope of a
+    variable](#scope_of_a_variable), [nested
+    definition](#nested_definition)
+
+<!-- end list -->
+
+``` 
+     block ::=
+        {­ [ LOCAL {­ identifier-sequence }+ ; ]
+     [ NONLOCAL {­ identifier-sequence }+ ; ]
+     [ definition-sequence ; ]
+       expression-sequence }
+```
+
+A **block** is a scope-creating mechanism that permits an
+expression-sequence to be created so that it has local definitions and
+variables which are visible only inside the block. A block may appear as
+a primary-expression or as the body of an operation-form.
+
+A local environment is a collection of associations that are known
+within a limited section of program text. These limited sections are
+formed by blocks, operation-forms and transformer-forms. A name that has
+a local association in one of these forms is said to have local scope.
+
+If the definition appears within a block, the association is made in the
+local environment. Otherwise, the association is made in the global
+environment and assigns a role to the name as representing that kind of
+expression.
+
+If a block is used as a primary-expression, the local environment
+created by a block is determined by the block itself. If it is the body
+of an operation-form, the local environment includes the formal
+parameter names of the operation-form as variables.
+
+**Local and Nonlocal Declaration**
+
+The identifiers included in the local and nonlocal declarations are
+declared to be variables. Both forms of declarations are optional, but
+if both are given, local declarations must be made first. If the block
+is the body of a globally defined operation-form or expression, a
+nonlocal declaration effectively declares its variables as global ones.
+
+A block delimits a local environment. It allows new uses of names which
+do not interfere with uses of those names outside the block. For
+example, within a block, a predefined operation name can be redefined
+and used for a different purpose. Only the reserved words of Q’Nial
+cannot be reused in this fashion.
+
+Definitions that appear within the block have local scope. That is, the
+definitions can be referenced only in the body of the block. Variables
+assigned within the block may or may not have local scope, depending on
+the appearance of a local and/or a nonlocal declaration. If there is no
+declaration, all assigned variables have local scope. Declaring some
+variables as local does not change the effect on undeclared variables
+that are used on the left of assignment. They are automatically
+localized.
+
+If a nonlocal declaration is used, an assigned name that is on the
+nonlocal list is sought in surrounding scopes. If the name is not found,
+a variable is created in the global environment.
+
+
+
+## bracket-comma notation
+
+  - Class:  
+    [syntax](#syntax)
+  - See Also:  
+    [strand notation](#strand_notation)
+
+A list may be constructed directly by using **bracket-comma** notation.
+In this notation, the items of a list are separated by commas and the
+list is bounded by square brackets. If an item is omitted before or
+after a comma, then the fault value `?noexpr` is used for the value of
+the missing item. The notation denotes the `Null` if their are no items,
+and a solitary if there is only one item.
+
+``` 
+     [2,3 4,5]
++-+---+-+
+|2|3 4|5|
++-+---+-+
+
+     [,4 5]
++-------+---+
+|?noexpr|4 5|
++-------+---+
+
+     [] = Null
+l
+
+     ['hello world']
++-----------+
+|hello world|
++-----------+
+
+     [3,[4,5,6],7]
++-+-----+-+
+|3|4 5 6|7|
++-+-----+-+
+```
+
+
+
+## break
+
+  - Class:  
+    [system expression](#system_expression)
+  - Usage:  
+    `Break`
+  - See Also:  
+    [breakin](#breakin), [debugging](#debugging),
+    [callstack](#callstack), [step](#step), [next](#next),
+    [resume](#resume)
+
+The execution of `Break` causes the interpreter to interrupt normal
+execution in an expression sequence and to display the current
+callstack. It then prompts for input with the prompt `-->` followed by
+the default command in brackets. The visible environment is that of the
+expression in which the break occurs. Thus, it is possible to examine
+the values of local variables in break mode.
+
+At a break you can type any expression to inspect the value of a
+variable or to see a portion of its value. The operation `see` can also
+be used to view any of the definitions in the environment.
+
+The debugging capability allows one to step forward in expression
+sequences using commands `step`, stepin, next or `toend` to control
+whether you step into or over other definitions or to the end of a loop
+or a definition. The command `resume` ends the break and normal
+execution is restarted.
+
+``` 
+     foo is op A {­ Break; A }
+     foo 3
+-------------------------------------------------------------
+    Break debug loop: enter debug commands, expressions or
+      type: resume    to exit debug loop
+      <Return> executes the indicated debug command
+    current call stack :
+foo
+-------------------------------------------------------------
+?.. A
+-->[stepv]
+```
+
+In the example, the operation `foo` has a `Break` which is executed when
+`foo` is applied to 3. If `Return` is pressed at the prompt the
+expression `A` is evaluated and 3 is displayed followed by another
+prompt.
 
 
 
@@ -4996,6 +1897,32 @@ To clear all breaks use:
 
 
 
+## breaklist
+
+  - Class:  
+    [system expression](#system_expression)
+  - Usage:  
+    `Breaklist`
+  - See Also:  
+    [break](#break), [breakin](#breakin), [debugging](#debugging)
+
+The execution of `Breaklist` prints out a list of the definition names
+for which the breakin flag has been set.
+
+Its main use is to assist in clearing the breaks as debugging proceeds.
+
+``` 
+     Breaklist
+labeltable
+```
+
+To clear all breaks use:
+
+``` 
+     EACH breakin Breaklist
+```
+
+
 
 ## bycols
 
@@ -5034,6 +1961,19 @@ column.
    shape f A = shape A ==> shape BYCOLS f A = shape A
 ```
 
+
+
+## bye
+
+  - Class:  
+    [system expression](#system_expression)
+  - Usage:  
+    `Bye`
+  - See Also:  
+    [save](#save)
+
+The expression `Bye` is used to terminate a session of Q’Nial and to
+return to the host environment. The current workspace is not saved.
 
 
 
@@ -5136,7 +2076,81 @@ The example reverses the rows of the generated table.
 
 
 
+## by-variable
 
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [argument](#argument), [assign](#assign)
+
+One use of the operation `assign` is to mimic a **by-variable** form of
+parameter passing in place of Nial's by-value form. The result depends
+on what kind of name is provided, a phrase or a cast. If the name is
+provided as a phrase, the variable that is selected is determined by
+`assign` when it does the assignment by looking first in the local
+environment and then in the surrounding ones. If the name is provided as
+a cast, the variable selected is the one that exists at the point where
+the cast is formed. Thus, by-variable parameter passing is achieved by
+using the cast of the variable as an argument in the call. In the body
+of the operation the formal parameter is assigned using `assign` and
+evaluated using `value`.
+
+``` 
+     foo is op A Nm {­
+       B := A + value Nm;
+       Nm assign (B + sum count 5); }
+
+     X := 100;
+     foo 1000 "X;
+     X
+1115
+```
+
+
+
+## callstack
+
+  - Class:  
+    [system expression](#system_expression)
+  - Usage:  
+    `Callstack`
+  - See Also:  
+    [break](#break), [debugging](#debugging)
+
+The expression `Callstack` displays the sequence of active definition
+calls at the point it is invoked. It is usually used in conjunction with
+`Break`. `Callstack` can be used to see the execution path by which the
+computation reached the current state while computation is suspended
+during a break.
+
+
+
+## canonical
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [descan](#descan), [execute](#execute)
+
+There is a **canonical** way of displaying program text in Nial. This is
+done automatically by the routines `descan` and `deparse` used by `see`.
+The canonical form sets the case of all identifiers used in Nial program
+text according to their role in order to assist visual parsing of Nial
+text. The following table summarizes the rules:
+
+| Role          | Case rule                                    |
+| ------------- | -------------------------------------------- |
+| Variable      | first letter upper case, the rest lower case |
+| Expression    | first letter upper case, the rest lower case |
+| Operation     | all lower case                               |
+| Transformer   | all upper case                               |
+| Reserved Word | all upper case                               |
+
+**Definition**
+
+``` 
+     canonical IS link descan deparse parse scan
+```
 
 
 
@@ -5206,6 +2220,103 @@ second.
 ```
 
 
+
+## case-expr
+
+  - Class:  
+    [control structure](#control_structure)
+  - Usage:  
+    `CASE expression FROM C1: ES1 END ... Cn: ESn END ELSE ESx ENDCASE`
+  - See Also:  
+    [if-expr](#if_expr), [fork](#fork)
+
+The expression following case is evaluated. If the result matches one of
+the constants, C1 ... Cn, the corresponding expression sequence is
+executed. If the result does not match any constant, the expression
+sequence following else is executed.
+
+**Example:**
+
+``` 
+     Month := 3 ;
+     CASE Month FROM
+        1:   Mname := 'January'; END
+        2:   Mname := 'February'; END
+        3:   Mname := 'March'; END
+     ELSE   Mname := 'Year End';
+     ENDCASE ;
+     Mname
+March
+```
+
+
+
+## cast
+
+  - Class:  
+    [syntax](#syntax)
+
+A `cast` is an array expression that denotes an internal representation
+of a valid fragment of Q’Nial program text:
+
+``` 
+     cast ::= ! identifier
+        | ! ( expression-sequence)
+        | ! ( operation-expression )
+        | ! ( transformer-expression )
+```
+
+The use of the exclamation symbol `!` before an identifier causes Q’Nial
+to select the internal representation for the identifier rather than the
+value of the array associated with the identifier. Its use before a
+parenthesized program fragment selects the internal representation of
+the program fragment.
+
+The major use of casts is in conjunction with the operations assign and
+apply. These operations mimic the Q’Nial constructs for assignment to a
+variable and application of an operation to an array. Casts permit
+passing an argument to an operation by variable name rather than by
+value. They also permit evaluation of a program fragment that has been
+stored in its internal form using the operation eval rather than
+requiring the use of the operation execute on the corresponding program
+text stored as a string.
+
+``` 
+     Salary := 90000.
+     A gets 'Salary > 100000.' ;
+     Rule1 := execute A
+o
+     Rule1 := eval !A
+o
+```
+
+The details of the internal representation is not specified as part of
+the Nial language.
+
+The cast notation `!Name` is used to denote the parse tree that
+represents the name. At the top level loop, parentheses must be included
+around the use of the cast notation, e.g. `(!Name)`, to avoid ambiguity
+with the use of `!` to indicate a host command.
+
+The cast, because it is analyzed in the context in which it appears,
+refers to a variable or definition in a static way.
+
+Q’Nial contains operations that mimic the underlying meaning of
+variables, expressions and operations in Q’Nial. The operations use
+strings, phrases or casts to represent the name of the object under
+consideration (except that see and getdef do not take
+casts).
+
+| Operation        | Action                                                                                                                                          |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| value A          | Return the value of a variable named by string, phrase or cast `A` .                                                                            |
+| A assign B       | Assign the array `B` to the variable named by string, phrase or cast `A` ; return `B` .                                                         |
+| A apply B        | Apply the operation named by string, phrase or cast `A` to array `B` ; return the result of the operation.                                      |
+| getdef A         | Return the parse tree associated with the definition named by string or phrase `A` .                                                            |
+| see A            | Display the definition named by the string or phrase `A` .                                                                                      |
+| update P A B     | Put array `B` at address `A` in the variable named by the phrase, string or cast `P` ; return the new value of `P` .                            |
+| updateall P A B  | Put items of `B` at addresses `A` in the variable named by the phrase, string or cast `P` ; return the new value of the variable named by `P` . |
+| deepupdate P A B | Put array `B` at path `A` in variable named by the string, phrase or cast `P` ; return new value of the variable named by `P` .                 |
 
 
 
@@ -5450,6 +2561,52 @@ some
 
 
 
+## clear workspace
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [standard definitions](#standard_definitions), [save](#save),
+    [load](#load), [symbols](#symbols)
+
+Q’Nial organizes the data and code objects available for use into a
+logical structure called a **workspace** . It consists of a symbol table
+to hold associations between names and the predefined and user defined
+objects, a heap to store data and parse trees, a stack used to hold
+values temporarily during execution, and an atom table for uniquely
+storing phrases and faults.
+
+When Q’Nial is invoked for interactive use it starts the session with a
+clear workspace unless a specific saved workspace is requested. The
+clear workspace is created by an initialization process.
+
+
+
+## clearprofile
+
+  - Class:  
+    [profiling expression](#profiling_expression)
+  - Usage:  
+    `Clearprofile`
+  - See Also:  
+    [profile](#profile), [setprofile](#setprofile),
+    [profiletable](#profiletable), [profiletree](#profiletree),
+    [profiling](#profiling)
+
+The expression `Clearprofile` is used to clear the internal data
+structures that are used in the gathering of profiling statistics. It
+should be called when one profiling session has been completed and
+`profile` has been called, before starting another one.
+
+A detailed explanation of the profiling mechanism is given in the help
+entry on profiling.
+
+**Example**
+
+``` 
+     Clearprofile
+```
+
 
 
 ## close
@@ -5534,6 +2691,104 @@ in the empty list `Null`.
 ```
 
 
+
+## comment
+
+  - Class:  
+    [syntax](#syntax)
+  - See Also:  
+    [action](#action)
+
+<!-- end list -->
+
+``` 
+     comment ::=
+        % <any text excluding a semicolon> ;
+
+     remark ::= # < any text >
+```
+
+A **comment** is a brief section of text included in a program fragment
+to assist readability. Comments may be placed anywhere in a block before
+or after declarations, definitions or expressions. Their purpose is to
+provide an explanation of the program fragment for the programmer who
+may be required to modify the program at a later date. The value of a
+comment as an expression is the `?noexpr` fault. Comments are retained
+when a definition is translated into internal form and they appear in
+its creation in the canonical form used by the operations see and
+defedit.
+
+A **remark** is an input to the Q’Nial interpreter that is not
+processed. It begins with a line that has the symbol \# as the first
+non-blank character in the line. In direct input at the top level loop,
+a remark ends at the end of the line unless a backslash symbol ( \\ ) is
+used to extend the line. In a definition file, a remark ends at the
+first blank line. A remark cannot appear within a definition or
+expression-sequence.
+
+
+
+## conform
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [pack](#pack), [binary pervasive](#binary_pervasive), [multi
+    pervasive](#multi_pervasive)
+
+The operation pack is used in evaluating binary pervasive and multi
+pervasive operations. Its task is to interchange the top two levels of
+the argument to such operations if the items of the argument **conform**
+. For the binary case there are two items; they conform if the items
+have the same shape, or if one or both items have only one item. In the
+latter case, the item with only one item is replicated to the shape of
+the other item.
+
+For the multi pervasive case, all the items that do not have only one
+item must be of the same shape and all the items with one item are
+replicated to that shape.
+
+``` 
+     pack [2 3 4,10 11 12]
++----+----+----+
+|2 10|3 11|4 12|
++----+----+----+
+
+     pack [2 3,10 11 12]
+?conform
+
+     pack [3 4 5,3,10 11 12,[4]]
++--------+--------+--------+
+|3 3 10 4|4 3 11 4|5 3 12 4|
++--------+--------+--------+
+
+     pack [tell 4 5,count 4 5]
++---------+---------+---------+---------+---------+
+|+---+---+|+---+---+|+---+---+|+---+---+|+---+---+|
+||0 0|1 1|||0 1|1 2|||0 2|1 3|||0 3|1 4|||0 4|1 5||
+|+---+---+|+---+---+|+---+---+|+---+---+|+---+---+|
++---------+---------+---------+---------+---------+
+|+---+---+|+---+---+|+---+---+|+---+---+|+---+---+|
+||1 0|2 1|||1 1|2 2|||1 2|2 3|||1 3|2 4|||1 4|2 5||
+|+---+---+|+---+---+|+---+---+|+---+---+|+---+---+|
++---------+---------+---------+---------+---------+
+|+---+---+|+---+---+|+---+---+|+---+---+|+---+---+|
+||2 0|3 1|||2 1|3 2|||2 2|3 3|||2 3|3 4|||2 4|3 5||
+|+---+---+|+---+---+|+---+---+|+---+---+|+---+---+|
++---------+---------+---------+---------+---------+
+|+---+---+|+---+---+|+---+---+|+---+---+|+---+---+|
+||3 0|4 1|||3 1|4 2|||3 2|4 3|||3 3|4 4|||3 4|4 5||
+|+---+---+|+---+---+|+---+---+|+---+---+|+---+---+|
++---------+---------+---------+---------+---------+
+```
+
+**Definition**
+
+``` 
+     conform IS OP A {­
+         equal EACH shape
+           (not (EACH tally A match 1) sublist A) }
+```
 
 
 
@@ -5802,6 +3057,49 @@ hence if the ordering of the result is unimportant it is better to use
 
 
 
+## curried operation
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [apply](#apply), [operation composition](#operation_composition)
+
+A `curried-operation` is an operation in which the left item of a
+two-item argument is combined with a given operation to form an
+operation expression. Examples are: `1+` and `3 reshape`.
+
+A curried operation can be named or grouped in parentheses as an
+argument to a transformer.
+
+``` 
+     incr IS 1+
+
+     EACH (5 take) Lines
+```
+
+In general, the syntax of a curried operation is:
+
+``` 
+       curried-operation ::= simple-expression simple-operation
+```
+
+The result of applying a curried-operation is determined by applying the
+simple-operation to the pair formed from the simple-expression and the
+argument to the curried-operation. Thus,
+
+``` 
+     (1+) 5
+6
+```
+
+is interpreted as
+
+``` 
+     + (1 5)
+6
+```
+
+
 
 ## cut
 
@@ -5916,6 +3214,45 @@ item of each group.
 
 
 
+## debugging
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [breakin](#breakin), [watch](#watch)
+
+**Debugging Definitions**
+
+The Q’Nial system provides an optional debugging facility that aids
+interactive debugging of definitions. It is active by default, but can
+be turned off for running production applications. See the detailed
+documentation for the various versions on how to turn off debugging.
+
+The debugging system is based on the idea of placing breaks in the code
+and stepping through the program code in a number of different ways. Due
+to constraints in the way Q’Nial is implemented, debugging is always
+done in the context of an expression sequence. A break point occurs
+either before the execution of the expression sequence in a definition,
+or at an explicit break expression within an expression sequence. There
+is also a watch mechanism that executes a defined action whenever the
+value of a variable changes, and an ability monitor all use of user
+defined objects and of the predefined operations.
+
+**Defining a Break Point**
+
+There are two ways to cause a break in a Nial definition: by using the
+expression `Break` in an expression sequence, or by using the operation
+`breakin` to set a break on entry to the operation. The following table
+summarizes the break related
+primitives:
+
+| Expression       | Action                                                                                                                                                                                                                                                                                                                                               |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Break            | Suspend evaluation of the expression and pass control to an evaluation loop in the environment at the point of the break. Variables accessible at that point can be displayed. This loop recognizes a number of commands described below.                                                                                                            |
+| breakin Nm \[M\] | Set or rest an internal break flag for the definition of `Nm` . If the boolean value `M` is omitted, the flag is toggled. If set, a break occurs before the execution of the expression sequence of the definition. The `Nm` must be the name of a defined expression or a defined operation using the operation form style of operation expression. |
+| Breaklist        | Display the list of names of definitions with break flag set.                                                                                                                                                                                                                                                                                        |
+
+
 
 ## deepplace
 
@@ -6024,6 +3361,42 @@ the variable to the operation that is doing the update, rather than its
 value, no sharing of the internal data is made and hence the update can
 be made "in place".
 
+
+
+## definition
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [expression](#expression), [operation](#operation),
+    [transformer](#transformer)
+
+A **definition** in Nial is a syntactic construct that names a program
+fragment. The syntax is one of the three forms:
+
+``` 
+     <name>  IS  <array expression>
+     <name>  IS  <operation expression>
+     <name>  IS  <transformer expression>
+```
+
+A definition is used to associate a name (identifier) with a program
+fragment that is an array expression, an operation expression or a
+transformer expression. If the definition appears within a block, the
+association is made in the local environment. Otherwise, the association
+is made in the global environment and assigns a role to the name as
+representing that kind of expression.
+
+If the program fragment is syntactically correct, the name is associated
+with the program fragment in the environment and no result is given. If
+a syntax error is detected in the analysis of the program fragment, an
+explanatory fault message is returned and the name association is not
+made.
+
+If the name being associated in a definition is already in use, the new
+definition must be for a construct of the same role and the earlier
+definition is replaced. The use of a defined name always refers to its
+most recent definition.
 
 
 
@@ -6221,6 +3594,25 @@ decorated.
         Result }
 ```
 
+
+
+## dimensions
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [valence](#valence), [axes](#axes)
+
+The number of axes of an array is referred to as its dimensionality. In
+array theory terminology the dimensionality is called the **valence** of
+the array. The following terms describe arrays by their valence:
+
+| Valence   | Description   |
+| --------- | ------------- |
+| 0         | single        |
+| 1         | list, vector  |
+| 2         | table, matrix |
+| 2 or more | multivalent   |
 
 
 
@@ -6927,6 +4319,168 @@ convenience of the more general form of `equal`.
 
 
 
+## equations
+
+  - Class:  
+    [concept](#concept)
+
+The equations in the Nial Dictionary and in the on-line help provide an
+abbreviated way of stating properties of the term or object being
+described. They could be expanded into an explanation in English but
+that would lengthen the manual considerably.
+
+The equations use variables such as `A`,`B` and `C` that take on array
+values; and variables such as `f`, g and `h` that denote operations that
+map arrays to arrays. An equation holds for all arrays and for all
+computable operations without side effects, unless a specific
+qualification is made. Thus, the equation:
+
+``` 
+   (EACH f) (EACH g) A = EACH (f g) A
+```
+
+says that for all operations `f` and `g` and all arrays `A`, the use of
+the `EACH` transform of `f` on the result of the use of the `EACH`
+transform of `g` on `A` has the same value as the use of the `EACH`
+transform of the composition of `f` and `g` on `A`. In mathematical
+terms, the `EACH` transformer distributes over operation composition.
+
+The symbol `=` is used in its mathematical sense in equations and
+separates two Nial expressions. The symbol `=` has higher precedence
+than the two expressions it is separating. Where the Nial equivalent to
+`=` is needed to state the equation, the term `equal` is used.
+
+To test an equation using Q’Nial, in order to force the correct parsing
+of the equation as a Nial expression, it may be necessary to replace
+
+``` 
+               Expr1 = Expr2
+```
+
+with
+
+``` 
+               Expr1 = ( Expr2 )
+```
+
+The equality used in equations assumes that both sides of the equations
+compute without triggering a fault and produce equal arrays; or both
+produce the same fault value if fault triggering is off. In some cases,
+the equality is inexact due to roundoff errors.
+
+The symbol `=f=` is used to denote an equality where both sides produce
+the same non-fault value; but in some cases one or both of the sides may
+fault and the equality is no longer valid.
+
+Some of the equations are qualified by a constraint on the variables.
+The constraint is written in English or as a conditional expression in
+Nial that must hold for the equation to be true. In a statement of the
+form
+
+``` 
+               Expr ==> Eqn
+```
+
+Expr is the qualification written as a Nial boolean expression, the
+symbol ==\> is used for "implies", and Eqn is the equation that holds
+under the qualification.
+
+The symbol \<==\> denotes an if and only if implication. Thus a
+statement of the form
+
+``` 
+              Expr1 <==> Expr2
+```
+
+states that both expressions have the same truth value; either both are
+true or both are false.
+
+**Reading the Equations**
+
+The equations related to `abs`, the operation that finds the absolute
+value of a number, are:
+
+``` 
+   abs A = EACH abs A
+   shape abs A = shape A
+   abs abs A = abs A
+```
+
+The first two come from the property that `abs` is `unary pervasive`.
+The first one says that applying `abs` to an array `A` is the same as
+applying `abs` to the items of array `A`. It also implies that the shape
+of the result of `abs A` is the same as shape of `A` since `EACH`
+transforms always preserve shape. The second equation says that the
+shape of the result of `abs A` is the same as the shape of `A`. The
+third equation indicates that subsequent applications of `abs` after the
+first do not change the result.
+
+The equations related to `minus`, denoted by `-`, are:
+
+``` 
+   A - B = EACH - pack A B
+   shape (A - B) = shape pack A B
+   A - B = A + opposite B
+```
+
+The first equation says that pair of arrays `A` and `B` are packed at
+each level of nesting to bring corresponding items together. Then, the
+items are subtracted.
+
+The second equation states that the shape of the result of subtracting
+`A` from `B` is the shape formed by packing `A` and `B`. The third
+equation states that subtracting `A` from `B` is equivalent to adding
+the opposite of `B` to `A`.
+
+The equations related to `hitch` are as follows:
+
+``` 
+   A hitch B = A hitch list B
+   list (A hitch B) = A hitch B
+```
+
+The first says that `hitch` treats its right argument as though it were
+a list, and the second states that the result of `hitch` is a list.
+
+The following equations illustrate the use of qualifications:
+
+``` 
+   atomic A ==> single A = A
+   not empty A ==> mix rows A = A
+   diverse A <==> cull A = list A
+```
+
+The first equation says that if `A` is atomic, the single of `A` is
+equal to `A`. That is, the single of an atom is the atom. The second
+equation says that if `A` is not empty, forming the rows of `A` and
+applying `mix` to recombine them, results in the original array. The
+third equation says that if `A` is diverse, the cull of `A` is equal to
+the list of `A`; and that if `A` is not diverse, the cull of `A` is not
+equal to the list of `A`.
+
+There are many identities that hold for all arrays in Nial. Three
+general equations are the following:
+
+A unary pervasive operation f satisfies the equation:
+
+``` 
+   f A = EACH f A
+```
+
+A binary pervasive operation f satisfies the equation:
+
+``` 
+   A f B = A EACHBOTH f B
+```
+
+A multi pervasive operation f satisfies the equations:
+
+``` 
+   f A = EACHALL f A
+   f A = REDUCE f A
+```
+
+
 
 ## erase
 
@@ -7195,7 +4749,7 @@ where `canonical IS link descan deparse parse scan.`
 
 
 
-### exp
+## exp
 
   - Class:  
     [scientific operation](#scientific_operation)
@@ -7233,10 +4787,147 @@ types:
 
 
 
+## expression
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [operation](#operation), [transformer](#transformer)
+
+The term **expression** is used in its most general sense to describe a
+program fragment that denotes one of the three primary objects of Nial:
+an `array`, an `operation`, or a `transformer`. However, in most
+contexts we use the term as an abbreviation of an `array expression`.
+
+An array expression denotes an array value. That is, it is a program
+fragment that when evaluated in the proper context will produce an
+array. The predefined expressions of Q’Nial either produce a constant
+value, or they carry out some system action and return the fault value
+`?noexpr`.
+
+The control constructs of Nial are array expressions made up of
+keywords, simple-expressions and expression-sequences.
+
+A named expression is either a predefined expression or an expression
+that has been given an explicit name using the `IS` definition
+mechanism.
 
 
 
+## expression sequence
 
+  - Class:  
+    [syntax](#syntax)
+  - See Also:  
+    [expression](#expression)
+
+An **expression-sequence** is the main construct used for program text
+that produces a value. It consists of one or more expressions separated
+by semi-colons and possible followed by a semi-colon.
+
+``` 
+     expression-sequence ::= expression
+        {­ ; expression } [ ; ]
+```
+
+The expressions in an expression-sequence are evaluated in left-to-right
+order. If the sequence does not terminate with a semicolon, the array
+returned is the result of the last expression. If the sequence does end
+with a semicolon, the array returned is the fault `?noexpr`. At the top
+level loop, if the array returned is the fault `?noexpr`, it is not
+displayed.
+
+
+
+## exprs
+
+  - Class:  
+    [system expression](#system_expression)
+  - Usage:  
+    `Exprs`
+  - See Also:  
+    [symbols](#symbols)
+
+The expression `Exprs` returns a list of phrases giving the names of all
+user defined expressions in the workspace.
+
+**Definition**
+
+``` 
+     Exprs IS {­
+        Names Roles := pack symbols 0;
+        "expr match Roles sublist Names }
+```
+
+
+
+## extent
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [shape](#shape)
+
+The term **extent** is used to describe the length of an axis of an
+array in a particular dimension. Thus a 4 by 6 table is said to have
+extent 4 in the first dimension and extent 6 in the second dimension.
+
+
+
+## external declaration
+
+  - Class:  
+    [syntax](#syntax)
+  - See Also:  
+    [action](#action), [role](#role)
+
+<!-- end list -->
+
+``` 
+     external-declaration ::= identifier IS
+        EXTERNAL ( EXPRESSION
+                         | OPERATION
+                         | TRANSFORMER
+                         | VARIABLE )
+```
+
+An external declaration assigns a role to a name, allowing it to be used
+in a definition before its own definition is given. This mechanism is
+useful for creating mutually recursive definitions. An external
+declaration is made only in the global environment.
+
+If the name is already defined with the same role, the declaration has
+no effect. If the name has another role, a fault is reported. If the
+name is not currently defined, a default object is associated with it.
+
+
+
+## false
+
+  - Class:  
+    [constant expression](#constant_expression)
+  - Usage:  
+    `False`
+  - See Also:  
+    [true](#true), [isboolean](#isboolean)
+
+The constant expression `False` denotes the boolean atom for `false`,
+which Nial also denotes by `o`. It is the result of comparing two arrays
+that are not identical for equality.
+
+``` 
+     False (not False)
+ol
+```
+
+**Equations**
+
+``` 
+   tally False = 1
+   shape False = Null
+   single False = False
+   not False = True
+```
 
 
 
@@ -7289,6 +4980,102 @@ requirement.
 
 
 
+## fault triggering
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [fault values](#fault_values), [settrigger](#settrigger),
+    [quiet\_fault](#quiet_fault)
+
+Nial assumes that every computation that terminates results in an array
+value. However, there are many cases where a computation does not have a
+sensible answer. If division by zero occurs, for example, there is no
+suitable number to return. Nial uses special atomic arrays called faults
+to indicate such results. For division by zero it is ?div.
+
+Q’Nial has two ways of handling a fault: either a trigger mechanism is
+executed that causes an interruption when a fault is created, or during
+execution of a defined operation, expression or transformer the fault is
+treated as a normal atomic array.
+
+When Q’Nial is invoked for interactive execution with the -i option, the
+fault triggering mechanism is turned on by default. When it is invoked
+for execution only the fault triggering capbility is turned off. During
+interactive execution, the state of the triggering mechanism can be
+turned on or off using the operation `settrigger`. The operation
+`quiet_fault` can be used to create a fault without causing fault
+triggering.
+
+If fault triggering is set and a fault is generated during execution of
+a defined operation, execution is interrupted. On an interruption caused
+by a fault, a display message appears giving the call stack of
+definitions currently executing and the line of text that caused the
+fault. For example, the definition:
+
+``` 
+     foo is op A B {­ A / B + 1 }
+```
+
+followed by the evaluation of the expression
+
+``` 
+     foo 3 0
+```
+
+results in the output:
+
+    -------------------------------------------------------------
+        Fault interruption loop:  enter expressions or
+          type: <Return>   to jump to top level
+        current call stack :
+    foo
+          ?div triggered in : ... A / B
+    -------------------------------------------------------------
+    >>>
+
+where the string '\>\>\>' is a special prompt indicating that a fault
+has occurred and execution has been interrupted. The prompt permits you
+to query the value of variables in the expression and its surrounding
+computation or to view the operation that has triggered the fault. The
+above session might continue as:
+
+    >>> see "foo
+    foo IS OPERATION A B {­
+        A / B + 1 }
+    >>> A
+    3
+    >>> B
+    0
+    >>>
+
+A variable in a definition that called the current one can be referenced
+by preceding the variables name by the definition name and a colon, e.g.
+`G:X` denotes variable `X` in definition `G`. You can execute any
+expressions you want at the prompt. A useful thing to do is to see the
+definition that has interrupted. When you are ready to resume, reply to
+the prompt with a Return and control returns to the interactive loop.
+
+
+
+## fault values
+
+  - Class:  
+    [concept](#concept)
+
+The Role of Faults
+
+A **fault** is a special kind of atomic value used by Q’Nial to signal
+special values or to indicate that an operation has been given an
+argument it cannot handle in a normal way. The special value faults are:
+
+| Fault   | Meaning                                |
+| ------- | -------------------------------------- |
+| ?noexpr | indicates that no answer is expected   |
+| ?eof    | end of file indication                 |
+| ?I      | Zenith which is greater than all atoms |
+| ?O      | Nadir which is less than all atoms     |
+
 
 
 ## filelength
@@ -7315,6 +5102,38 @@ and `readfield` is used to read it in as raw byte data. If the file
 corresponds to a text file, the data will include end of line
 indications appropriate for the host system.
 
+
+
+## filestatus
+
+  - Class:  
+    [file expression](#file_expression)
+  - Usage:  
+    `Filestatus`
+  - See Also:  
+    [status](#status), [open](#open), [close](#close),
+    [filetally](#filetally)
+
+The expression `Filestatus` gives information on the files currently
+open in a Q’Nial session. It returns a list of triples, one for each
+open file, giving the file number as an integer, the filename as a
+phrase and the mode as a character.
+
+The modes are `r`, w, a, d, pr, pw and `c`, standing for `read`, write,
+append, direct, pipe\_read, pipe\_write and `communications`
+respectively.
+
+The files for standard input, standard output and standard error are
+opened with modes of r, w and w respectively using file numbers 0, 1 and
+2.
+
+``` 
+     Fnum := open "F "a;
+     Filestatus
++---------+----------+----------+-----+
+|0 stdin r|1 stdout w|2 stderr w|3 F a|
++---------+----------+----------+-----+
+```
 
 
 
@@ -7697,6 +5516,33 @@ result is the fault `?noexpr`.
 
 
 
+## for-loop
+
+  - Class:  
+    [control structure](#control_structure)
+  - Usage:  
+    `FOR Var WITH Exp DO ExpSeq ENDFOR`
+  - See Also:  
+    [repeat-loop](#repeat_loop), [while-loop](#while_loop),
+    [iterate](#iterate), [each](#each)
+
+The `FOR-loop` control structure is used to execute the expression
+sequence `ExpSeq` repeatedly while variable `Var` takes on the values
+specified as items in the simple expression `Exp`.
+
+``` 
+     FOR X WITH 1. 2. 3. DO
+        write (X) (X*X) (X power X) ;
+     ENDFOR
+1. 1. 1.
+2. 4. 4.
+3. 9. 27.
+```
+
+In the example, X takes on the values 1., 2. and 3. in successive loops
+and the values of X, X squared and X to the power X are displayed.
+
+
 
 ## fromraw
 
@@ -7777,6 +5623,35 @@ If `A` is a solitary or is empty, the result is the empty list `Null`.
    shape A reshape (front A append last A) = A
 ```
 
+
+
+## functions in nial
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [operation](#operation), [transformer](#transformer)
+
+A function is a mathematical name for an object that maps an argument in
+a given domain to a result in a given range. In Nial, an **operation**
+is an object in the set of functions from the domain of Nial arrays to
+the range of Nial arrays. Thus, an operation always applies to an array
+and returns an array.
+
+A **transformer** in Nial is also a function. It domain is Nial
+operations and its range is also Nial operations. Since its argument is
+itself a function, a transformer is said to be a `second order`
+function. A transformer always applies to an operation and results in an
+operation.
+
+Definitions in which the associated object is a simple-expression are
+used to name program fragments that return an array value but which do
+not need parameters. The resulting named-expression behaves like a
+function having no parameters.
+
+Nial is considered to be a functional language, but it is not purely
+functional in that it has assignments, loops and other non-functional
+concepts.
 
 
 
@@ -7988,6 +5863,18 @@ analyzing the name interaction among a set of definitions. This is a
 specialized task and `getsyms` is used only with considerable knowledge
 of the semantics of Q’Nial.
 
+
+
+## global environment
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [local environment](#local_environment)
+
+The **global environment** is the set of associations between names and
+objects formed in the workspace that are either predefined in Nial or
+have been created by actions that have taken place during a session.
 
 
 
@@ -8317,6 +6204,40 @@ command.
 
 
 
+## if-expr
+
+  - Class:  
+    [control structure](#control_structure)
+  - Usage:  
+    `IF C1 THEN Es1 ELSEIF C2 THEN Es2 ... ELSEIF Cn THEN Esn ELSE Esx
+    ENDIF`
+  - See Also:  
+    [case-expr](#case_expr), [fork](#fork)
+
+The `IF-expr` construct is a notation for executing one of a number of
+possible expression sequences `Es1`, Es2 , ... `Esn`. The sequence
+selected depends on the result of the conditional expressions `C1`, C2 ,
+... `Cn`. In the general case, whichever condition is first found to
+return `true` specifies the expression sequence to be performed. If all
+the conditional expressions return `false`, expression sequence `Esx` is
+selected. The `ELSEIF` and `ELSE` clauses are optional.
+
+In the following example, the result is one of phrase `Adult`, Minor or
+`Juvenile`, depending on the value of `Age`.
+
+``` 
+     Age := 17;
+     IF Age > 18 THEN
+        "Adult
+     ELSEIF Age < 16 THEN
+        "Minor
+     ELSE
+        "Juvenile
+     ENDIF
+Juvenile
+```
+
+
 
 ## in
 
@@ -8375,6 +6296,175 @@ kept in lexicographical order by applying `sortup` to it when it is
 created.
 
 
+
+## indexing
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [address](#address), [pick](#pick), [choose](#choose),
+    [reach](#reach)
+
+The term **indexing** is used to describe notations that can be used to
+`select from` or `insert into` a variable.
+
+There are four indexing methods in Nial: `at`, `at all`, `at path` and
+`slice` represented by `@`, `#`, `@@` and `|` respectively. The
+different indexing methods return different subsets of the array. The
+following is a summary of the indexing methods:
+
+| Method | Name    | Description                    |
+| ------ | ------- | ------------------------------ |
+| @      | at      | indexes one item               |
+| \#     | at all  | indexes several items          |
+| @@     | at path | indexes a part at depth        |
+| |      | slice   | indexes cross-section of items |
+
+``` 
+     Cities := "London "Washington "Ottawa "Moscow "Paris ;
+     Cities@0
+London
+     Cities#[2,3]
+Ottawa Moscow
+
+     Alpha := 5 5 reshape 'ABCDEFGHIJKLMNOPQRSTUVWXY'
+ABCDE
+FGHIJ
+KLMNO
+PQRST
+UVWXY
+
+     Alpha@[0,2]
+C
+
+     Alpha|[1,]
+FGHIJ
+
+     Alpha|[,1]
+BGLQV
+
+     Alpha|[,[1,3]]
+BD
+GI
+LN
+QS
+VX
+```
+
+The following example shows the slightly different structure which
+occurs when a comma is either present or missing before the last item.
+The library operation `findpaths` is used to indicate the path to the
+integer 10 in each case.
+
+``` 
+     set "diagram ; Nest1 := [1, 2, [3, 4, 5, [6, 7], 8, 9], 10]
++-+-+-----------------+--+
+|1|2|+-+-+-+-----+-+-+|10|
+| | ||3|4|5|+-+-+|8|9||  |
+| | || | | ||6|7|| | ||  |
+| | || | | |+-+-+| | ||  |
+| | |+-+-+-+-----+-+-+|  |
++-+-+-----------------+--+
+
+     set "diagram ; Nest2 := [1, 2, [3, 4, 5, [6, 7], 8, 9] 10]
++-+-+----------------------+
+|1|2|+-----------------+--+|
+| | ||+-+-+-+-----+-+-+|10||
+| | |||3|4|5|+-+-+|8|9||  ||
+| | ||| | | ||6|7|| | ||  ||
+| | ||| | | |+-+-+| | ||  ||
+| | ||+-+-+-+-----+-+-+|  ||
+| | |+-----------------+--+|
++-+-+----------------------+
+
+     findpaths 10 Nest1
++---+
+|+-+|
+||3||
+|+-+|
++---+
+
+     findpaths 10 Nest2
++-----+
+|+-+-+|
+||2|1||
+|+-+-+|
++-----+
+
+     (Nest2@@[2,0,3,0])
+6
+
+     (Nest2@@[2,0,4])
+8
+```
+
+**Address Validity**
+
+The index used in selecting a part of an array must be an expression
+that evaluates to a valid address. An invalid index returns a fault as
+follows:
+
+| Indexing Method | Fault      |
+| --------------- | ---------- |
+| A@I             | ?address   |
+| A\#I            | ?addresses |
+| A@@P            | ?path      |
+| A|I             | ?slice     |
+
+The operation `pick` works the same as the `at` method of indexing. If
+the index is invalid, `pick` returns the fault `?address`. Similarly,
+`choose` works the same as `at all` indexing.
+
+``` 
+     3 pick Cities
+Moscow
+
+     2 3 choose Cities
+Ottawa Moscow
+
+     10 pick Cities
+?address
+
+     4 5 6 choose Cities
+Paris ?address ?address
+```
+
+
+
+## infix notation
+
+  - Class:  
+    [syntax](#syntax)
+  - See Also:  
+    [prefix notation](#prefix_notation)
+
+In Nial an operation-expression may be placed between two
+array-expressions.This is called an **infix** use of the
+operation-expression.
+
+``` 
+     7 + 5
+12
+
+     2 3 reshape 1 2 3 4 5 6
+1 2 3
+4 5 6
+```
+
+In using the infix notation, one must understand that if a sequence of
+operations are placed between two array arguments, all but the first
+operation are applied to the second argument.
+
+``` 
+     2 + reverse tell 3
+4 3 2
+
+     2 (+ reverse tell) 3
+3 6
+
+     2 (+ reverse) tell 3
+2 3 4
+```
 
 
 
@@ -8477,6 +6567,28 @@ The number of columns of `A` must match the number of rows in `B`.
 
 
 
+## interrupt
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [fault triggering](#fault_triggering),
+    [setinterrupts](#setinterrupts)
+
+An **interrupt** is an event that causes the operating system to suspend
+its operation and address a requirement of higher priority. Typically,
+interrupts occur to handle input/output. However, an interrupt also
+occurs when a fault is detected.
+
+In the default mode of operation of Q’Nial, most fault values are not
+created. Rather, an interrupt is triggered. A description of the fault
+triggering mechanism is given under `fault triggering`.
+
+The user can interrupt execution by pressing `<Ctrl-c> <Return>` at the
+keyboard in console versions, or clicking on the `STOP` button in the
+GUI version. This capability can be turned off using `setinterrrupts`.
+
+
 
 ## inverse
 
@@ -8522,6 +6634,42 @@ arithmetic.
    inverse A innerproduct B = A solve B   (within roundoff error)
 ```
 
+
+
+## invocation of QNial
+
+  - Class:  
+    [concept](#concept)
+
+QNial is invoked using the following syntax:
+
+``` 
+    SYNTAX: nial  [(+|-)size Wssize] [-defs Filename] [-i] [-h]
+    
+    -size Wssize     Begin with a workspace size of Wssize words.
+    M or K can be used to indicate millions or thousands respectively.
+    The workspace expands if space is available.
+    
+    +size Wssize  Fix the workspace size at Wssize words with no expansion.
+    
+    -defs Filenm  After loading the initial workspace the file Filenm.ndf
+    is loaded using loaddefs without displaying it.
+    
+    -lws Wsname   A previously saved workspace file is loaded on startup.
+    
+    -i    Execute in interactive mode with a top level loop.
+    
+    -h    Display command line syntax.
+    
+    Examples:
+    
+    nial -i
+    
+    nial -defs app.ndf
+    
+    nial +size 50M -defs newfns
+    
+```
 
 
 
@@ -8746,6 +6894,50 @@ l
 
 
 
+## item
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [array](#array), [address](#address)
+
+An array `A` is said to be an **item** of array `B` if `B` holds `A` at
+one or more locations. The term is a relative one; we cannot speak of
+item except in reference to the array that holds it. The items of an
+array A are the objects at the locations at the top level.
+
+The number of items in an array is called the tally of the array.
+Because an array is rectangular, the tally is the product of the shape.
+
+The following names are give to common array structures:
+
+| \# of items | \# of axes | Name         |
+| ----------- | ---------- | ------------ |
+| 0           | 1          | empty list   |
+| 1           | 0          | single       |
+| 1           | 1          | solitary     |
+| 1           | 2          | 1 by 1 table |
+| 2           | 1          | pair         |
+| 3           | 1          | triple       |
+| 4           | 1          | quadruple    |
+
+The arrays of Nial are a recursive data type. That is, the items of an
+array are also arrays. Since an array has arrays as items, it may
+contain data at lower levels than the top one. A **path** is a list of
+addresses that describes a data object at some depth within the array.
+
+An array is said to be **simple** if all its items are atomic.
+
+A **part** of an array is a data object that is contained at some level
+within the array. The atomic parts of an array are called the **leaves**
+of the array. The simple parts are called **twigs** . The term **level**
+is used informally to describe the relative position of a part within
+the nesting structure of an array. An item is at the first or top level,
+an item of an item is at the second level, etc.
+
+An **empty** array is one that has no items.
+
+
 
 ## iterate
 
@@ -8796,6 +6988,35 @@ the array of all the results.
      ITERATE IS TR f OPERATION A {­ FOR X WITH A DO f A ENDFOR }
 ```
 
+
+
+## juxtaposition
+
+  - Class:  
+    [syntax](#syntax)
+
+The syntax rules for simple-expressions show three uses of the
+side-by-side or juxtapositional notation of Nial: strand formation,
+prefix operation application and infix operation application. There are
+no syntactic restrictions as to whether or not a particular operation
+may be applied in infix or prefix form. A fault is returned at run time
+if an operation is used inappropriately.
+
+**Summary of Juxtapositional Syntax**
+
+The following table illustrates the uses of juxtaposition in Nial, where
+`A` and `B` are array-expressions, `f` and `g` are
+operation-expressions, and `T` is a transformer:
+
+| Form  | Name          | Object    |
+| ----- | ------------- | --------- |
+| A B   | strand        | array     |
+| A f   | currying      | operation |
+| f A   | prefix use    | array     |
+| f g   | composition   | operation |
+| T f   | transform     | operation |
+| A f B | infix use     | array     |
+| T f A | transform use | array     |
 
 
 
@@ -8877,6 +7098,34 @@ has a last item.
 
 
 
+## latent
+
+  - Class:  
+    [user defined expression](#user_defined_expression)
+  - Usage:  
+    `Latent`
+  - See Also:  
+    [load](#load), [save](#save)
+
+The expression `Latent` is used to name an expression to be executed
+without user intervention when the workspace is loaded. `Latent` is used
+in closed applications so that an application can be started when the
+workspace is loaded. `Latent` can establish any default or initial
+conditions desired.
+
+``` 
+     Latent IS {­
+        settrigger o;
+        set "log;
+        StartApp;
+        Bye; }
+```
+
+In the example, `Latent` is defined to turn of triggering of faults, to
+turn on session logging, to start the application and then to terminate
+the session.
+
+
 
 ## leaf
 
@@ -8947,6 +7196,48 @@ the structure of the result is not preserved in this example because
    LEAF f list A = list LEAF f A
 ```
 
+
+
+## level
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [item](#item)
+
+The term **level** is used informally to describe the relative position
+of a part within the nesting structure of an array. An item is at the
+first or top level, an item of an item is at the second level, etc.
+
+An atom is viewed in two ways. As an indivisible data object it is
+viewed as having no levels and cannot be broken into subarrays. As an
+array data structure it is viewed as a single holding itself and
+therefore has an infinity of levels. This view is necessary for atomic
+arrays to fit the theory of nested array mathematics.
+
+The number of levels to reach an atom along each path need not be the
+same. For example, in the following array, the phrase "hello is at the
+first level, the integer 23 is at the second level and the character \`b
+is at the third level.
+
+``` 
+     [ 23 'abc', "hello , tell 2 2 ]
++------------+-----+-------------+
+|+--+-------+|hello|+-----+-----+|
+||23|+-+-+-+||     ||+-+-+|+-+-+||
+||  ||a|b|c|||     |||0|0|||0|1|||
+||  |+-+-+-+||     ||+-+-+|+-+-+||
+|+--+-------+|     |+-----+-----+|
+|            |     ||+-+-+|+-+-+||
+|            |     |||1|0|||1|1|||
+|            |     ||+-+-+|+-+-+||
+|            |     |+-----+-----+|
++------------+-----+-------------+
+```
+
+Some of the operations of Nial that operate on simple arrays are
+extended to arbitrarily nested arrays by being applied to the atoms at
+the deepest level. These are called `pervasive` operations.
 
 
 
@@ -9276,6 +7567,113 @@ simulating a Q’Nial session and capturing its output in a log file.
 
 
 
+## local environment
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [global environment](#global_environment), [scope of a
+    variable](#scope_of_a_variable)
+
+A **local environment** is a collection of associations that are known
+within a limited section of program text. These limited sections are
+formed by blocks, operation-forms and transformer-forms as discussed in
+the relevant sections below. A name that has a local association in one
+of these forms is said to have local scope.
+
+Program fragments in which local variables are being assigned can be
+nested, so that one local scope surrounds another. A local association
+is not visible outside the construct in which it is defined; and a name
+with local scope can hide associations that the name has in surrounding
+scopes.
+
+At any point in a program fragment, there is a current environment
+consisting of all names whose associations are visible. It includes the
+names having local scope in the program fragment being executed, names
+that are visible in the surrounding scopes and names that have global
+scope.
+
+In program text, the scope of all names is determined by the static
+structure of the program text. The one exception is text that has the
+operation execute applied to it under program control.
+
+In a local environment, a variable identifier can be chosen the same as
+a predefined or user-defined global definition name. Such a choice makes
+the global use of the name unavailable in the local context.
+
+In any context, an identifier can name only one of: a variable, an
+array- expression, an operation-expression, or a transformer-expression.
+During one session, the role of a name, i.e. the class of syntactic
+object it names, cannot be changed.
+
+If a block is used as a primary-expression, the local environment
+created by a block is determined by the block itself. If it is the body
+of an operation-form, the local environment includes the formal
+parameter names of the operation-form as variables.
+
+A block delimits a local environment. It allows new uses of names which
+do not interfere with uses of those names outside the block. For
+example, within a block, a predefined operation name can be redefined
+and used for a different purpose. Only the reserved words of Q’Nial
+cannot be reused in this fashion. Definitions that appear within the
+block have local scope. That is, the definitions can be referenced only
+in the body of the block. Variables assigned within the block may or may
+not have local scope, depending on the appearance of a local and/or a
+nonlocal declaration. If there is no declaration, all assigned variables
+have local scope. Declaring some variables as local does not change the
+effect on undeclared variables that are used on the left of assignment.
+They are automatically localized.
+
+If a nonlocal declaration is used, an assigned name that is on the
+nonlocal list is sought in surrounding scopes. If the name is not found,
+a variable is created in the global environment.
+
+During the parse of the assign-expression appearing in a block, each
+name on the variable list is sought in the local environment. If the
+name exists in the local environment, the assignment affects the local
+association. If a name does not exist in the local environment and no
+reference has been made to a nonlocal variable with the same name, a
+local variable is created in the block. An assign-expression parsed in
+the global environment creates a global variable if a variable with that
+name does not already exist.
+
+An operation-form defines a local environment. The formal parameter
+names are names of local variables. If the body of the operation form is
+a block, the local environment of the block is extended to include the
+formal parameters. When the operation is applied, the formal parameter
+names are assigned from the value of the actual argument. If there is
+only one formal parameter, the actual argument is assigned to it as a
+whole; otherwise, the items of the actual argument are assigned to the
+formal parameters in corresponding order. If there is a length mismatch
+between the list of formal parameter names and the values of the actual
+argument, the fault `?op_parameter` is returned.
+
+The value of the application of the operation is the value of the body
+of the operation-form, which is evaluated with the local variables in
+the parameter list assigned as described above. In determining the
+association for a name that appears in the body of an operation form,
+Q’Nial looks for the name in the local environment. If the name is not
+found locally, the name is sought in surrounding environments until it
+is found or until the global environment is searched. If it is not
+found, a fault `?unknown identifier:` is given when the operation-form
+is analyzed (parsed).
+
+Operation-forms are most frequently used in definitions where they are
+given an associated name. However, an operation-form can appear directly
+in an expression provided it is enclosed in parentheses. In this usage,
+it can be an argument to a transformer name or can be applied to an
+array argument.
+
+The operation `execute` can be used within the execution of a block to
+make an assignment to variables or to invoke the definition mechanism.
+If `execute` is used to make a new definition or to create a new
+variable, the resulting variable or definition is placed in the global
+environment. However, if the block has local variables or local
+definitions, execute can be used to change a local version dynamically.
+A similar situation occurs with dynamic alteration of variables using
+`assign`.
+
+
 
 ## log
 
@@ -9312,6 +7710,43 @@ the six types:
    A > 0 ==> 10. power log A = A (within roundoff error)
 ```
 
+
+
+## log file
+
+  - Class:  
+    [feature](#feature)
+  - See Also:  
+    [setlogname](#setlogname)
+
+Q’Nial provides a facility to record the actions in a session in a text
+file. The default name for the log file is `auto.nlg`. Logging is
+initiated by:
+
+``` 
+     set "log
+nolog
+```
+
+Logging is ended by:
+
+``` 
+     set "nolog
+log
+```
+
+The log file name can be changed using:
+
+``` 
+     setlogname "newname
+auto.nlg
+```
+
+A log file is opened and closed on each usage by the internal logging
+routine. As a result, the log file is always available if the session is
+terminated unexpectedly. If a file with the name of the log file exists
+when `set "log` is executed, the logging information is appended at the
+end.
 
 
 
@@ -9897,6 +8332,82 @@ on lists.
 
 
 
+## multi pervasive
+
+  - Class:  
+    [operation property](#operation_property)
+  - Usage:  
+    `f A` `f A B ... C`
+  - See Also:  
+    [unary pervasive](#unary_pervasive), [binary
+    pervasive](#binary_pervasive), [pervasive](#pervasive),
+    [reductive](#reductive), [eachall](#eachall), [reduce](#reduce),
+    [pack](#pack)
+
+Each operation `f` in this class reduces a simple array (an array of
+atoms) to an atom.
+
+A multi pervasive operation maps an array having items of identical
+structure to one with the same structure, applying the operation to the
+simple arrays formed from all the atoms in corresponding positions in
+the atoms.
+
+There are six operations in this class. They are the **reductive**
+operations of arithmetic and logic.
+
+If a multi pervasive operation is applied to an array that does not have
+items of the same shape, the effect is to build a conformable pair by
+replicating an atom or solitary item of the array to the common shape of
+the other items. If two or more of the items have tally different from
+one and are of unequal shape, the fault `?conform` is returned. On a
+pair, a multi pervasive operation behaves the same way as a binary
+pervasive operation does.
+
+``` 
+     sum [3 4 5 6 , 5 , 7 8 9 10] = 15 17 19 21
+l
+```
+
+The following table describes the multi pervasive operations.
+
+| Operation | Function                                  |
+| --------- | ----------------------------------------- |
+| and       | logical "and" of a boolean array          |
+| max       | highest item in the array                 |
+| min       | lowest item in the array                  |
+| or        | logical "or" of a boolean array           |
+| product   | arithmetic product of an array of numbers |
+| sum       | arithmetic sum of an array of numbers     |
+
+**Equations**
+
+``` 
+   f A = EACHALL f A
+   f A = EACH f pack A
+   shape f A = shape pack A
+   f A = REDUCE f A
+```
+
+
+
+## nested definition
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [block](#block), [definition](#definition)
+
+A **nested definition** is one that appears in a definition sequence
+within a block. Its name is a local definition name. If the name is also
+used outside the block, the external meaning is not known in the block.
+
+Nested definitions can be used to encapsulate support definitions within
+a larger definition that is to be made available to other users. This
+avoids cluttering up the name space with names that might interfere with
+the user's other work. It is often easier to develop the large
+definition without encapsulation and package it in encapsulated form
+once the design is completed.
+
 
 
 ## next
@@ -9921,6 +8432,20 @@ break began, the effect is the same as using `resume`.
 The related command `nextv` displays the result of the expression
 executed on a step before displaying the next expression.
 
+
+
+## no\_expr
+
+  - Class:  
+    [system expression](#system_expression)
+  - Usage:  
+    `No_expr`
+  - See Also:  
+    [no\_value](#no_value), [no\_op](#no_op), [no\_tr](#no_tr)
+
+The expression No\_expr returns the fault `?missing_expr`. It is the
+default value for an expression name declared to be `external` or that
+has been erased.
 
 
 
@@ -10046,6 +8571,61 @@ l
 
 
 
+## null
+
+  - Class:  
+    [constant expression](#constant_expression)
+  - Usage:  
+    `Null`
+  - See Also:  
+    [empty](#empty), [atomic](#atomic)
+
+The expression `Null` denotes the empty list. It is the array returned
+as the shape of a single and is equal to the empty string. The empty
+list notation ` [ ]` also denotes the empty list `Null`.
+
+``` 
+     Null = shape 5
+l
+     Null = []
+l
+     Null = ''
+l
+```
+
+Since there is an empty array for each shape containing a zero, unless
+you are certain `A` is a list, the test: `A = Null` should not be used
+in place of `empty A`.
+
+``` 
+     set "sketch; Null
+
+     set "diagram; Null
++
+|
++
+```
+
+`Null` is not displayed when sketch display mode is set. In diagram mode
+it is displayed as the left border of a list diagram.
+
+A selection operation such as `pick` or `first` applied to `Null`
+results in the fault `?address`.
+
+**Definition**
+
+``` 
+     Null IS shape 0
+```
+
+**Equations**
+
+``` 
+   shape single A = Null
+   shape Null = 0
+   atomic A ==> Null = shape A
+```
+
 
 
 ## numeric
@@ -10077,6 +8657,46 @@ o
 
 numeric IS OPERATION A {­ isboolean A or isinteger A or isreal A }
 
+
+
+## numeric type hierarchy
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [sum](#sum), [or](#or)
+
+The three numeric types: boolean, integer and real, are organized in a
+hierarchy in the order mentioned. For arithmetic and comparative binary
+operations, if the types of arguments are both numeric but differ in
+type, they are coerced to the higher of the two types. For example, if
+you add an integer to a real number, say 3 + 4.5, the integer is coerced
+to 3.0 and a real number addition is done. Boolean atoms are always
+coerced to integers if they are used with arithmetic operations.
+
+There are six types of atoms in Nial. They are boolean, integer, real,
+character, phrase and fault. The first three are numeric types and are
+used for arithmetic operations. The last three are literal types and are
+used for symbol manipulation. All six types of atoms are used in
+comparisons.
+
+A boolean atom is the result of a comparison of array values; or the
+result of a test relating to a characteristic of an array or the content
+of an array. There are two boolean atoms: true and false, denoted by l
+and o respectively. When booleans are treated as numbers, true
+corresponds to one and false to zero.
+
+An integer atom is a positive or negative whole number representing a
+quantity of units. A dash symbol (-) immediately preceding the integer
+denotes a negative integer. No space is permitted between the dash and
+the number, otherwise the dash is interpreted as the arithmetical
+operation of subtraction. Conversely, a space is required when
+subtraction is intended. An integer is represented by an internal form
+that limits its range of values in the Q’Nial implementation of Nial.
+
+A real atom is a number which can represent any position on the real
+line. It may be written with a fractional part and/or with a decimal
+exponent. It is represented internally by a floating point number.
 
 
 
@@ -10134,6 +8754,117 @@ fault value using `isfault` to catch unexpected failures.
 
 
 
+## operation
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [expression](#expression), [transformer](#transformer)
+
+An **operation** is a functional object that is given an argument array
+and returns a result array. The process of executing an operation by
+giving it an argument value is called an `operation call` or an
+`operation application`.
+
+An operation can be constructed by defining one or more parameters and
+giving an algorithm to compute the result in terms of the parameters. An
+operation is usually given a name when it is defined. There are also
+program fragments that construct unnamed operations by composing
+operations, forming a list of operations or modifying an operation by
+use of a transformer.
+
+A named operation is either a predefined operation or an operation that
+has been given an explicit name using the `IS` definition mechanism.
+
+
+
+## operation composition
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [curried operation](#curried_operation)
+
+A sequence of simple-operation denotations forms an operation-sequence
+in the syntax of Nial. Its meaning is the same as the composition of the
+operations in the sequence which is explained by its effect when
+applied.
+
+The result of applying an operation-sequence to an argument is
+determined by applying the simple-operations in the sequence in
+right-to-left order. The simple-operation on the right is applied to the
+argument giving an intermediate result. Then the simple-operation to the
+immediate left is applied to the result of the first application.
+Subsequent simple-operations are applied to the results in turn.
+
+An example of this concept is the expression
+
+``` 
+     (first rest) 8 7 2 5 3
+7
+```
+
+The expression sequence `first rest` is evaluated by applying `rest` to
+the argument resulting in 7 2 5 3 and then `first` is applied giving 7.
+
+The relationship can be described by the equations:
+
+``` 
+   (f g) A = f (g A)
+   (f g h) A = f (g (h A))
+   etc.
+```
+
+which is mathematically known as the rule of **function composition** .
+
+
+
+## operation form
+
+  - Class:  
+    [syntax](#syntax)
+  - See Also:  
+    [operation](#operation), [definition](#definition)
+
+An **operation-form** is the syntactic structure used to describe an
+operation in terms of a parameterized expression-sequence. The
+identifiers following the keyword operation are called the **formal
+parameters** . The body of an operation-form is normally a block but it
+may be an expression-sequence without automatic localization.
+
+``` 
+     operation-form ::=
+        OPERATION {­ identifiers }+ block
+        | OPERATION {­ identifiers }+
+          ( expression-sequence )
+```
+
+An operation-form defines a local environment. The formal parameter
+names are names of local variables. If the body of the operation form is
+a block, the local environment of the block is extended to include the
+formal parameters. When the operation is applied, the formal parameter
+names are assigned from the value of the actual argument. If there is
+only one formal parameter, the actual argument is assigned to it as a
+whole; otherwise, the items of the actual argument are assigned to the
+formal parameters in corresponding order. If there is a length mismatch
+between the list of formal parameter names and the values of the actual
+argument, the fault `?op_parameter` is returned.
+
+The value of the application of the operation is the value of the body
+of the operation-form, which is evaluated with the local variables in
+the parameter list assigned as described above. In determining the
+association for a name that appears in the body of an operation form,
+Q’Nial looks for the name in the local environment. If the name is not
+found locally, the name is sought in surrounding environments until it
+is found or until the global environment is searched. If it is not
+found, a fault `?unknown identifier:` is given when the operation-form
+is analyzed (parsed).
+
+Operation-forms are most frequently used in definitions where they are
+given an associated name. However, an operation-form can appear directly
+in an expression provided it is enclosed in parentheses. In this usage,
+it can be an argument to a transformer name or can be applied to an
+array argument.
 
 
 
@@ -10186,6 +8917,27 @@ before a constant to get the expected subtraction.
    A - B = A + opposite B
 ```
 
+
+
+## ops
+
+  - Class:  
+    [system expression](#system_expression)
+  - Usage:  
+    `Ops`
+  - See Also:  
+    [symbols](#symbols), [exprs](#exprs), [trs](#trs), [vars](#vars)
+
+The expression `Ops` returns a list of phrases giving the names of all
+user defined operations in the workspace.
+
+**Definition**
+
+``` 
+     Ops IS {­
+        Names Roles := pack symbols 0;
+        "op match Roles sublist Names }
+```
 
 
 
@@ -10280,6 +9032,22 @@ operation that has a non-atomic result.
    and EACH (not empty) A B ==> A OUTER f B = mix (A EACHLEFT EACHRIGHT f B)
 ```
 
+
+
+## overflow
+
+  - Class:  
+    [concept](#concept)
+
+The term **integer overflow** is used to describe the situation when an
+integer that is too big for the internal representation of integers is
+generated. Q’Nial uses 32 bit integers and checks for overflow during
+computations. If an arithmetic computation produces an overflow, a fault
+value is produced.
+
+An overflow can also develop during computation with real numbers. The
+computer hardware detects such a problem and an interrupt occurs which
+causes Q’Nial to jump to top level.
 
 
 
@@ -10640,6 +9408,27 @@ boxed.
 
 
 
+## pervasive
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [unary pervasive](#unary_pervasive), [binary
+    pervasive](#binary_pervasive), [multi pervasive](#multi_pervasive)
+
+Some of the operations of Nial that operate on simple arrays are
+extended to arbitrarily nested arrays by being applied to the atoms at
+the deepest level. These are called **pervasive** operations.
+
+There are three classes of pervasive operations: `unary pervasive`,
+binary pervasive and `multi pervasive`. The first class applies the
+operations to the atoms of the array. The second class are binary
+operations that apply to pairs of atoms from corresponding positions in
+the pair of arguments. The third class applies the operation to the
+simple arrays formed from atoms in corresponding positions in the items
+of the argument, reducing the simple array to a single atom.
+
+
 
 ## phrase
 
@@ -10678,6 +9467,31 @@ phrase cannot hold a null character (representation 0) and attempting to
 build such a phrase using the operation `phrase` will result in a
 truncated phrase.
 
+
+
+## pi
+
+  - Class:  
+    [constant expression](#constant_expression)
+  - Usage:  
+    `Pi`
+  - See Also:  
+    [random](#random), [ln](#ln)
+
+The expression `Pi` returns the real number which is the ratio of the
+circumference of a circle to its diameter. `Pi` is useful in scientific
+computing.
+
+``` 
+     setformat '%15.12f' ; Pi
+ 3.141592653590
+```
+
+**Equation**
+
+``` 
+   Pi = arccos -1 (within roundoff error)
+```
 
 
 
@@ -11154,6 +9968,100 @@ square root of
 
 
 
+## predicate
+
+  - Class:  
+    [operation property](#operation_property)
+
+A **predicate** is an operation that tests a condition and returns true
+if the condition holds and false otherwise. A predicate is not
+pervasive.
+
+The predefined predicate operations include:
+
+| Operation | Test                          |
+| --------- | ----------------------------- |
+| allin     | set-like inclusion            |
+| atomic    | an array is an atom           |
+| diverse   | all items differ              |
+| empty     | an array has no items         |
+| equal     | all items are equal           |
+| isboolean | arg is a boolean atom         |
+| ischar    | arg is a character atom       |
+| isfault   | arg is a fault symbol         |
+| isinteger | arg is a integer number       |
+| isphrase  | arg is a symbol               |
+| isreal    | arg is a real number          |
+| isstring  | arg is a list of characters   |
+| like      | two arrays contain same items |
+| simple    | all items are atoms           |
+| unequal   | items are not all equal       |
+| up        | lexical ordering              |
+
+
+
+## prefix notation
+
+  - Class:  
+    [syntax](#syntax)
+  - See Also:  
+    [infix notation](#infix_notation)
+
+An operation-expression can precede an array-expression. This is called
+a **prefix** use of the operation expression.
+
+``` 
+        + 7 5
+12
+
+     reshape [2 3,1 2 3 4 5 6]
+1 2 3
+4 5 6
+```
+
+
+
+## prelattice of atoms
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [lte](#lte), [up](#up), [max](#max)
+
+The ordering sequence of the characters for sorting purposes is fixed
+for each Q’Nial version.
+
+The binary and multi pervasive comparative operations of Nial organize
+the atoms of Nial in a **prelattice** or sorting sequence. The operation
+`lte` (or `<=`) does a less than or equal comparison between atoms. The
+numeric atoms are comparable, with a coercion being done if the
+arguments are of different numeric type. The `nadir`, represented by the
+fault `?O`, is less than or equal to all atoms. The `zenith`, ?I , is
+greater than or equal to all atoms. Except for these two special cases,
+literal atoms are incomparable with atoms of different type. However,
+they can be compared within the same type using a character collating
+sequence that is version specific.
+
+Phrases are compared lexicographically, such that `"apple` is after
+`"ape` but before `"apt`. Strings, being character lists, produce a list
+of results when compared.
+
+Comparisons are of two forms: binary pervasive predicates which return
+boolean values and multi pervasive predicates that obtain the largest or
+smallest item in a list. If two atoms are incomparable, the predicates
+return `false`, whereas `max` returns the `zenith` and `min` returns the
+`nadir`.
+
+These rules were chosen so that the following laws hold for all arrays
+`A` and `B`:
+
+``` 
+   max A <= B = and (A EACHLEFT <= B)
+   A <= min B = and (A EACHRIGHT <= B)
+```
+
+See the entry for `up` for a discussion of the lexicographic ordering in
+Q’Nial.
 
 
 
@@ -11244,7 +10152,380 @@ Examples of use:
 
 
 
+## profiletable
 
+  - Class:  
+    [profiling expression](#profiling_expression)
+  - Usage:  
+    `Profiletable`
+  - See Also:  
+    [profile](#profile), [setprofile](#setprofile),
+    [clearprofile](#clearprofile), [profiling](#profiling)
+
+The expression `Profiletable` is used to summarize the internal data
+structures that are used in the gathering of profiling statistics to
+produce the same information that is displayed by the operation
+`profile`. It produces a list of entries, one for each definition that
+has been encountered during execution with profiling on. Each entry
+includes the name, the number of direct calls, the number of recursive
+calls, the execution time, and a list of subentries for the definitions
+directly called by the definition. The subentries summarize the
+information for the called definitions in the same format except that no
+further breakdown is given on definitions they call.
+
+A detailed example of the output of `Profiletable` is given in the help
+entry on profiling.
+
+``` 
+     Profiletable
++-----------------+-------------------------------------+---
+|+----+--+-+----++|+-----+--+-+----+-------------------+|+--
+||test|12|0|4.12||||tryit|11|0|4.12|+-----------------+|||ag
+|+----+--+-+----++||     |  | |    ||+----+--+-+----++||||
+|                 ||     |  | |    |||test|11|0|4.12||||||
+|                 ||     |  | |    ||+----+--+-+----++||||
+|                 ||     |  | |    |+-----------------+|||
+|                 |+-----+--+-+----+-------------------+|+--
++-----------------+-------------------------------------+---
+
+----------------------------------+
+---+-+-+----+--------------------+|
+ain|1|0|3.96|+------------------+||
+   | | |    ||+-----+--+-+----++|||
+   | | |    |||tryit|10|0|3.96|||||
+   | | |    ||+-----+--+-+----++|||
+   | | |    |+------------------+||
+---+-+-+----+--------------------+|
+----------------------------------+
+```
+
+
+
+## profiletree
+
+  - Class:  
+    [profiling expression](#profiling_expression)
+  - Usage:  
+    `Profiletree`
+  - See Also:  
+    [profile](#profile), [setprofile](#setprofile),
+    [clearprofile](#clearprofile), [profiletable](#profiletable),
+    [profiling](#profiling)
+
+The expression `Profiletree` is used to display the detailed information
+from the internal data structures that are used in the gathering of
+profiling statistics. It produces a nested list of entries showing the
+calling dynamic calling sequence from top level, with the amount of time
+and number of calls at each level. Each entry includes the name, the
+number of direct calls, the execution time, and a list of subentries for
+the definitions directly called by the definition. The subentries
+provide the same information for the called definitions in the same
+format including entries on all the definitions that they call in turn.
+
+A detailed example of the output of `Profiletable` is given in the help
+entry on profiling.
+
+Example of use:
+
+``` 
+     Profiletree
++--------+-+----+-------------------------------------------
+|TOPLEVEL|0|4.18|+------------+-----------------------------
+|        | |    ||+----+-+--++|+-----+-+----+---------------
+|        | |    |||test|1|0.||||tryit|1|0.16|+--------------
+|        | |    ||+----+-+--++||     | |    ||+----+-+----++
+|        | |    ||            ||     | |    |||test|1|0.16||
+|        | |    ||            ||     | |    ||+----+-+----++
+|        | |    ||            ||     | |    |+--------------
+|        | |    ||            |+-----+-+----+---------------
+|        | |    ||            |
+|        | |    ||            |
+|        | |    ||            |
+|        | |    ||            |
+|        | |    |+------------+-----------------------------
++--------+-+----+-------------------------------------------
+
+------------------------------------------------------+
+--+--------------------------------------------------+|
+-+|+-----+-+----+-----------------------------------+||
++|||again|1|3.96|+---------------------------------+|||
+||||     | |    ||+-----+--+----+-----------------+||||
+||||     | |    |||tryit|10|3.96|+---------------+|||||
+||||     | |    |||     |  |    ||+----+--+----++||||||
++|||     | |    |||     |  |    |||test|10|3.96||||||||
+-+||     | |    |||     |  |    ||+----+--+----++||||||
+  ||     | |    |||     |  |    |+---------------+|||||
+  ||     | |    ||+-----+--+----+-----------------+||||
+  ||     | |    |+---------------------------------+|||
+  |+-----+-+----+-----------------------------------+||
+--+--------------------------------------------------+|
+------------------------------------------------------+
+```
+
+
+
+## profiling
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [setprofile](#setprofile), [profile](#profile)
+
+**Q’Nial Profiling Facility**
+
+Q’Nial has a profiling capability that is used to gather relative
+execution times for operations, transformers and defined expressions
+written in Nial. The profiling capability has the following
+features:
+
+| Command      | Purpose                                                                       |
+| ------------ | ----------------------------------------------------------------------------- |
+| setprofile A | turns on or off the internal routines that collect the statistics             |
+| profile Fnm  | that displays the profile data to the screen or writes it to a file           |
+| Clearprofile | clears the current profile information and reinitializes the profiling system |
+| Profiletable | provides the profile information as a table                                   |
+| Profiletree  | provides the detailed profile information in terms of the call tree           |
+
+The operation `setprofile` is called with argument `l` to turn on the
+collection of data for a profiling session. It is called with argument
+`o` to suspend gathering statistics for a session. Both calls to
+`setprofile` should be in the same scope, and cannot be nested. Only one
+profiling session can be underway at a time.
+
+The operation `profile` is called with a text argument (string or
+phrase) that is used as the file name for the profile information. If an
+empty string is the argument, the output is sent directly to the screen.
+It computes the statistics on the profiling session underway, prepares
+the output, and writes it to the file.
+
+The expression `Clearprofile` clears the two internal data structures
+that are built as execution is profiled so that a new profiling session
+can be started.
+
+The expression `Profiletree` provides the summary data that is displayed
+in the output produced by `profile`, but stores it in a Nial array.
+
+The expression `Profiletree` provides a dynamic call tree of the
+execution with related times. This provides a more detailed breakdown of
+the profile data. The following session illustrates the use of the
+profiling capability:
+
+``` 
+        setwidth 60;
+
+     test is op n {­
+       z := random n n;
+       max abs (z - inv inv z) }
+
+     tryit is  op N {­ test N }
+
+     again is op M N {­ sum EACH tryit (M reshape N) }
+
+     fact is op n {­
+       IF n<=1 THEN 1 ELSE n * fact (n - 1) ENDIF }
+
+# first profiling session
+
+     setprofile l
+o
+
+     test 20
+3.86843e-15
+
+     tryit 50
+2.83107e-14
+
+     again 10 75
+6.72483e-13
+
+     setprofile o
+l
+
+     profile ''
+
+Total execution time of profile session:         4.780000
+Total execution time in top level calls:          4.420000
+
+op name[.tr arg]                 calls[rec]    time time/call  % time
+test..........................   12           4.42   0.3683    100.0<
+
+tryit.........................   11           4.31   0.3918     97.5<
+ test.........................   11           4.31   0.3918   100.00
+
+again.........................    1           4.04   4.0400     91.4<
+ tryit........................   10           4.04   0.4040   100.00
+
+
+
+        profiletree
++--------+-+----+-------------------------------------------
+|TOPLEVEL|0|4.78|+--------------+---------------------------
+|        | |    ||+----+-+----++|+-----+-+----+-------------
+|        | |    |||test|1|0.11||||tryit|1|0.27|+------------
+|        | |    ||+----+-+----++||     | |    ||+----+-+----
+|        | |    ||              ||     | |    |||test|1|0.27
+|        | |    ||              ||     | |    ||+----+-+----
+|        | |    ||              ||     | |    |+------------
+|        | |    ||              |+-----+-+----+-------------
+|        | |    ||              |
+|        | |    ||              |
+|        | |    ||              |
+|        | |    ||              |
+|        | |    |+--------------+---------------------------
++--------+-+----+-------------------------------------------
+
+--------------------------------------------------------+
+----+--------------------------------------------------+|
+---+|+-----+-+----+-----------------------------------+||
+--+|||again|1|4.04|+---------------------------------+|||
+++||||     | |    ||+-----+--+----+-----------------+||||
+||||||     | |    |||tryit|10|4.04|+---------------+|||||
+++||||     | |    |||     |  |    ||+----+--+----++||||||
+--+|||     | |    |||     |  |    |||test|10|4.04||||||||
+---+||     | |    |||     |  |    ||+----+--+----++||||||
+    ||     | |    |||     |  |    |+---------------+|||||
+    ||     | |    ||+-----+--+----+-----------------+||||
+    ||     | |    |+---------------------------------+|||
+    |+-----+-+----+-----------------------------------+||
+----+--------------------------------------------------+|
+--------------------------------------------------------+
+
+# second profiling session
+
+     clearprofile
+
+     setprofile l
+o
+
+     test 30
+1.72085e-14
+
+     fact 4
+24
+
+     setprofile o
+l
+
+     profile ''
+
+Total execution time of profile session:         0.330000
+Total execution time in top level calls:          0.050000
+
+op name[.tr arg]                 calls[rec]    time time/call  % time
+test..........................    1           0.01   0.0100     20.0<
+
+fact..........................    1[    3]    0.04   0.0400     80.0<
+
+
+
+     profiletree
++--------+-+----+-------------------------------------------
+|TOPLEVEL|0|0.33|+--------------+---------------------------
+|        | |    ||+----+-+----++|+----+-+----+--------------
+|        | |    |||test|1|0.01||||fact|1|0.04|+-------------
+|        | |    ||+----+-+----++||    | |    ||+----+-+--+--
+|        | |    ||              ||    | |    |||fact|1|0.|+-
+|        | |    ||              ||    | |    |||    | |  ||+
+|        | |    ||              ||    | |    |||    | |  |||
+|        | |    ||              ||    | |    |||    | |  |||
+|        | |    ||              ||    | |    |||    | |  |||
+|        | |    ||              ||    | |    |||    | |  |||
+|        | |    ||              ||    | |    |||    | |  |||
+|        | |    ||              ||    | |    |||    | |  ||+
+|        | |    ||              ||    | |    |||    | |  |+-
+|        | |    ||              ||    | |    ||+----+-+--+--
+|        | |    ||              ||    | |    |+-------------
+|        | |    ||              |+----+-+----+--------------
+|        | |    |+--------------+---------------------------
++--------+-+----+-------------------------------------------
+
+------------------------------+
+-----------------------------+|
+----------------------------+||
+---------------------------+|||
+--------------------------+||||
+-------------------------+|||||
+----+-+--+--------------+||||||
+fact|1|0.|+------------+|||||||
+    | |  ||+----+-+--++||||||||
+    | |  |||fact|1|0.||||||||||
+    | |  ||+----+-+--++||||||||
+    | |  |+------------+|||||||
+----+-+--+--------------+||||||
+-------------------------+|||||
+--------------------------+||||
+---------------------------+|||
+----------------------------+||
+-----------------------------+|
+------------------------------+
+
+ % end of session
+```
+
+The profile statistics show the division of time between the various
+definitions. For each definition called during the profiling session
+there is a summary of the number of calls and time used. For each
+definition there is also a breakdown on the time spent in other
+definitions that were directly called from that definition.
+
+Entries in the profile statistics that have a "\<" to the right of the
+last value are top level calls. All other entries have been called by
+these top level calls.
+
+The time spent in direct recursive calls is counted in the original
+call. The number of such calls is placed in brackets after the number of
+top level calls.
+
+The statistics do not account for local definitions within global ones;
+their execution time is simply added to the time for the global
+definition.
+
+A feature of the profiler not shown in the above example is that when
+timing a transformer definition, the time spent executing the argument
+operation(s) is computed in order to understand how much of the cost of
+the transformer is due to applying the argument operation(s).
+
+The accuracy of the timing information is limited by the precision of
+the information available through system calls to the host system. For
+very small definitions the statistics may show no execution time.
+Usually their effect can be estimated by considering the execution time
+of the calling definition.
+
+The `Profiletable` result provides the summarized profile statistics as
+a quintuple consisting of the name of the definition, the number of
+calls, the number of recursive calls, the time, and a list of records
+for each definition it directly calls. Each of the latter records has
+the same information provided for the routine itself, but does not
+report on the definitions it itself calls.
+
+The `Profiletree` result starts with a node indicating the toplevel and
+the total execution time. It has a list of subnodes for each definition
+called from the top level. Each of these has the number of calls, the
+execution time and nodes for each definition it calls. A recursive call
+is reported directly in a subnode and hence a deeply recursive routine
+will produce a deeply nested array of profile information.
+
+
+
+## program fragment
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [expression](#expression)
+
+Nial is a programming language specifically designed for use in an
+interactive environment. The formal description of the language
+describes the valid language constructs that can be entered in one
+interaction; and explains the meaning of one such entry in terms of the
+environment created by earlier interactions in the same session. The
+term **program fragment** is used to describe a meaningful piece of
+program text.
+
+The rules for writing well formed program fragments in Nial are called
+the `syntax rules` of Nial. A program fragment that is well formed is
+said to be syntactically correct. The syntax rules are analogous to the
+rules of grammar that determine the correctness of English.
 
 
 
@@ -11284,7 +10565,7 @@ men','to come to the aid']
 
 
 
-## quiet\_fault
+## quiet_fault
 
   - Class:  
     [conversion operation](#conversion_operation)
@@ -12042,6 +11323,120 @@ The example returns the product of the rows of the generated table.
 
 
 
+## reductive
+
+  - Class:  
+    [operation property](#operation_property)
+  - See Also:  
+    [multi pervasive](#multi_pervasive), [reduce](#reduce)
+
+A **reductive** operation is one that extends a functional capability
+normally defined on a pair to a list, reducing the result by pairwise
+application of the function.
+
+The predefined reductive operations include:
+
+| Operation | Function                                            |
+| --------- | --------------------------------------------------- |
+| and       | logical "and" of a boolean array                    |
+| link      | the list of all the items of the items in the array |
+| max       | highest item in the array                           |
+| min       | lowest item in the array                            |
+| or        | logical "or" of a boolean array                     |
+| product   | arithmetic product of an array of numbers           |
+| sum       | arithmetic sum of an array of numbers               |
+
+All of the above operations except `link` are also multi pervasive.
+
+The transformer `REDUCE` can be used to produce a reductive operation
+from a binary one.
+
+
+
+## repeat-loop
+
+  - Class:  
+    [control structure](#control_structure)
+  - Usage:  
+    `REPEAT expression_sequence UNTIL conditional_expression ENDREPEAT`
+  - See Also:  
+    [while-loop](#while_loop), [for-loop](#for_loop)
+
+The `REPEAT-loop` notation is used when executing an expression sequence
+repeatedly until a conditional expression returns `true`.
+
+``` 
+     F := open Filenm "r;
+     Lines := '';
+     Done := o;
+     REPEAT
+       Line := readfile F;
+       IF isfault Line THEN
+         Done := l;
+       ELSE
+         Lines := Lines append Line;
+       ENDIF;
+     UNTIL Done ENDREPEAT;
+```
+
+
+
+## reserved words
+
+  - Class:  
+    [syntax](#syntax)
+
+A **reserved word** or **keyword** is one that has a special usage in a
+Nial construct and must be used only for that purpose. A `block`
+delimits a local environment. It allows new uses of names which do not
+interfere with uses of those names outside the block. For example,
+within a block, a predefined operation name can be redefined and used
+for a different purpose. Only the reserved words of Q’Nial cannot be
+reused in this fashion.
+
+An identifier, which is spelled the same, ignoring case, as any of the
+reserved words given below cannot be used to name a variable or a
+definition. In a local environment, an identifier can be chosen that is
+the same as a predefined or user-defined global definition name. Such a
+choice makes the global use of the name unavailable in the local
+context.
+
+A reserved word is displayed in upper case in canonical form.
+
+| Reserved Word | Construct                               |
+| ------------- | --------------------------------------- |
+| BEGIN         | Synonym for {­ in block                 |
+| CASE          | case-expression                         |
+| DO            | for-expression, while-expression        |
+| ELSE          | if-expression, case-expression          |
+| ELSEIF        | if-expression                           |
+| END           | case-expression, synonym for } in block |
+| ENDCASE       | case\_expression                        |
+| ENDFOR        | for-expression                          |
+| ENDIF         | if-expression                           |
+| ENDREPEAT     | repeat-expression                       |
+| ENDWHILE      | while-expression                        |
+| EXIT          | exit-expression                         |
+| EXPRESSION    | declaration                             |
+| EXTERNAL      | declaration                             |
+| FOR           | for-expression                          |
+| FROM          | case-expression                         |
+| GETS          | assign-expression                       |
+| IF            | if-expression                           |
+| IS            | definition                              |
+| LOCAL         | declaration                             |
+| NONLOCAL      | declaration                             |
+| OP            | synonym for operation                   |
+| OPERATION     | operation-form, declaration             |
+| REPEAT        | repeat-expression                       |
+| THEN          | if-expression                           |
+| TR            | synonym for transformer                 |
+| TRANSFORMER   | transformer-form, declaration           |
+| UNTIL         | repeat-expression                       |
+| VARIABLE      | declaration                             |
+| WHILE         | while-expression                        |
+| WITH          | for-expression                          |
+
 
 
 ## reshape
@@ -12253,6 +11648,49 @@ use of `take` and `reverse` to right-justify text in a field.
 
 
 
+## role
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [global environment](#global_environment)
+
+The term **role** is used to describe the class of object associated
+with an identifier in Nial. The possible roles are: reserved word,
+variable, expression, operation or transformer. An identifier that
+corresponds to a reserved word can play no other role in a workspace. An
+identifier that corresponds to a predefined object in Nial cannot be
+changed in the global environment, but can take on a different object
+association in a local environment. In the global environment, once the
+role of an identifier is established, it must keep the same role, but
+may have its association changed to another object of the same role.
+
+An external-declaration assigns a role to a name in the global
+environment so that the name can be used in other definitions before it
+is completely specified. This mechanism is useful for creating mutually
+recursive definitions. An external declaration is made only in the
+global environment.
+
+If the name is already defined with the same role, the declaration has
+no effect. If the name has another role, a fault is reported.
+
+If the expression on the right of `IS` in a definition uses the name
+being defined, the definition is assumed to be recursive. The name is
+assigned a role compatible with its use on the right if it does not
+already have a role.
+
+If a definition appears within a block, the association between the name
+of the identifier and its meaning is made in the local environment.
+Otherwise, the association is made in the global environment and the
+definition assigns a role to the name as representing that kind of
+expression.
+
+If the name being associated in a definition is already in use, the new
+definition must be for a construct of the same role and the earlier
+definition is replaced. The use of a defined name always refers to its
+most recent definition.
+
+
 
 ## rotate
 
@@ -12446,6 +11884,48 @@ The `scan` token codes are given below:
    S a string ==> scan descan scan A = scan A
 ```
 
+
+
+## scope of a variable
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [local environment](#local_environment), [role](#role)
+
+The use of an assign-expression indicates that a name (identifier) is to
+be treated as a variable in the context surrounding the
+assign-expression. This context is called the **scope** of the variable.
+The context may be global, in which case the variable may be visible at
+all levels; or it may be local to some region of program text. A local
+scope is created for the parameters of operation forms and for variables
+created within a block.
+
+Because operation forms or blocks may appear within other operation
+forms or blocks, it is possible to have one scope for a name nested
+within another. A name is said to be visible at a point in a program
+text if it has a local meaning at that point or has a meaning in some
+surrounding scope or is a global name. When a name is used in a local
+scope, it is the local association in the innermost scope that is used,
+instead of an association with the same name in a surrounding scope.
+
+A block is a scope-creating mechanism that permits an
+expression-sequence to be created so that it has local definitions and
+variables which are visible only inside the block. A block may appear as
+a primary-expression or as the body of an operation-form.
+
+Definitions that appear within the block have local scope. That is, the
+definitions can be referenced only in the body of the block. Variables
+assigned within the block may or may not have local scope, depending on
+the appearance of a local and/or a nonlocal declaration. If there is no
+declaration, all assigned variables have local scope. Declaring some
+variables as local does not change the effect on undeclared variables
+that are used on the left of assignment. They are automatically
+localized.
+
+If a nonlocal declaration is used, an assigned name that is on the
+nonlocal list is sought in surrounding scopes. If the name is not found,
+a variable is created in the global environment.
 
 
 
@@ -13570,6 +13050,69 @@ types:
 
 
 
+## standard definitions
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [clear workspace](#clear_workspace)
+
+Q’Nial has a large set of predefined expressions, operations and
+transformers. Most of these are implemented directly in the interpreter.
+However, there are a number of them which are defined in Nial codes as
+standard definitions in the file `defs.ndf`. The definitions are brought
+into the initial workspace automatically as part of the initialization
+process.
+
+All definitions included in this stage cannot be modified or erased and
+the operation `see` does not display their text.
+
+
+
+## status
+
+  - Class:  
+    [system expression](#system_expression)
+  - Usage:  
+    `Status`
+  - See Also:  
+    [filestatus](#filestatus)
+
+The expression `status` provides seven integers indicating the use of
+memory by Q’Nial. In order of display, the items are as follows:
+
+| Index | Quantity                                  |
+| ----- | ----------------------------------------- |
+| 0     | Number of free words in the workspace     |
+| 1     | Number of words in the largest free block |
+| 2     | Number of free blocks                     |
+| 3     | Total number of words in workspace        |
+| 4     | Stack size in words                       |
+| 5     | Atom table size in words                  |
+| 6     | Internal buffer size                      |
+
+The first entry is an indication of how full the workspace is when
+compared with the fourth entry. A word can contain an integer, a
+reference to an array item, or 4 characters. The second entry gives an
+upper limit to the number of integers that can be in a largest size
+array. The third item is a measure of the fragmentation of memory. The
+number of free words divided by the number of free blocks gives the
+average block size. The fourth item gives the current size of the
+workspace. It can grow provided the system has space available. The
+remaining entries give the sizes of internal areas that can grow as
+necessary.
+
+The starting workspace size can be specified as a parameter to the
+`nial` command that starts a session in console versions or in a dialog
+box in a GUI version. The workspace and the other areas can grow in size
+provided there is sufficient space and workspace growth is allowed (the
+default).
+
+``` 
+     status
+64198 63828 5 100000 4000 6000 1000
+```
+
 
 
 ## step
@@ -13616,6 +13159,41 @@ current expression is the last one in the expression sequence where the
 break began, the effect is the same as using `resume`.
 
 
+
+## strand notation
+
+  - Class:  
+    [syntax](#syntax)
+  - See Also:  
+    [bracket-comma notation](#bracket_comma_notation)
+
+A primary-sequence of length two or greater is called a **strand** . The
+value of a strand is a list of values. Each item of the list has the
+value of the primary-expression in the corresponding position in the
+primary-sequence.
+
+The elements of the primary-sequence can be constants, parenthesized
+expressions or lists in bracket-comma notation.
+
+``` 
+     8 9 10
+8 9 10
+
+     8 (3 4 5) 18
++-+-----+--+
+|8|3 4 5|18|
++-+-----+--+
+
+     8 'abc' "apple
++-+---+-----+
+|8|abc|apple|
++-+---+-----+
+
+     6 [7,8,9] 10
++-+-----+--+
+|6|7 8 9|10|
++-+-----+--+
+```
 
 
 
@@ -13869,6 +13447,47 @@ meaning are as follows:
 +-----+------+
 ```
 
+
+
+## synonym
+
+  - Class:  
+    [syntax](#syntax)
+
+A **synonym** is an alternate symbol or name that represents a Nial
+term. For example, the symbol
+
+The list of all synonyms in Nial follows:
+
+| div          | operation  | divide       |
+| ------------ | ---------- | ------------ |
+| Falsehood, o | expression | False        |
+| inv          | operation  | inverse      |
+| ip           | operation  | innerproduct |
+| istruthvalue | operation  | isboolean    |
+| opp          | operation  | opposite     |
+| prod         | operation  | product      |
+| recip        | operation  | reciprocal   |
+| Truth, l     | expression | True         |
+| vacate       | operation  | Null first   |
+| void         | operation  | Null first   |
+| \+           | operation  | sum          |
+| \-           | operation  | minus        |
+| \*           | operation  | product      |
+| /            | operation  | divide       |
+
+The following synonyms are available for keywords or delimiters used in
+the syntax rules:
+
+|             |       |
+| ----------- | ----- |
+| \[          | \<\<  |
+| \]          | \>\>  |
+| :=          | GETS  |
+| {­          | BEGIN |
+| }           | END   |
+| OPERATION   | OP    |
+| TRANSFORMER | TR    |
 
 
 
@@ -14223,6 +13842,24 @@ array with two or fewer items is the fault `?address`.
 
 
 
+## time
+
+  - Class:  
+    [system expression](#system_expression)
+  - Usage:  
+    `Time`
+  - See Also:  
+    [timestamp](#timestamp)
+
+The expression `Time` returns a real number giving the time in seconds
+spent in executing Q’Nial since the beginning of the session. On systems
+permitting multi-processing, the time represents central processor time
+in seconds.
+
+The expression `Time` is useful for estimating the relative costs of
+Q’Nial operations in terms of processor time.
+
+
 
 ## times
 
@@ -14252,6 +13889,27 @@ is multi pervasive and can add up any number of items.
 ```
 
 
+
+## timestamp
+
+  - Class:  
+    [system expression](#system_expression)
+  - Usage:  
+    `Timestamp`
+  - See Also:  
+    [time](#time)
+
+The expression `Timestamp` gives the current date and time in the
+standard format for the host system. The details of this expression are
+implementation dependent.
+
+The result is reported as a string giving the date and time. `Timestamp`
+is useful for dating reports and messages.
+
+``` 
+     Timestamp
+Mon Jan 27 14:07:37 1997
+```
 
 
 
@@ -14337,6 +13995,45 @@ l
 
 
 
+## top level loop
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [loaddefs](#loaddefs)
+
+Nial program fragments are entered during interactive input with a
+process called the **top level loop** ; or brought into the system under
+the control of a systems operation, `loaddefs`. This systems operation
+has the effect of loading a sequence of program fragments from a file as
+though the fragments had been entered interactively in the order they
+appear in the file.
+
+The global environment is the collection of associations between names
+and meanings that are known at the top level loop. Such names have
+global scope in that they can be referenced by any program text. All
+other names have a local scope that associates a meaning with the name
+only during execution of a specific portion of a program text.
+
+In direct input at the top level loop, a remark ends at the end of the
+line unless a backslash symbol ( \\ ) is used to extend the line. In a
+definition file, a remark ends at the first blank line. A remark cannot
+appear within a definition or expression-sequence.
+
+The expressions in an expression-sequence are evaluated in left-to-right
+order. If the sequence does not terminate with a semicolon, the array
+returned is the result of the last expression. If the sequence does end
+with a semicolon, the array returned is the fault `?noexpr`. At the top
+level loop, if the array returned is the fault `?noexpr`, it is not
+displayed.
+
+In window mode for a console version of Q’Nial when a window is used
+interactively from the top level loop, the terminal acts as though it
+has a screen the size of the window. In particular, as the cursor
+attempts to move below the bottom line of the window, the text is
+scrolled one line at a time. The speed of scrolling can be changed using
+the operation `setscroll`.
+
 
 
 ## toraw
@@ -14399,6 +14096,83 @@ A STATEMENT IN UPPER CASE
 
 
 
+## transformer
+
+  - Class:  
+    [concept](#concept)
+  - See Also:  
+    [expression](#expression), [operation](#operation),
+    [definition](#definition)
+
+A **transformer** is a functional object that is used to construct a new
+operation from a given operation argument, usually producing a modified
+version of the given operation. Most transformers used in Nial are
+provided in the core language. However, there is a mechanism that
+constructs a named transformer in terms of one or more operation
+parameters. A user-defined transformer describes the modified operation
+as a parameterized algorithm for manipulating data.
+
+A transformer usually specifies a general algorithm which can have an
+operation as a parameter. For example, the `EACH` family of transformers
+generalizes a number of looping mechanisms for applying an operation to
+items of arrays.
+
+A user-defined transformer could provide the skeleton for processing the
+records of a file and allow an arbitrary operation to be applied to each
+record. Such a transformer is often called a filter.
+
+The process of evaluating an operation call of an operation modified by
+a transformer requires two steps. The modified operation is formed; and
+then the modified operation is given the array argument which it uses to
+produce the result.
+
+``` 
+     TWICE is TRANSFORMER f (f f)
+
+     TWICE rest 4 5 6 7 8
+6 7 8
+```
+
+
+
+## transformer form
+
+  - Class:  
+    [syntax](#syntax)
+  - See Also:  
+    [transformer](#transformer), [definition](#definition)
+
+A **transformer-form** is the syntactic structure used to describe a
+transformer in terms of an operation expression involving formal
+operation parameters. The names that follow the keyword transformer in
+the transformer-form are called formal operation parameters. The body of
+a transformer-form is the operation-expression which uses these names.
+The first rule requires that the operation-expression be an
+operation-form; the second allows any operation- expression to be used.
+
+``` 
+     transformer-form ::= TRANSFORMER
+        {­ identifier }+ operation-form
+        | TRANSFORMER {­ identifier }+
+          ( operation-expression )
+```
+
+The effect of applying a transformer-form to an operation-expression is
+the effect of an operation formed in the body of the transformer, such
+that wherever one of the formal operation parameters occurs, it is
+replaced with the corresponding argument operation-expression.
+
+On the other hand, if the formal operation parameters consist of only
+one name, the operation formed is associated with the argument
+operation-expression. If the operation formed has two or more names, the
+operation-expression must denote an atlas of the same length; and the
+formal operation parameters are associated with the operations of the
+atlas in their sequence.
+
+The associations are made with the argument operation-expression in the
+environment where the transformer is applied. If there is a mismatch
+between the number of formal operation parameters and the argument, the
+result of applying the transform is the fault `?tr_parameter`.
 
 
 
@@ -14454,6 +14228,58 @@ no effect on a single or a list.
 ```
 
 
+
+## trs
+
+  - Class:  
+    [system expression](#system_expression)
+  - Usage:  
+    `Trs`
+  - See Also:  
+    [symbols](#symbols), [exprs](#exprs), [ops](#ops), [vars](#vars)
+
+The expression `Trs` returns a list of phrases giving the names of all
+user defined transformers in the workspace.
+
+**Definition**
+
+``` 
+     Trs IS {­
+        Names Roles := pack symbols 0;
+        "tr match Roles sublist Names }
+```
+
+
+
+## true
+
+  - Class:  
+    [constant expression](#constant_expression)
+  - Usage:  
+    `True`
+  - See Also:  
+    [false](#false), [isboolean](#isboolean)
+
+The constant expression `True` denotes the boolean atom for `true`,
+which Nial also denotes by `l`. It is the result of comparing two
+identical arrays for equality.
+
+**Definition**
+
+``` 
+     True IS (0 equal 0)
+```
+
+**Equations**
+
+``` 
+   tally True = 1
+   shape True = Null
+   single True = True
+   not True = False
+   max True = True
+   abs True = 1
+```
 
 
 
@@ -14566,6 +14392,62 @@ information. Executing a type test predicate, `isboolean`, isinteger ,
 etc., is equivalent to testing that the type of an array is equal to the
 corresponding representative atom.
 
+
+
+## unary pervasive
+
+  - Class:  
+    [operation property](#operation_property)
+  - Usage:  
+    `f A`
+  - See Also:  
+    [binary pervasive](#binary_pervasive), [multi
+    pervasive](#multi_pervasive), [pervasive](#pervasive), [each](#each)
+
+A **unary pervasive** operation maps an array to another array with
+identical structure, mapping each atom by the function's behaviour on
+atoms. All of the scientific operations and the unary operations of
+arithmetic and logic are unary pervasive.
+
+The scientific operations are implemented using the library routines
+provided with the C compiler used to construct Q’Nial. The accuracy of
+the result is determined by the precision of the floating point number
+system of the computer and the accuracy of the library routine
+approximation.
+
+The following table describes the unary pervasive operations:
+
+| Operation  | Function                                |
+| ---------- | --------------------------------------- |
+| abs        | absolute value                          |
+| arccos     | inverse cosine function                 |
+| arcsin     | inverse sine function                   |
+| arctan     | inverse tangent function                |
+| ceiling    | lowest integer above a real number      |
+| char       | integer to character conversion         |
+| charrep    | character to integer conversion         |
+| cos        | cosine function                         |
+| cosh       | hyperbolic cosine function              |
+| exp        | exponential function                    |
+| floor      | next higher integer above a real number |
+| ln         | natural logarithm                       |
+| log        | logarithm base 10                       |
+| not        | opposite of a boolean value             |
+| opposite   | opposite of a number                    |
+| reciprocal | reciprocal of a number                  |
+| sin        | sine function                           |
+| sinh       | hyperbolic sine function                |
+| sqrt       | square root of a number                 |
+| tan        | tangent function                        |
+| tanh       | hyperbolic tangent function             |
+| type       | representative atom of same type        |
+
+**Equations**
+
+``` 
+   f A = EACH f A
+   shape f A = shape A
+```
 
 
 
@@ -14861,6 +14743,90 @@ l
 
 
 
+## variable
+
+  - Class:  
+    [syntax](#syntax)
+  - See Also:  
+    [assign expression](#assign_expression), [local
+    environment](#local_environment), [vars](#vars), [role](#role),
+    [indexing](#indexing), [scope of a variable](#scope_of_a_variable)
+
+A **variable** is a name associated with an array value. Its syntactic
+form is that of an identifier.
+
+``` 
+     variable ::= identifier
+
+     indexed-variable ::=
+          variable @ primary-expression
+        | variable @@ primary-expression
+        | variable # primary-expression
+        | variable | primary-expression
+```
+
+A variable is given an association with an array value by its use on the
+left side of an assign-expression, its appearance in a local or nonlocal
+declaration, its designation as a variable in an external-declaration or
+its use as the first argument of the operation assign.
+
+When a variable is used as a primary-expression, its meaning is the
+array value associated with the identifier. If the variable exists but
+has not been assigned, it will have as its default value the fault
+`?no_value`. If an identifier is mentioned as a primary-expression but
+has not yet been given an association, a parse error will occur with the
+fault `?undefined identifier:`.
+
+**Role of a Variable**
+
+A variable gives a name to the result of a computation. If the same
+result is needed later in the program, the named variable can be used,
+thereby avoiding the necessity of repeating the computation. A variable
+can be assigned different array values throughout the computation.
+
+Although an identifier can be of any length up to 80 characters, a
+compromise is usually made between choosing explicit variable names and
+choosing brief names to avoid unnecessary typing. An identifier used as
+a variable cannot be a Q’Nial reserved word. In a local environment, a
+variable identifier can be chosen the same as a predefined or
+user-defined global definition name. Such a choice makes the global use
+of the name unavailable in the local context.
+
+In any context, an identifier can name only one of: a variable, an
+array- expression, an operation-expression, or a transformer-expression.
+During one session, the role of a name, i.e. the class of syntactic
+object it names, cannot be changed.
+
+**Indexed Variable**
+
+An **indexed variable** is a variable for which a part of the associated
+array value is referenced. An **index** is the value of the
+primary-expression within an indexed-variable which specifies the
+location or locations of the part or parts of the array that are
+selected.
+
+
+
+## vars
+
+  - Class:  
+    [system expression](#system_expression)
+  - Usage:  
+    `Vars`
+  - See Also:  
+    [symbols](#symbols), [exprs](#exprs), [ops](#ops), [trs](#trs)
+
+The expression `Vars` returns a list of phrases giving the names of all
+user variables in the workspace.
+
+**Definition**
+
+``` 
+     Vars IS {­
+        Names Roles := pack symbols 0;
+        "var match Roles sublist Names }
+```
+
 
 
 ## void
@@ -14980,6 +14946,73 @@ To clear all watches use:
 ```
 
 
+
+## watchlist
+
+  - Class:  
+    [system expression](#system_expression)
+  - Usage:  
+    `Watchlist`
+  - See Also:  
+    [watch](#watch), [debugging](#debugging)
+
+The execution of `Watchlist` prints out a list of the variable watches
+that are in effect.
+
+Its main use is to assist in clearing the watches as debugging proceeds.
+
+``` 
+     Watchlist
++-----------------------------+----------------------------------------+
+|+--+------------------------+|+------+-------------------------------+|
+||!X|write 'X changed to: ' X|||!FOO:B|write 'B in foo changed to: ' B||
+|+--+------------------------+|+------+-------------------------------+|
++-----------------------------+----------------------------------------+
+
+     watch !x ''
++------------------+------------------------+
+|+---+------------+|write 'X changed to: ' X|
+||100|2 7926 42354||                        |
+|+---+------------+|                        |
++------------------+------------------------+
+
+     watchlist
++----------------------------------------+
+|+------+-------------------------------+|
+||!FOO:B|write 'B in foo changed to: ' B||
+|+------+-------------------------------+|
++----------------------------------------+
+```
+
+To clear all watches use:
+
+``` 
+     EACH first Watchlist EACHLEFT watch ''
+```
+
+
+
+## while-loop
+
+  - Class:  
+    [control structure](#control_structure)
+  - Usage:  
+    `WHILE conditional expression DO expression sequence ENDWHILE`
+  - See Also:  
+    [repeat-loop](#repeat_loop), [for-loop](#for_loop)
+
+The `WHILE-loop` notation is used for executing an expression sequence
+repeatedly as long as a conditional expression returns `true`.
+
+``` 
+     F := open Filenm "r;
+     Lines := '';
+     Line := readfile F;
+     WHILE not isfault Line DO
+       Lines := Lines append Line;
+       Line := readfile F;
+     ENDWHILE;
+```
 
 
 
