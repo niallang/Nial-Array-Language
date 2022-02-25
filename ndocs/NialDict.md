@@ -2233,20 +2233,22 @@ second.
 The expression following case is evaluated. If the result matches one of
 the constants, C1 ... Cn, the corresponding expression sequence is
 executed. If the result does not match any constant, the expression
-sequence following else is executed.
+sequence following else is executed. Alternates may be matched on with
+the label `A1 | A2`, that is, placing the vertical bar between both 
+constants you wish to match on.
 
 **Example:**
 
 ``` 
-     Month := 3 ;
+     Month := 4 ;
      CASE Month FROM
-        1:   Mname := 'January'; END
-        2:   Mname := 'February'; END
-        3:   Mname := 'March'; END
-     ELSE   Mname := 'Year End';
+        1:     Month_name := "January;       END
+        2:     Month_name := "February;      END
+        3 | 4: Month_name := "March/April;   END
+     ELSE  Month_name := phrase 'May through December';
      ENDCASE ;
      Mname
-March
+March/April
 ```
 
 

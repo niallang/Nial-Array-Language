@@ -2502,7 +2502,7 @@ which one of many actions or values is to be evaluated.
 
 
 |    *\<case-expression\>* ::= **CASE** *\<simple-expression\>* **FROM** 
-|                          { *\<constant\>* **:** *\<expression-sequence\>* **END** }+
+|                          { *\<constant\>* { **|** *\<constant\>* } **:** *\<expression-sequence\>* **END** }+
 |                          [ **ELSE** *\<expression-sequence\>* ]
 |                        **ENDCASE**
 
@@ -2522,7 +2522,9 @@ the result is the fault *?L*.
 
 In the **case-expression**, the selection is made by evaluating the
 simple-expression following the *case* and comparing it to the
-constants preceding the colons. If the value matches a constant, the
+constants preceding the colons. The vertical bar (|) in a label
+indicates that both constants to either side of the vertical bar
+should be compared. If the value matches a constant, the
 expression-sequence following the corresponding colon is returned as
 the result of the case-expression. If the value does not match one
 of the constants, the result returned by the case-expression is the
