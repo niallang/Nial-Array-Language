@@ -7257,6 +7257,15 @@ paths to directories that are to be checked for the definition file
 named in the `library` argument. The directories defined by `Libpath`
 are searched before the system dependent library directories.
 
+When you call 'library name'  each directory in sequence in your libpath
+will be joined to 'name' with the appropriate os path separator and
+tried. (with .ndf addded if necessary). so it depends on 'open'. Names
+that include '.' or '..' will work but shell expansions like '~' or
+'$abc' will not. If you want to make it relative to your home directory
+then use the nial expression 'os_get_parameter 2', Different operating
+systems use different environment variable names for the home directory
+(HOME, USER etc)
+
 ``` 
      Libpath := ['mydefs','mylib\newdefs'];
 ```
