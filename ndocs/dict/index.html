@@ -2797,19 +2797,21 @@ second.</p>
 <p>The expression following case is evaluated. If the result matches one of
 the constants, C1 … Cn, the corresponding expression sequence is
 executed. If the result does not match any constant, the expression
-sequence following else is executed.</p>
+sequence following else is executed. Alternates may be matched on with
+the label <code class="language-nial highlighter-rouge"><span class="nv">A1</span> <span class="o">|</span> <span class="nv">A2</span></code>, that is, placing the vertical bar between both 
+constants you wish to match on.</p>
 
 <p><strong>Example:</strong></p>
 
-<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="nv">Month</span> <span class="p">:=</span> <span class="mi">3</span> <span class="p">;</span>
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="nv">Month</span> <span class="p">:=</span> <span class="mi">4</span> <span class="p">;</span>
      <span class="k">CASE</span> <span class="nv">Month</span> <span class="k">FROM</span>
-        <span class="mi">1</span><span class="p">:</span>   <span class="nv">Mname</span> <span class="p">:=</span> <span class="s1">'January'</span><span class="p">;</span> <span class="k">END</span>
-        <span class="mi">2</span><span class="p">:</span>   <span class="nv">Mname</span> <span class="p">:=</span> <span class="s1">'February'</span><span class="p">;</span> <span class="k">END</span>
-        <span class="mi">3</span><span class="p">:</span>   <span class="nv">Mname</span> <span class="p">:=</span> <span class="s1">'March'</span><span class="p">;</span> <span class="k">END</span>
-     <span class="k">ELSE</span>   <span class="nv">Mname</span> <span class="p">:=</span> <span class="s1">'Year End'</span><span class="p">;</span>
+        <span class="mi">1</span><span class="p">:</span>     <span class="nv">Month_name</span> <span class="p">:=</span> <span class="ss">"January</span><span class="p">;</span>       <span class="k">END</span>
+        <span class="mi">2</span><span class="p">:</span>     <span class="nv">Month_name</span> <span class="p">:=</span> <span class="ss">"February</span><span class="p">;</span>      <span class="k">END</span>
+        <span class="mi">3</span> <span class="o">|</span> <span class="mi">4</span><span class="p">:</span> <span class="nv">Month_name</span> <span class="p">:=</span> <span class="ss">"March/April</span><span class="p">;</span>   <span class="k">END</span>
+     <span class="k">ELSE</span>  <span class="nv">Month_name</span> <span class="p">:=</span> <span class="kp">phrase</span> <span class="s1">'May through December'</span><span class="p">;</span>
      <span class="k">ENDCASE</span> <span class="p">;</span>
      <span class="nv">Mname</span>
-<span class="nv">March</span>
+<span class="nv">March</span><span class="o">/</span><span class="nv">April</span>
 </code></pre></div></div>
 
 <h2 id="cast">cast</h2>
@@ -7945,6 +7947,15 @@ the deepest level. These are called <code class="language-nial highlighter-rouge
 paths to directories that are to be checked for the definition file
 named in the <code class="language-nial highlighter-rouge"><span class="kp">library</span></code> argument. The directories defined by <code class="language-nial highlighter-rouge"><span class="kp">Libpath</span></code>
 are searched before the system dependent library directories.</p>
+
+<p>When you call ‘library name’  each directory in sequence in your libpath
+will be joined to ‘name’ with the appropriate os path separator and
+tried. (with .ndf addded if necessary). so it depends on ‘open’. Names
+that include ‘.’ or ‘..’ will work but shell expansions like ‘~’ or
+‘$abc’ will not. If you want to make it relative to your home directory
+then use the nial expression ‘os_get_parameter 2’, Different operating
+systems use different environment variable names for the home directory
+(HOME, USER etc)</p>
 
 <div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="kp">Libpath</span> <span class="p">:=</span> <span class="p">[</span><span class="s1">'mydefs'</span><span class="p">,</span><span class="s1">'mylib\newdefs'</span><span class="p">];</span>
 </code></pre></div></div>

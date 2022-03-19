@@ -3280,15 +3280,19 @@ which one of many actions or values is to be evaluated.</p>
   <tbody>
     <tr>
       <td><em>&lt;case-expression&gt;</em> ::= <strong>CASE</strong> <em>&lt;simple-expression&gt;</em> <strong>FROM</strong></td>
+      <td> </td>
     </tr>
     <tr>
-      <td>{ <em>&lt;constant&gt;</em> <strong>:</strong> <em>&lt;expression-sequence&gt;</em> <strong>END</strong> }+</td>
+      <td>{ <em>&lt;constant&gt;</em> { **</td>
+      <td>** <em>&lt;constant&gt;</em> } <strong>:</strong> <em>&lt;expression-sequence&gt;</em> <strong>END</strong> }+</td>
     </tr>
     <tr>
       <td>[ <strong>ELSE</strong> <em>&lt;expression-sequence&gt;</em> ]</td>
+      <td> </td>
     </tr>
     <tr>
       <td><strong>ENDCASE</strong></td>
+      <td> </td>
     </tr>
   </tbody>
 </table>
@@ -3309,7 +3313,9 @@ the result is the fault <em>?L</em>.</p>
 
 <p>In the <strong>case-expression</strong>, the selection is made by evaluating the
 simple-expression following the <em>case</em> and comparing it to the
-constants preceding the colons. If the value matches a constant, the
+constants preceding the colons. The vertical bar (|) in a label
+indicates that both constants to either side of the vertical bar
+should be compared. If the value matches a constant, the
 expression-sequence following the corresponding colon is returned as
 the result of the case-expression. If the value does not match one
 of the constants, the result returned by the case-expression is the
