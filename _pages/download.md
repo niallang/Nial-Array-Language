@@ -31,4 +31,6 @@ To build Nial, you will have to clone the project from [the main repository](htt
 
 Nial was originally developed by Nial Systems Ltd., and the code of the company's old Nial distribution is available at [Planet APL](https://github.com/PlanetAPL/nial/).
 
-Nial can be used at [Try It Online!](tio.run/#nial), but the version used is out of date.
+A work-in-progress [WASM interpreter](https://niallang.github.io/NIAL_WASM/) is under development, which you can run in your browser.
+
+Nial can be used at [Try It Online!](https://tio.run/#nial), but the version used is out of date.
