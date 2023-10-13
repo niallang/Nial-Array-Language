@@ -1,0 +1,313 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Examples - Nial Array Language</title>
+<meta name="description" content="Nial Community Site">
+
+
+  <meta name="author" content="John Gibbons">
+  
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Nial Array Language">
+<meta property="og:title" content="Examples">
+<meta property="og:url" content="https://www.nial-array-language.org/examples/">
+
+
+  <meta property="og:description" content="Nial Community Site">
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://www.nial-array-language.org/examples/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "John Gibbons",
+      "url": "https://www.nial-array-language.org/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- Favicons from https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#ffffff">
+
+
+
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--splash wide">
+
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/Longboat.png" alt="Nial Array Language"></a>
+        
+        <a class="site-title" href="/">
+          Nial Array Language
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/download/">Download</a>
+            </li><li class="masthead__menu-item">
+              <a href="/examples/">Examples</a>
+            </li><li class="masthead__menu-item">
+              <a href="/ndocs/">Documentation</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style="background-color: #0f477e; background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('');"
+>
+  
+    <div class="wrapper">
+      <h1 id="page-title" class="page__title" itemprop="headline">
+        
+          
+            Examples
+
+          
+        
+      </h1>
+      
+      
+
+
+      
+      
+    </div>
+  
+  
+</div>
+
+
+
+<div id="main" role="main">
+  <article class="splash" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Examples">
+    
+    
+    
+
+    <section class="page__content" itemprop="text">
+      <p>The following are some simple, bite-sized examples of Nial’s programming features. Some of these are executed within the Nial REPL <code class="language-plaintext highlighter-rouge">nial -i</code> to show intermediate results.</p>
+
+<p>More complex example scripts can be found at the <a href="https://github.com/niallang/Nial_Development/tree/master/examples">main development repository</a>, and the <a href="https://github.com/niallang/Nial_Libraries">libraries repository</a>.</p>
+
+<h1 id="partial-application">Partial Application</h1>
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="cm">% function composition is implicit: ;</span>
+     <span class="nv">negsum</span> <span class="k">is</span> <span class="p">(</span><span class="kp">opposite</span> <span class="kp">sum</span><span class="p">);</span>
+     <span class="nv">negsum</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+     <span class="mi">-6</span>
+<span class="cm">% leaving out an infix parameter results in partial application: ;</span>
+     <span class="nv">fiveplus</span> <span class="k">is</span> <span class="p">(</span><span class="mi">5</span> <span class="o">+</span><span class="p">);</span>
+     <span class="nv">fiveplus</span> <span class="mi">1</span>
+<span class="mi">6</span>
+     <span class="cm">% partial application also generalizes to function composition: ;</span>
+     <span class="nv">fun</span> <span class="k">is</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="kp">opposite</span><span class="p">)</span>
+     <span class="nv">fun</span> <span class="mi">5</span>
+<span class="mi">6</span>
+</code></pre></div></div>
+
+<h1 id="keywords-and-symbols">Keywords and Symbols</h1>
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="cm">% You can use symbol := or 'gets' for data assignment ;</span>
+     <span class="nv">abc</span> <span class="k">gets</span> <span class="mi">1</span><span class="p">;</span>
+     <span class="nv">abc</span>
+<span class="mi">1</span>
+     <span class="nv">bcd</span> <span class="p">:=</span> <span class="mi">1</span><span class="p">;</span>
+     <span class="nv">bcd</span>
+<span class="mi">1</span>
+     <span class="cm">% Similarly for arithmetic ;</span>
+     <span class="mi">1</span> <span class="kp">plus</span> <span class="mi">2</span>
+<span class="mi">3</span>
+     <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="mi">3</span>
+     <span class="mi">1</span> <span class="kp">minus</span> <span class="mi">2</span>
+<span class="mi">-1</span>
+     <span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span>
+<span class="mi">-1</span>
+</code></pre></div></div>
+
+<h1 id="factorial">Factorial</h1>
+<div class="language-nial highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">% Functional Recursion: ;</span>
+<span class="nv">fact</span> <span class="k">is</span> <span class="nb">recur</span> <span class="p">[</span> <span class="mi">0</span> <span class="o">=</span><span class="p">,</span> <span class="mi">1</span> <span class="kp">first</span><span class="p">,</span> <span class="kp">pass</span><span class="p">,</span> <span class="kp">product</span><span class="p">,</span> <span class="mi">-1</span> <span class="o">+</span><span class="p">]</span> <span class="cm">% from wikipedia;</span>
+
+<span class="cm">% Product of a range: ;</span>
+<span class="nv">fact</span> <span class="k">is</span> <span class="o">*</span> <span class="kp">count</span><span class="p">;</span>
+
+<span class="cm">% Plain recursion: ;</span>
+<span class="nv">fact</span> <span class="k">is</span> <span class="k">op</span> <span class="nv">x</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="nv">x</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">then</span> <span class="mi">1</span> <span class="k">else</span> <span class="nv">x</span> <span class="o">*</span> <span class="nv">fact</span> <span class="p">(</span><span class="nv">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">endif</span>
+<span class="p">};</span>
+
+<span class="cm">% While loop: ;</span>
+<span class="nv">fact</span> <span class="k">is</span> <span class="k">op</span> <span class="nv">x</span> <span class="p">{</span>
+  <span class="kp">prod</span> <span class="p">:=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">while</span> <span class="nv">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">DO</span>
+      <span class="kp">prod</span> <span class="p">:=</span> <span class="kp">prod</span> <span class="o">*</span> <span class="nv">x</span><span class="p">;</span>
+      <span class="nv">x</span> <span class="p">:=</span> <span class="nv">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">endwhile</span><span class="p">;</span>
+  <span class="kp">prod</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+    </section>
+  </article>
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li style="display:none"><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 John Gibbons. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>. Photo by <a href="https://unsplash.com/@thenata?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Anastasia Taioglou</a> on <a href="https://unsplash.com/s/photos/ocean?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
